@@ -36,3 +36,18 @@
     transform: rotate(360deg);
   }
 }
+
+.tilePanel {
+  min-height: 200px;
+  background-color: rgb(114,112,114);
+}
+
+.infoPanelBorder {
+  background-color: rgb(114,112,114);
+  border-radius: 1%
+}
+
+.infoPanel {
+  min-height: 300px;
+}
+
