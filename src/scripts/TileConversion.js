@@ -53,7 +53,7 @@ export function tileToPath(tileString){
  */
  export function tileStringToArray(tileString){
     const returnArray = []
-    const suitOrder = ["s","p","m","g"]
+    const suitOrder = ["s","p","m","h"]
     const regexp = /(?:([\df]*)s)*(?:([\df]*)p)*(?:([\df]*)m)*(?:([\df]*)h)*/g
     const array = [...tileString.matchAll(regexp)]
 

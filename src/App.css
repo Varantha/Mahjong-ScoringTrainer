@@ -40,6 +40,12 @@
 .tilePanel {
   min-height: 200px;
   background-color: rgb(114,112,114);
+  position: relative;
+}
+
+.hand{
+  position: absolute;
+  bottom: 0;
 }
 
 .infoPanelBorder {
