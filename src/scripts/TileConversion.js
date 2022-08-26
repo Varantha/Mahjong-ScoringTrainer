@@ -24,7 +24,7 @@ export function tileToPath(tileString){
             break;
             case 'h':
                 var lookupArray = ["East","South","West","North","Haku","Hatsu","Chun"]
-                returnPath = tilesPath + lookupArray[number] + ".svg"
+                returnPath = tilesPath + lookupArray[number-1] + ".svg"
             break;
             default:
                 throw new Error(suit + ' is not a valid suit')
@@ -82,6 +82,7 @@ export function tileToPath(tileString){
  export function extractDecoratorsFromTileString(tileString){    
     //Process f decorator
     const tileStringArr = Array.from(tileString)
+    console.log(tileStringArr)
     var f_index = tileStringArr.indexOf("f")
     while(f_index > -1){
         tileStringArr.splice(f_index + 1, 1);
@@ -90,8 +91,8 @@ export function tileToPath(tileString){
     const newTileString =  tileStringArr.join('')
 
     //process c decorator
-    const noOfTiles = newTileString.replace(/[^\d]/,'').length()
-    const calledMatrix = new Array(noOfTiles).fill(0);
+    const noOfTiles = newTileString.replace(/[^\d]/,'').length
+    const calledMatrix = new Array(noOfTiles-1).fill(0);
 
     const tilesWithoutSuit = newTileString.replace(/[^\dc]/,'')
     const tilesWithoutSuitArr = Array.from(tilesWithoutSuit)
@@ -106,5 +107,7 @@ export function tileToPath(tileString){
     const outputTileString = newTileString.replace("c","")
 
     let output = {tileString:outputTileString, calledMatrix:calledMatrix};
+    console.log("output")
+    console.log(output)
     return output
 }

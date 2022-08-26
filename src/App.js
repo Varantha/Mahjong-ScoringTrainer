@@ -1,40 +1,26 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import {Hand} from "./components/Hand.js"
 
-import * as TileConversion from "./scripts/TileConversion";
 import { useState, useEffect } from "react";
+import { Melds } from "./components/Melds";
 
 function App() {
-  const [hand, setHand] = useState([]);
-  useEffect(() => {
-    const jsonData = require("./data/3.json");
-    const data = jsonData.hand;
-    setHand(TileConversion.tileStringToArray(data))},[]);
+  const [agari, setAgariData] = useState(require("./data/3.json"));
 
-  const renderHand = () => {
-    const tileImages = hand.map((tile, index) => (
-      <img
-        src={TileConversion.tileToPath(tile)}
-        width="70"
-        height="100"
-        key={index}
-        alt={tile}
-      />
-    ));
-
-    return tileImages;
-  };
-
-  const handleClick = (e) => {
+    console.log(agari)
+  
+    const handleClick = (e) => {
     e.preventDefault()
     let jsonData
 
     const num = Math.floor(Math.random() * 8) + 1;
     console.log(num)
     jsonData = require("./data/"+ num +".json")
-    const data = jsonData.hand;
-    setHand(TileConversion.tileStringToArray(data))
+    setAgariData(jsonData)
   }
+
+
 
   return (
     <div className="App">
@@ -50,8 +36,8 @@ function App() {
             <div class="col border m-4">
               <div class="card">
                 <div class="card-body h-100 tilePanel">
-                  <div id="hand" class="hand">
-                    {renderHand()}
+                  <div class="hand">
+                    <Hand agari={agari}/>
                   </div>
                 </div>
               </div>

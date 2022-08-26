@@ -48,6 +48,14 @@
   bottom: 0;
 }
 
+.melds{
+  position: absolute;
+  bottom: 0;
+  right: 1000px;
+  float: right;
+  overflow: hidden;
+}
+
 .infoPanelBorder {
   background-color: rgb(114,112,114);
   border-radius: 1%
@@ -57,3 +65,12 @@
   min-height: 300px;
 }
 
+.winningTile{
+  margin-left: 50px;
+  border: 2px solid #FF0000;
+  border-radius: 9px;
+}
+
+.calledTile{
+  transform: rotate(90deg);
+}
