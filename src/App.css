@@ -37,23 +37,17 @@
   }
 }
 
-.tilePanel {
-  min-height: 200px;
-  background-color: rgb(114,112,114);
-  position: relative;
-}
 
 .hand{
-  position: absolute;
-  bottom: 0;
+  
 }
 
 .melds{
-  position: absolute;
-  bottom: 0;
-  right: 1000px;
-  float: right;
-  overflow: hidden;
+  align-items: end;
+} 
+
+.primary-color{
+  background-color: rgb(114,112,114);
 }
 
 .infoPanelBorder {
@@ -65,6 +59,18 @@
   min-height: 300px;
 }
 
+.infoRow{
+  margin: auto;
+  padding: 10px;
+  width: 50%;
+  color: white;
+  font-family: Helvetica;
+}
+
+.tile{
+  
+}
+
 .winningTile{
   margin-left: 50px;
   border: 2px solid #FF0000;
@@ -72,5 +78,21 @@
 }
 
 .calledTile{
-  transform: rotate(90deg);
+  transform: rotate(90deg) translate(17%);
+  margin-left: 14px;
+  margin-right: 14px;
+}
+
+.alignBottom{
+  position: absolute;
+  bottom: 0;
+}
+
+.floatRight{
+  float: right;
+}
+
+.meld{
+  margin-left: 40px;
+  float:left;
 }

@@ -1,46 +1,41 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {Hand} from "./components/Hand.js"
 
-import { useState, useEffect } from "react";
+import { TilePanel } from "./components/TilePanel";
+
+
+
+import { useState } from "react";
 import { Melds } from "./components/Melds";
+import { InfoPanel } from "./components/InfoPanel";
 
 function App() {
   const [agari, setAgariData] = useState(require("./data/3.json"));
+  const [options, setOptions] = useState({riichiSticks: false, honbaSticks: false});
 
-    console.log(agari)
-  
-    const handleClick = (e) => {
-    e.preventDefault()
-    let jsonData
+  console.log(agari);
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    let jsonData;
 
     const num = Math.floor(Math.random() * 8) + 1;
-    console.log(num)
-    jsonData = require("./data/"+ num +".json")
-    setAgariData(jsonData)
-  }
-
-
+    console.log(num);
+    jsonData = require("./data/" + num + ".json");
+    setAgariData(jsonData);
+  };
 
   return (
     <div className="App">
-      <button onClick={handleClick} id="1">text</button>
+      <button onClick={handleClick} id="1">
+        text
+      </button>
       <div class="row">
-        <div class="col-2 border m-4">
-          <div class="card">
-            <div class="card-body h-100 infoPanel infoPanelBorder"></div>
-          </div>
-        </div>
+        <InfoPanel agari={agari} options={options}/>
         <div class="col-9 border m-4">
           <div class="row">
             <div class="col border m-4">
-              <div class="card">
-                <div class="card-body h-100 tilePanel">
-                  <div class="hand">
-                    <Hand agari={agari}/>
-                  </div>
-                </div>
-              </div>
+                <TilePanel agari={agari}/>
             </div>
           </div>
           <div class="row">

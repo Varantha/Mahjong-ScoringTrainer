@@ -18,6 +18,7 @@ function Hand (props)  {
         width={imageWidth}
         key={index}
         alt={tile}
+        class="tile"
       />
     ))
 

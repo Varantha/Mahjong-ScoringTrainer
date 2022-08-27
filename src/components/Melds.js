@@ -19,30 +19,30 @@ function Melds (props)  {
         let meldObject = TileConversion.extractDecoratorsFromTileString(melds[i])
         meldString = meldObject.tileString
         calledArray = meldObject.calledMatrix
-        console.log(meldString)
-        console.log(calledArray)
         let hand = TileConversion.tileStringToArray(meldString)
-        console.log(hand)
-        
+        let currentMeld = []
         for(let j = 0; j < hand.length; j++){
             if(calledArray[j] === 1){
-                tileImages.push(<img
+                currentMeld.push(<img
                     src={TileConversion.tileToPath(hand[j])}
                     width={imageWidth}
                     alt={hand[j]}
                     class="calledTile"
                   />)
             }else{
-                tileImages.push(<img
+                currentMeld.push(<img
                     src={TileConversion.tileToPath(hand[j])}
                     width={imageWidth}
                     alt={hand[j]}
                   />)
             }       
         }
+        tileImages.push(
+            <div class="meld">
+            {currentMeld}
+            </div>
+        )
     }
-    console.log("tile images")
-    console.log(tileImages)
     return tileImages
 }
 
