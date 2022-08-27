@@ -11,24 +11,33 @@ import { InfoPanel } from "./components/InfoPanel";
 
 function App() {
   const [agari, setAgariData] = useState(require("./data/3.json"));
-  const [options, setOptions] = useState({riichiSticks: false, honbaSticks: false});
+  const [options, setOptions] = useState({pointSticks: false});
 
   console.log(agari);
 
-  const handleClick = (e) => {
-    e.preventDefault();
+  const handleClick = () => {
     let jsonData;
-
     const num = Math.floor(Math.random() * 8) + 1;
     console.log(num);
     jsonData = require("./data/" + num + ".json");
     setAgariData(jsonData);
   };
 
+  const changeOptions = () => {
+    if(options.pointSticks === true){
+      setOptions({pointSticks: false})
+    }else{
+      setOptions({pointSticks: true})
+    }
+  };
+
   return (
     <div className="App">
       <button onClick={handleClick} id="1">
-        text
+        New Hand
+      </button>
+      <button onClick={changeOptions} id="2">
+        Change Options
       </button>
       <div class="row">
         <InfoPanel agari={agari} options={options}/>
