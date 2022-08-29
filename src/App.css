@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  background-color: #002b5b;
+  color: #8fe3cf;
 }
 
 .App-logo {
@@ -37,62 +39,72 @@
   }
 }
 
-
-.hand{
-  
+.hand {
 }
 
-.melds{
-  align-items: end;
-} 
+.roundedborder {
+  border-radius: 20%;
+}
 
-.primary-color{
-  background-color: rgb(114,112,114);
+.OptionsMenu {
+  max-width: 500px;
+}
+
+.OptionsButton {
+  position: absolute;
+  left: 25px;
+  top: 20px;
+}
+
+.melds {
+  align-items: end;
+}
+
+.primary-color {
+  background-color: #2b4865;
 }
 
 .infoPanelBorder {
-  background-color: rgb(114,112,114);
-  border-radius: 1%
+  background-color: #2b4865;
+  border-radius: 1%;
 }
 
 .infoPanel {
   min-height: 300px;
 }
 
-.infoRow{
+.infoRow {
   margin: auto;
   padding: 10px;
   width: 50%;
-  color: white;
   font-family: Helvetica;
 }
 
-.tile{
-  
+.tile {
 }
 
-.winningTile{
+.winningTile {
   margin-left: 50px;
-  border: 2px solid #FF0000;
+  border: 2px solid #ff0000;
   border-radius: 9px;
 }
 
-.calledTile{
+.calledTile {
   transform: rotate(90deg) translate(17%);
   margin-left: 14px;
   margin-right: 14px;
 }
 
-.alignBottom{
+.alignBottom {
   position: absolute;
   bottom: 0;
 }
 
-.floatRight{
+.floatRight {
   float: right;
 }
 
-.meld{
+.meld {
   margin-left: 40px;
-  float:left;
+  float: left;
 }

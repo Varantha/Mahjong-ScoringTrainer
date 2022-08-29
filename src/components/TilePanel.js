@@ -7,15 +7,15 @@ function TilePanel(props) {
   const agari = props.agari;
 
   return (
-    <Card className="tilePanel">
+    <Card>
       <CardBody className="primary-color">
         <Row>
-        <Col className="col-md-auto">
-                <Hand agari={agari} />
-        </Col>
-        <Col className="col-md-auto">
+          <Col className="col-md-auto">
+            <Hand agari={agari} />
+          </Col>
+          <Col className="col-md-auto">
             <Melds agari={agari} />
-        </Col>
+          </Col>
         </Row>
       </CardBody>
     </Card>

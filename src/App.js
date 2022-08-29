@@ -3,16 +3,20 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import { TilePanel } from "./components/TilePanel";
 
-
-
 import { useState } from "react";
-import { Melds } from "./components/Melds";
 import { InfoPanel } from "./components/InfoPanel";
+import { OptionsMenu } from "./components/OptionsMenu";
+
+import logo from "./burger-menu.jpg";
 
 function App() {
   const [agari, setAgariData] = useState(require("./data/3.json"));
-  const [options, setOptions] = useState({pointSticks: false});
+  const [options, setOptions] = useState({ pointSticks: false });
+  const [optionsOpen, setOptionsOpen] = useState(false);
 
+  const toggle = () => setOptionsOpen(!optionsOpen);
+
+  console.log(logo);
   console.log(agari);
 
   const handleClick = () => {
@@ -24,11 +28,7 @@ function App() {
   };
 
   const changeOptions = () => {
-    if(options.pointSticks === true){
-      setOptions({pointSticks: false})
-    }else{
-      setOptions({pointSticks: true})
-    }
+    setOptions({ pointSticks: !options.pointSticks });
   };
 
   return (
@@ -36,15 +36,20 @@ function App() {
       <button onClick={handleClick} id="1">
         New Hand
       </button>
-      <button onClick={changeOptions} id="2">
-        Change Options
+      <button onClick={toggle} className="OptionsButton">
+        <img src={logo} height="30" alt="menu"></img>
       </button>
+      <OptionsMenu
+        options={options}
+        menuOpen={optionsOpen}
+        changeOptions={changeOptions}
+      />
       <div class="row">
-        <InfoPanel agari={agari} options={options}/>
-        <div class="col-9 border m-4">
+        <InfoPanel agari={agari} options={options} />
+        <div class="col-9  m-4">
           <div class="row">
-            <div class="col border m-4">
-                <TilePanel agari={agari}/>
+            <div class="col m-4">
+              <TilePanel agari={agari} />
             </div>
           </div>
           <div class="row">
@@ -53,10 +58,6 @@ function App() {
           </div>
         </div>
       </div>
-
-      <p>
-        Edit <code>src/App.js</code> and save to reload.
-      </p>
     </div>
   );
 }
