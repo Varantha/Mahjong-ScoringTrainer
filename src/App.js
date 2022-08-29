@@ -53,7 +53,7 @@ function App() {
             </div>
           </div>
           <div class="row">
-            <div class="col-3 border m-5">test</div>
+            <div class="col-3 border m-5">test 1</div>
             <div class="col-7 border m-5">test</div>
           </div>
         </div>
