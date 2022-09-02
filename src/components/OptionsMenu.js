@@ -6,7 +6,7 @@ function OptionsMenu(props) {
   const isOpen = props.menuOpen;
 
   return (
-    <Collapse isOpen={isOpen} className="col-2 m-4">
+    <Collapse isOpen={isOpen} className="OptionsMenu">
       <Card>
         <CardBody>
           <Label check>

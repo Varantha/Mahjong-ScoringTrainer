@@ -8,13 +8,16 @@ import { InfoPanel } from "./components/InfoPanel";
 import { OptionsMenu } from "./components/OptionsMenu";
 
 import logo from "./burger-menu.jpg";
+import { Answer } from "./components/Answer";
 
 function App() {
   const [agari, setAgariData] = useState(require("./data/3.json"));
   const [options, setOptions] = useState({ pointSticks: false });
+  const [answerVisible, setanswerVisible] = useState(false);
   const [optionsOpen, setOptionsOpen] = useState(false);
 
   const toggle = () => setOptionsOpen(!optionsOpen);
+  const showAnswer = () => setanswerVisible(!answerVisible);
 
   console.log(logo);
   console.log(agari);
@@ -25,6 +28,7 @@ function App() {
     console.log(num);
     jsonData = require("./data/" + num + ".json");
     setAgariData(jsonData);
+    setanswerVisible(false);
   };
 
   const changeOptions = () => {
@@ -53,7 +57,14 @@ function App() {
             </div>
           </div>
           <div class="row">
-            <div class="col-3 border m-5">test 1</div>
+            <div class="col-3 border m-5">
+              <button onClick={showAnswer}>Show Answer</button>
+              <Answer
+                agari={agari}
+                options={options}
+                showAnswer={answerVisible}
+              />
+            </div>
             <div class="col-7 border m-5">test</div>
           </div>
         </div>

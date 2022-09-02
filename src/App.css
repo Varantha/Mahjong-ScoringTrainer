@@ -81,6 +81,7 @@
 }
 
 .tile {
+  width: 80px;
 }
 
 .winningTile {
