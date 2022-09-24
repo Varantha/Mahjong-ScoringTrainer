@@ -1,5 +1,5 @@
 import React from "react";
-import { Collapse, CardBody, Card, Label, Input } from "reactstrap";
+import { Collapse, Label, Input } from "reactstrap";
 
 function OptionsMenu(props) {
   const options = props.options;
@@ -7,18 +7,14 @@ function OptionsMenu(props) {
 
   return (
     <Collapse isOpen={isOpen} className="OptionsMenu">
-      <Card>
-        <CardBody>
-          <Label check>
-            <Input
-              type="checkbox"
-              value={options.pointSticks}
-              onChange={props.changeOptions}
-            />{" "}
-            Extra point sticks
-          </Label>
-        </CardBody>
-      </Card>
+      <Label check>
+        <Input
+          type="checkbox"
+          value={options.pointSticks}
+          onChange={props.changeOptions}
+        />{" "}
+        Extra point sticks
+      </Label>
     </Collapse>
   );
 }

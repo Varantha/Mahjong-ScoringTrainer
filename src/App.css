@@ -1,7 +1,15 @@
 .App {
   text-align: center;
-  background-color: #002b5b;
-  color: #8fe3cf;
+  background-color: #3b3058;
+  position: fixed;
+  padding: 0;
+  margin: 0;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
 }
 
 .App-logo {
@@ -39,9 +47,6 @@
   }
 }
 
-.hand {
-}
-
 .roundedborder {
   border-radius: 20%;
 }
@@ -56,32 +61,115 @@
   top: 20px;
 }
 
-.melds {
+.meld {
   align-items: end;
+  margin-left: 50px;
 }
 
-.primary-color {
-  background-color: #2b4865;
+.bgcolor-1 {
+  background-color: #54457f;
 }
 
-.infoPanelBorder {
-  background-color: #2b4865;
-  border-radius: 1%;
+.bgcolor-2 {
+  background-color: #d8d4f2;
+}
+
+.bgcolor-3 {
+  background-color: #c4b2bc;
+}
+
+.bgcolor-4 {
+  background-color: #5bc0be;
+}
+
+.fgcolor-1 {
+  color: #54457f;
+}
+
+.fgcolor-2 {
+  color: #d8d4f2;
+}
+
+.fgcolor-3 {
+  color: #c4b2bc;
+}
+
+.fgcolor-4 {
+  color: #5bc0be;
+}
+
+.infoContainer {
+  display: flex;
+  align-items: center;
+  text-align: center;
 }
 
 .infoPanel {
-  min-height: 300px;
+  display: inline-block;
+  white-space: nowrap;
 }
 
 .infoRow {
-  margin: auto;
   padding: 10px;
-  width: 50%;
+  height: 200px;
   font-family: Helvetica;
+  white-space: nowrap;
+  display: inline-block;
+  text-align: center;
+}
+
+.infoTitle {
+  padding: 20px;
+  vertical-align: top;
+  color: #5bc0be;
+}
+
+.infoElement {
+  min-height: 100px;
+  display: block;
+  margin: auto;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 80px;
+  color: #d8d4f2;
+}
+
+.tilePanel {
+  white-space: nowrap;
+  padding: 40px 40px 40px 40px;
+}
+
+.tileContainer {
+  margin: 20px 20px 20px 20px;
+  float: center;
 }
 
 .tile {
-  width: 80px;
+  max-height: 100px;
+  max-width: 80px;
+  display: inline-block;
+  white-space: normal;
+}
+
+.allTiles {
+  width: auto;
+  padding-top: 50px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 50px;
+  justify: center;
+  border-radius: 20px;
+  border: 2px;
+}
+
+.infoContainer {
+  border-radius: 20px;
+  border: 2px;
+}
+
+.inline {
+  display: inline-block;
+  white-space: nowrap;
 }
 
 .winningTile {
@@ -103,9 +191,4 @@
 
 .floatRight {
   float: right;
-}
-
-.meld {
-  margin-left: 20px;
-  float: left;
 }

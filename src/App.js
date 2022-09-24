@@ -9,6 +9,7 @@ import { OptionsMenu } from "./components/OptionsMenu";
 
 import logo from "./burger-menu.jpg";
 import { Answer } from "./components/Answer";
+import { Row, FormGroup, Form } from "reactstrap";
 
 function App() {
   const [agari, setAgariData] = useState(require("./data/3.json"));
@@ -48,27 +49,40 @@ function App() {
         menuOpen={optionsOpen}
         changeOptions={changeOptions}
       />
-      <div class="row">
+      <Row>
+        <TilePanel agari={agari} />
+      </Row>
+      <Row>
+        {" "}
         <InfoPanel agari={agari} options={options} />
-        <div class="col-9  m-4">
-          <div class="row">
-            <div class="col m-4">
-              <TilePanel agari={agari} />
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-3 border m-5">
-              <button onClick={showAnswer}>Show Answer</button>
-              <Answer
-                agari={agari}
-                options={options}
-                showAnswer={answerVisible}
-              />
-            </div>
-            <div class="col-7 border m-5">test</div>
-          </div>
+      </Row>
+      <Row>
+        <div class="col-3 border m-5 bgcolor-1">
+          <Form>
+            <FormGroup>
+              <label>
+                Points:
+                <input type="text" id="pointsBox" name="points" />
+              </label>
+            </FormGroup>
+            <FormGroup>
+              <label>
+                Han:
+                <input type="text" id="hanBox" name="han" />
+              </label>
+            </FormGroup>
+            <FormGroup>
+              <label>
+                Fu:
+                <input type="text" id="fuBox" name="fu" />
+              </label>
+            </FormGroup>
+            <button onClick={showAnswer}>Show Answer</button>
+          </Form>
+          <Answer agari={agari} options={options} showAnswer={answerVisible} />
         </div>
-      </div>
+        <div class="col-7 border m-5 bgcolor-1">test</div>
+      </Row>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Col, Card, CardBody, Container } from "reactstrap";
+import { Col, Container } from "reactstrap";
 
 import * as TileConversion from "../scripts/TileConversion";
 
@@ -30,37 +30,51 @@ function InfoPanel(props) {
     agari.uraDoraIndicators.length === 0 ? (
       []
     ) : (
-      <Container fluid className="infoRow">
-        Uradora indicators:{" "}
-        {agari.uraDoraIndicators.map((tile) => generateTileImage(tile))}
-      </Container>
+      <Col fluid className="infoRow">
+        <div className="infoTitle">Uradora indicators</div>
+        <div className="infoElement">
+          {agari.uraDoraIndicators.map((tile) => generateTileImage(tile))}
+        </div>
+      </Col>
     );
 
   return (
-    <Col className="col-2 m-4">
-      <Card className="border-0">
-        <CardBody className="h-100 infoPanel infoPanelBorder">
-          <Container fluid className="infoRow">
-            Round: {agari.roundWind}
-          </Container>
-          <Container fluid className="infoRow">
-            Seat Wind {generateTileImage(agari.seatWind)}
-          </Container>
-          <Container fluid className="infoRow">
-            Dora indicators:{" "}
-            {agari.doraIndicators.map((tile) => generateTileImage(tile))}
-          </Container>
+    <div>
+      <Col className="infoPanel">
+        <span className="infoContainer bgcolor-1">
+          <Col fluid className="infoRow">
+            <div className="infoTitle">Round</div>
+            <div className="infoElement">{agari.roundWind}</div>
+          </Col>
+          <Col fluid className="infoRow">
+            <div className="infoTitle">Seat Wind</div>{" "}
+            <div className="infoElement">
+              {generateTileImage(agari.seatWind)}
+            </div>
+          </Col>
+          <Col fluid className="infoRow">
+            <div className="infoTitle">Dora indicators</div>
+            <div className="infoElement">
+              {agari.doraIndicators.map((tile) => generateTileImage(tile))}
+            </div>
+          </Col>
           {uraDoras}
-          <Container fluid className="infoRow">
-            Tsumo: {agari.isTsumo === true ? "Yes" : "No"}
-          </Container>
-          <Container fluid className="infoRow">
-            Riichi: {agari.isRiichi === true ? "Yes" : "No"}
-          </Container>
+          <Col fluid className="infoRow">
+            <div className="infoTitle">Tsumo</div>
+            <div className="infoElement">
+              {agari.isTsumo === true ? "Yes" : "No"}
+            </div>
+          </Col>
+          <Col fluid className="infoRow">
+            <div className="infoTitle">Riichi</div>
+            <div className="infoElement">
+              {agari.isRiichi === true ? "Yes" : "No"}
+            </div>
+          </Col>
           {optionalElements}
-        </CardBody>
-      </Card>
-    </Col>
+        </span>
+      </Col>
+    </div>
   );
 }
 

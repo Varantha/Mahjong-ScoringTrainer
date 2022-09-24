@@ -1,24 +1,20 @@
 import React from "react";
 import { Hand } from "./Hand";
 import { Melds } from "./Melds.js";
-import { Col, Card, CardBody, Row } from "reactstrap";
+import { Col } from "reactstrap";
 
 function TilePanel(props) {
   const agari = props.agari;
 
   return (
-    <Card>
-      <CardBody className="primary-color">
-        <Row>
-          <Col className="col-md-auto">
-            <Hand agari={agari} />
-          </Col>
-          <Col className="col-md-auto">
-            <Melds agari={agari} />
-          </Col>
-        </Row>
-      </CardBody>
-    </Card>
+    <div>
+      <Col className="tilePanel">
+        <span className="allTiles bgcolor-1">
+          <Hand agari={agari} />
+          <Melds agari={agari} />
+        </span>
+      </Col>
+    </div>
   );
 }
 
