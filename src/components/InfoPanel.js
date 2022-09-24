@@ -15,14 +15,16 @@ function InfoPanel(props) {
 
   if (options.pointSticks === true) {
     optionalElements.push(
-      <Container fluid className="infoRow">
-        Riichi Sticks: {agari.riichiSticks}
-      </Container>
+      <Col fluid className="infoRow">
+        <div className="infoTitle">Riichi Sticks</div>
+        <div className="infoElement">{agari.riichiSticks}</div>
+      </Col>
     );
     optionalElements.push(
-      <Container fluid className="infoRow">
-        Honba Sticks: {agari.honbaSticks}
-      </Container>
+      <Col fluid className="infoRow">
+        <div className="infoTitle">Honba Sticks</div>
+        <div className="infoElement">{agari.honbaSticks}</div>
+      </Col>
     );
   }
 
