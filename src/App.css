@@ -1,15 +1,6 @@
 .App {
   text-align: center;
   background-color: #3b3058;
-  position: fixed;
-  padding: 0;
-  margin: 0;
-
-  top: 0;
-  left: 0;
-
-  width: 100%;
-  height: 100%;
 }
 
 .App-logo {
@@ -104,6 +95,15 @@
   text-align: center;
 }
 
+.quizPanel {
+  display: inline-block;
+  width: fit-content;
+  margin: 40px 40px 40px 40px;
+  border-radius: 20px;
+  border: 2px;
+  color: #5bc0be;
+}
+
 .infoPanel {
   display: inline-block;
   white-space: nowrap;
@@ -122,6 +122,7 @@
   padding: 20px;
   vertical-align: top;
   color: #5bc0be;
+  font-family: "Lato", sans-serif;
 }
 
 .infoElement {

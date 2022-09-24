@@ -5,11 +5,11 @@ import { TilePanel } from "./components/TilePanel";
 
 import { useState } from "react";
 import { InfoPanel } from "./components/InfoPanel";
+import { QuizPanel } from "./components/QuizPanel";
 import { OptionsMenu } from "./components/OptionsMenu";
 
 import logo from "./burger-menu.jpg";
-import { Answer } from "./components/Answer";
-import { Row, FormGroup, Form } from "reactstrap";
+import { Row } from "reactstrap";
 
 function App() {
   const [agari, setAgariData] = useState(require("./data/3.json"));
@@ -53,36 +53,14 @@ function App() {
         <TilePanel agari={agari} />
       </Row>
       <Row>
-        {" "}
         <InfoPanel agari={agari} options={options} />
       </Row>
-      <Row>
-        <div class="col-3 border m-5 bgcolor-1">
-          <Form>
-            <FormGroup>
-              <label>
-                Points:
-                <input type="text" id="pointsBox" name="points" />
-              </label>
-            </FormGroup>
-            <FormGroup>
-              <label>
-                Han:
-                <input type="text" id="hanBox" name="han" />
-              </label>
-            </FormGroup>
-            <FormGroup>
-              <label>
-                Fu:
-                <input type="text" id="fuBox" name="fu" />
-              </label>
-            </FormGroup>
-            <button onClick={showAnswer}>Show Answer</button>
-          </Form>
-          <Answer agari={agari} options={options} showAnswer={answerVisible} />
-        </div>
-        <div class="col-7 border m-5 bgcolor-1">test</div>
-      </Row>
+      <QuizPanel
+        agari={agari}
+        options={options}
+        answerVisible={answerVisible}
+        showAnswer={showAnswer}
+      />
     </div>
   );
 }
