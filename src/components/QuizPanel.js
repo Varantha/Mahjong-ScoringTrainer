@@ -15,24 +15,43 @@ function QuizPanel(props) {
   return (
     <span className="bgcolor-1 quizPanel ">
       <Form className="quizPanel" onSubmit={onSubmit}>
-        <FormGroup>
-          <label>
-            Han:
-            <input type="text" id="hanBox" name="han" />
-          </label>
-        </FormGroup>
-        <FormGroup>
-          <label>
-            Fu:
-            <input type="text" id="fuBox" name="fu" />
-          </label>
-        </FormGroup>
-        <FormGroup>
-          <label>
-            Points:
-            <input type="text" id="pointsBox" name="points" />
-          </label>
-        </FormGroup>
+        <table>
+          <tr>
+            <td>
+              <label>Han</label>
+            </td>
+            <td>
+              <FormGroup>
+                <input type="text" id="hanBox" name="han" className="quizBox" />
+              </FormGroup>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label>Fu</label>
+            </td>
+            <td>
+              <FormGroup>
+                <input type="text" id="fuBox" name="fu" className="quizBox" />
+              </FormGroup>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label>Points</label>
+            </td>
+            <td>
+              <FormGroup>
+                <input
+                  type="text"
+                  id="pointsBox"
+                  name="points"
+                  className="quizBox"
+                />
+              </FormGroup>
+            </td>
+          </tr>
+        </table>
         <button>Show Answer</button>
       </Form>
       <Answer agari={agari} options={options} showAnswer={answerVisible} />
