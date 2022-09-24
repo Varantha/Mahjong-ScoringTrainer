@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Col, Container } from "reactstrap";
+import { Col } from "reactstrap";
 
 import * as TileConversion from "../scripts/TileConversion";
 
