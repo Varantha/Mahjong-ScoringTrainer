@@ -49,8 +49,10 @@ function App() {
   const changeOptions = () => {
     setOptions({ pointSticks: !options.pointSticks });
   };
-  /*
-<button onClick={toggle} className="OptionsButton">
+
+  return (
+    <div className="App">
+      <button onClick={toggle} className="OptionsButton" hidden>
         <img src={logo} height="30" alt="menu"></img>
       </button>
       <OptionsMenu
@@ -58,9 +60,6 @@ function App() {
         menuOpen={optionsOpen}
         changeOptions={changeOptions}
       />
-       */
-  return (
-    <div className="App">
       <Row>
         <TilePanel agari={agari} />
       </Row>
