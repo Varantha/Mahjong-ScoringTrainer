@@ -195,7 +195,61 @@
 }
 
 .quizBox {
-  width: 100px;
-  padding: 3px 5px;
-  box-sizing: border-box;
+  margin-top: 5px;
+  width: 50px;
+  background-color: #54457f;
+  color: #d8d4f2;
+  outline: none;
+  border: 0;
+  border-bottom: 1px solid #d8d4f2;
+  top: 20px;
+  text-align: center;
+}
+
+table {
+  margin-bottom: 30px;
+}
+
+table td {
+  padding: 2px 2px 2px 2px;
+  border-bottom: 2px solid #c4b2bc;
+}
+
+table th {
+  padding: 5px 20px 5px 20px;
+  border-bottom: 1px solid #d8d4f2;
+}
+
+button {
+  background-color: #5bc0be;
+  border: none;
+  color: white;
+  font-family: "Lato", sans-serif;
+  padding: 10px;
+  text-align: center;
+  margin: 4px 2px;
+}
+
+.checkAnswer {
+  border-radius: 15px;
+  font-size: 15px;
+  margin-right: 20px;
+}
+
+.newHand {
+  border-radius: 15px;
+  font-size: 15px;
+}
+
+.answerText {
+  font-family: "Lato", sans-serif;
+  text-shadow: 1px 1px 0 #000;
+}
+
+.correctAnswer {
+  color: green;
+}
+
+.wrongAnswer {
+  color: red;
 }

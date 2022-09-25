@@ -23,25 +23,34 @@ function App() {
   console.log(logo);
   console.log(agari);
 
-  const handleClick = () => {
+  const newHand = () => {
     let jsonData;
     const num = Math.floor(Math.random() * 8) + 1;
     console.log(num);
     jsonData = require("./data/" + num + ".json");
     setAgariData(jsonData);
     setanswerVisible(false);
+
+    var hanLabel = document.getElementById("hanAnswer");
+    var fuLabel = document.getElementById("fuAnswer");
+    var pointsLabel = document.getElementById("pointsAnswer");
+    hanLabel.textContent = "";
+    fuLabel.textContent = "";
+    pointsLabel.textContent = "";
+
+    var hanBox = document.getElementById("hanBox");
+    var fuBox = document.getElementById("fuBox");
+    var pointsBox = document.getElementById("pointsBox");
+    hanBox.value = "";
+    fuBox.value = "";
+    pointsBox.value = "";
   };
 
   const changeOptions = () => {
     setOptions({ pointSticks: !options.pointSticks });
   };
-
-  return (
-    <div className="App">
-      <button onClick={handleClick} id="1">
-        New Hand
-      </button>
-      <button onClick={toggle} className="OptionsButton">
+  /*
+<button onClick={toggle} className="OptionsButton">
         <img src={logo} height="30" alt="menu"></img>
       </button>
       <OptionsMenu
@@ -49,6 +58,9 @@ function App() {
         menuOpen={optionsOpen}
         changeOptions={changeOptions}
       />
+       */
+  return (
+    <div className="App">
       <Row>
         <TilePanel agari={agari} />
       </Row>
@@ -60,6 +72,7 @@ function App() {
         options={options}
         answerVisible={answerVisible}
         showAnswer={showAnswer}
+        newHand={newHand}
       />
     </div>
   );
