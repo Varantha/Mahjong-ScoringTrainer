@@ -7,6 +7,7 @@ import { useState } from "react";
 import { InfoPanel } from "./components/InfoPanel";
 import { QuizPanel } from "./components/QuizPanel";
 import { OptionsMenu } from "./components/OptionsMenu";
+import { WinRate } from "./components/WinRate";
 
 import logo from "./burger-menu.jpg";
 import { Row } from "reactstrap";
@@ -16,9 +17,13 @@ function App() {
   const [options, setOptions] = useState({ pointSticks: false });
   const [answerVisible, setanswerVisible] = useState(false);
   const [optionsOpen, setOptionsOpen] = useState(false);
+  const [correctAnswers, setCorrectAnswers] = useState(0);
+  const [wrongAnswers, setWrongAnswers] = useState(0);
 
   const toggle = () => setOptionsOpen(!optionsOpen);
   const showAnswer = () => setanswerVisible(!answerVisible);
+  const addCorrectAnswer = () => setCorrectAnswers(correctAnswers + 1);
+  const addWrongAnswer = () => setWrongAnswers(wrongAnswers + 1);
 
   console.log(logo);
   console.log(agari);
@@ -44,6 +49,10 @@ function App() {
     hanBox.value = "";
     fuBox.value = "";
     pointsBox.value = "";
+
+    document.getElementById("hanBox").disabled = false;
+    document.getElementById("fuBox").disabled = false;
+    document.getElementById("pointsBox").disabled = false;
   };
 
   const changeOptions = () => {
@@ -52,6 +61,12 @@ function App() {
 
   return (
     <div className="App">
+      <WinRate
+        correctAnswers={correctAnswers}
+        wrongAnswers={wrongAnswers}
+      ></WinRate>
+      Correct: {correctAnswers}
+      Wrong: {wrongAnswers}
       <button onClick={toggle} className="OptionsButton" hidden>
         <img src={logo} height="30" alt="menu"></img>
       </button>
@@ -72,6 +87,8 @@ function App() {
         answerVisible={answerVisible}
         showAnswer={showAnswer}
         newHand={newHand}
+        addCorrectAnswer={addCorrectAnswer}
+        addWrongAnswer={addWrongAnswer}
       />
     </div>
   );

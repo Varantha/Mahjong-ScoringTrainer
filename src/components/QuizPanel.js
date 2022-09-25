@@ -26,61 +26,83 @@ function QuizPanel(props) {
 
     pointsLabel.textContent = agari.pointValue;
     pointsLabel.className = getClassName(agari.pointValue, pointsAnswer);
+
+    document.getElementById("hanBox").disabled = true;
+    document.getElementById("fuBox").disabled = true;
+    document.getElementById("pointsBox").disabled = true;
+
+    const isCorrect = !(
+      document.getElementById("hanAnswer").classList.contains("wrongAnswer") ||
+      document.getElementById("fuAnswer").classList.contains("wrongAnswer") ||
+      document.getElementById("pointsAnswer").classList.contains("wrongAnswer")
+    );
+    if (isCorrect) {
+      props.addCorrectAnswer();
+    } else {
+      props.addWrongAnswer();
+    }
   };
 
   return (
-    <span className="bgcolor-1 quizPanel ">
+    <span className="bgcolor-1 quizPanel">
       <Form className="quizPanel" onSubmit={onSubmit}>
         <table>
-          <tr>
-            <th></th>
-            <th>Your Answer</th>
-            <th>Real Answer</th>
-          </tr>
-          <tr>
-            <td>
-              <label>Han</label>
-            </td>
-            <td>
-              <FormGroup>
-                <input type="text" id="hanBox" name="han" className="quizBox" />
-              </FormGroup>
-            </td>
-            <td>
-              <label id="hanAnswer"></label>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <label>Fu</label>
-            </td>
-            <td>
-              <FormGroup>
-                <input type="text" id="fuBox" name="fu" className="quizBox" />
-              </FormGroup>
-            </td>
-            <td>
-              <label id="fuAnswer" className="answerText"></label>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <label>Points</label>
-            </td>
-            <td>
-              <FormGroup>
-                <input
-                  type="text"
-                  id="pointsBox"
-                  name="points"
-                  className="quizBox"
-                />
-              </FormGroup>
-            </td>
-            <td>
-              <label id="pointsAnswer"></label>
-            </td>
-          </tr>
+          <tbody>
+            <tr>
+              <th></th>
+              <th>Your Answer</th>
+              <th>Real Answer</th>
+            </tr>
+            <tr>
+              <td>
+                <label>Han</label>
+              </td>
+              <td>
+                <FormGroup>
+                  <input
+                    type="text"
+                    id="hanBox"
+                    name="han"
+                    className="quizBox"
+                  />
+                </FormGroup>
+              </td>
+              <td>
+                <strong id="hanAnswer"></strong>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label>Fu</label>
+              </td>
+              <td>
+                <FormGroup>
+                  <input type="text" id="fuBox" name="fu" className="quizBox" />
+                </FormGroup>
+              </td>
+              <td>
+                <strong id="fuAnswer" className="answerText"></strong>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label>Points</label>
+              </td>
+              <td>
+                <FormGroup>
+                  <input
+                    type="text"
+                    id="pointsBox"
+                    name="points"
+                    className="quizBox"
+                  />
+                </FormGroup>
+              </td>
+              <td>
+                <strong id="pointsAnswer"></strong>
+              </td>
+            </tr>
+          </tbody>
         </table>
         <button className="checkAnswer">Check Answer</button>
         <button

@@ -195,6 +195,8 @@
 }
 
 .quizBox {
+  position: relative;
+  top: 5px;
   margin-top: 5px;
   width: 50px;
   background-color: #54457f;
@@ -202,7 +204,6 @@
   outline: none;
   border: 0;
   border-bottom: 1px solid #d8d4f2;
-  top: 20px;
   text-align: center;
 }
 
@@ -230,6 +231,18 @@ button {
   margin: 4px 2px;
 }
 
+.yakuList {
+  border-radius: 20px;
+  border: 2px;
+  color: #5bc0be;
+  background-color: #54457f;
+  width: 300px;
+  height: 300px;
+  position: relative;
+  bottom: 350px;
+  left: 350px;
+}
+
 .checkAnswer {
   border-radius: 15px;
   font-size: 15px;
@@ -242,6 +255,11 @@ button {
 }
 
 .answerText {
+  font-family: "Lato";
+  text-shadow: 1px 1px 0 #000;
+}
+
+.answerText:focus {
   font-family: "Lato", sans-serif;
   text-shadow: 1px 1px 0 #000;
 }
@@ -252,4 +270,22 @@ button {
 
 .wrongAnswer {
   color: red;
+}
+
+.winRatePanel {
+  position: absolute;
+  right: 5px;
+
+  background-color: #54457f;
+  border: none;
+  color: white;
+  font-family: "Lato", sans-serif;
+  padding: 5px;
+  text-align: center;
+  margin: 2px 4px;
+  border-radius: 5px;
+}
+
+.spaced {
+  margin-right: 10px;
 }
