@@ -53,6 +53,7 @@ function App() {
     document.getElementById("hanBox").disabled = false;
     document.getElementById("fuBox").disabled = false;
     document.getElementById("pointsBox").disabled = false;
+    document.getElementById("checkAnswer").disabled = false;
   };
 
   const changeOptions = () => {

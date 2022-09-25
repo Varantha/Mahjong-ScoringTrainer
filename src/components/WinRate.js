@@ -9,7 +9,10 @@ function WinRate(props) {
       <label className="correctAnswer spaced">Correct: {correctAnswers} </label>
       <label className="wrongAnswer spaced"> Wrong: {wrongAnswers}</label>{" "}
       Success rate:{" "}
-      {(correctAnswers / Math.max(correctAnswers + wrongAnswers, 1)) * 100}%
+      {Math.round(
+        (correctAnswers / Math.max(correctAnswers + wrongAnswers, 1)) * 100
+      )}
+      %
     </div>
   );
 }

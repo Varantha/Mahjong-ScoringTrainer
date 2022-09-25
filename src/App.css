@@ -249,6 +249,13 @@ button {
   margin-right: 20px;
 }
 
+.checkAnswer:disabled {
+  border-radius: 15px;
+  font-size: 15px;
+  margin-right: 20px;
+  background-color: #244c4c;
+}
+
 .newHand {
   border-radius: 15px;
   font-size: 15px;
@@ -256,11 +263,6 @@ button {
 
 .answerText {
   font-family: "Lato";
-  text-shadow: 1px 1px 0 #000;
-}
-
-.answerText:focus {
-  font-family: "Lato", sans-serif;
   text-shadow: 1px 1px 0 #000;
 }
 
@@ -275,7 +277,6 @@ button {
 .winRatePanel {
   position: absolute;
   right: 5px;
-
   background-color: #54457f;
   border: none;
   color: white;

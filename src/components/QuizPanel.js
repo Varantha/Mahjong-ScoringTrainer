@@ -30,6 +30,7 @@ function QuizPanel(props) {
     document.getElementById("hanBox").disabled = true;
     document.getElementById("fuBox").disabled = true;
     document.getElementById("pointsBox").disabled = true;
+    document.getElementById("checkAnswer").disabled = true;
 
     const isCorrect = !(
       document.getElementById("hanAnswer").classList.contains("wrongAnswer") ||
@@ -104,7 +105,9 @@ function QuizPanel(props) {
             </tr>
           </tbody>
         </table>
-        <button className="checkAnswer">Check Answer</button>
+        <button className="checkAnswer" id="checkAnswer">
+          Check Answer
+        </button>
         <button
           onClick={props.newHand}
           className="newHand"
