@@ -66,8 +66,6 @@ function App() {
         correctAnswers={correctAnswers}
         wrongAnswers={wrongAnswers}
       ></WinRate>
-      Correct: {correctAnswers}
-      Wrong: {wrongAnswers}
       <button onClick={toggle} className="OptionsButton" hidden>
         <img src={logo} height="30" alt="menu"></img>
       </button>

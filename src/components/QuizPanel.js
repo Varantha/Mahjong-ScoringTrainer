@@ -1,11 +1,15 @@
 import React from "react";
-import { FormGroup, Form } from "reactstrap";
+import { FormGroup, Form, Tooltip } from "reactstrap";
 import { Answer } from "./Answer";
+
+import * as YakuConversion from "../scripts/YakuConversion";
 
 function QuizPanel(props) {
   const agari = props.agari;
   const options = props.options;
   const answerVisible = props.answerVisible;
+
+  const [tooltipOpen, setTooltipOpen] = React.useState(false);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -70,6 +74,17 @@ function QuizPanel(props) {
               </td>
               <td>
                 <strong id="hanAnswer"></strong>
+                <Tooltip
+                  isOpen={tooltipOpen}
+                  className="hanTooltip"
+                  placement="right"
+                  target="hanAnswer"
+                  toggle={() => {
+                    setTooltipOpen(!tooltipOpen);
+                  }}
+                >
+                  {formatHanList(agari)}
+                </Tooltip>
               </td>
             </tr>
             <tr>
@@ -130,6 +145,17 @@ function getClassName(agariValue, answerValue) {
   } else {
     return "wrongAnswer answerText";
   }
+}
+
+function formatHanList(agari) {
+  const output = [];
+  output.push(<p></p>);
+  for (const [key, value] of Object.entries(agari.yakusAchieved)) {
+    output.push(
+      <p>{YakuConversion.YakuIdToName(key) + ": " + value + " han"}</p>
+    );
+  }
+  return output;
 }
 
 export { QuizPanel };

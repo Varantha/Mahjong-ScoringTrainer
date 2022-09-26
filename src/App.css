@@ -275,7 +275,7 @@ button {
 }
 
 .winRatePanel {
-  position: absolute;
+  position: fixed;
   right: 5px;
   background-color: #54457f;
   border: none;
@@ -289,4 +289,13 @@ button {
 
 .spaced {
   margin-right: 10px;
+}
+
+.tooltip [class$="inner"] {
+  background-color: #5bc0be;
+  border: 1px solid #5bc0be;
+}
+
+.tooltip [class$="arrow"] {
+  opacity: 0%;
 }
