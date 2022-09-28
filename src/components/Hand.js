@@ -6,7 +6,6 @@ function Hand(props) {
   const winningTile = props.agari.winningTile;
 
   const handString = removeWinningTileFromHand(initialHandString, winningTile);
-  console.log(props);
 
   let hand = TileConversion.tileStringToArray(handString);
 

@@ -10,7 +10,6 @@ function Melds(props) {
   var meldString = "";
   var calledArray = [];
 
-  console.log(melds);
   if (melds === undefined) {
     return tileImages;
   }

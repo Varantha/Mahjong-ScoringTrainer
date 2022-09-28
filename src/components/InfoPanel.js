@@ -9,7 +9,6 @@ const imageWidth = 70;
 function InfoPanel(props) {
   const agari = props.agari;
   const options = props.options;
-  console.log(agari);
 
   const optionalElements = [];
 

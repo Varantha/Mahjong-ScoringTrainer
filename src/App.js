@@ -13,7 +13,15 @@ import logo from "./burger-menu.jpg";
 import { Row } from "reactstrap";
 
 function App() {
-  const [agari, setAgariData] = useState(require("./data/3.json"));
+  let jsonMetaData;
+
+  jsonMetaData = require("./data/meta.json");
+  const jsonLen = jsonMetaData.length;
+  const num = Math.floor(Math.random() * jsonLen);
+
+  const [agari, setAgariData] = useState(
+    require("./data/" + jsonMetaData[num])
+  );
   const [options, setOptions] = useState({ pointSticks: false });
   const [answerVisible, setanswerVisible] = useState(false);
   const [optionsOpen, setOptionsOpen] = useState(false);
@@ -25,14 +33,16 @@ function App() {
   const addCorrectAnswer = () => setCorrectAnswers(correctAnswers + 1);
   const addWrongAnswer = () => setWrongAnswers(wrongAnswers + 1);
 
-  console.log(logo);
-  console.log(agari);
-
   const newHand = () => {
-    let jsonData;
-    const num = Math.floor(Math.random() * 8) + 1;
-    console.log(num);
-    jsonData = require("./data/" + num + ".json");
+    let jsonMetaData, jsonData;
+
+    jsonMetaData = require("./data/meta.json");
+    const jsonLen = jsonMetaData.length;
+    const num = Math.floor(Math.random() * jsonLen);
+
+    console.log("./data/" + jsonMetaData[num]);
+    jsonData = require("./data/" + jsonMetaData[num]);
+
     setAgariData(jsonData);
     setanswerVisible(false);
 
