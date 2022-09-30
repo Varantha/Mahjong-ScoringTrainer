@@ -45,7 +45,9 @@ function InfoPanel(props) {
         <span className="infoContainer bgcolor-1">
           <Col fluid className="infoRow">
             <div className="infoTitle">Round</div>
-            <div className="infoElement">{agari.roundWind}</div>
+            <div className="infoElement">
+              {generateWindImage(agari.roundWind)}
+            </div>
           </Col>
           <Col fluid className="infoRow">
             <div className="infoTitle">Seat Wind</div>{" "}
@@ -83,6 +85,17 @@ function generateTileImage(tile) {
   return (
     <img
       src={TileConversion.tileToPath(tile)}
+      height={imageWidth}
+      alt={tile}
+      class="tile"
+    />
+  );
+}
+
+function generateWindImage(tile) {
+  return (
+    <img
+      src={TileConversion.windToPath(tile)}
       height={imageWidth}
       alt={tile}
       class="tile"

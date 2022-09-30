@@ -36,6 +36,9 @@ function App() {
   const newHand = () => {
     let jsonMetaData, jsonData;
 
+    const dealerBoxExists =
+      document.getElementById("pointsAnswerDealer") != null;
+
     jsonMetaData = require("./data/meta.json");
     const jsonLen = jsonMetaData.length;
     const num = Math.floor(Math.random() * jsonLen);
@@ -49,6 +52,8 @@ function App() {
     var hanLabel = document.getElementById("hanAnswer");
     var fuLabel = document.getElementById("fuAnswer");
     var pointsLabel = document.getElementById("pointsAnswer");
+    var pointsLabelDealer = document.getElementById("pointsAnswerDealer");
+
     hanLabel.textContent = "";
     fuLabel.textContent = "";
     pointsLabel.textContent = "";
@@ -56,6 +61,7 @@ function App() {
     var hanBox = document.getElementById("hanBox");
     var fuBox = document.getElementById("fuBox");
     var pointsBox = document.getElementById("pointsBox");
+    var pointsBoxDealer = document.getElementById("pointsBoxDealer");
     hanBox.value = "";
     fuBox.value = "";
     pointsBox.value = "";
@@ -64,6 +70,12 @@ function App() {
     document.getElementById("fuBox").disabled = false;
     document.getElementById("pointsBox").disabled = false;
     document.getElementById("checkAnswer").disabled = false;
+
+    if (dealerBoxExists) {
+      pointsLabelDealer.textContent = "";
+      pointsBoxDealer.value = "";
+      document.getElementById("pointsBoxDealer").disabled = false;
+    }
   };
 
   const changeOptions = () => {

@@ -9,6 +9,9 @@ function QuizPanel(props) {
   const options = props.options;
   const answerVisible = props.answerVisible;
 
+  const isTsumo = agari.isTsumo;
+  const isDealer = agari.isDealer;
+
   const [tooltipOpen, setTooltipOpen] = React.useState(false);
 
   const onSubmit = (e) => {
@@ -21,6 +24,7 @@ function QuizPanel(props) {
     var hanLabel = document.getElementById("hanAnswer");
     var fuLabel = document.getElementById("fuAnswer");
     var pointsLabel = document.getElementById("pointsAnswer");
+    var pointsLabelDealer = document.getElementById("pointsAnswerDealer");
 
     hanLabel.textContent = agari.han;
     hanLabel.className = getClassName(agari.han, hanAnswer);
@@ -28,18 +32,81 @@ function QuizPanel(props) {
     fuLabel.textContent = agari.fu;
     fuLabel.className = getClassName(agari.fu, fuAnswer);
 
-    pointsLabel.textContent = agari.pointValue;
-    pointsLabel.className = getClassName(agari.pointValue, pointsAnswer);
+    var basicPoints = 0;
+
+    switch (parseInt(agari.han)) {
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+        basicPoints = Math.min(
+          parseInt(agari.fu) * Math.pow(2, 2 + parseInt(agari.han)),
+          2000
+        );
+        break;
+      case 5:
+        basicPoints = 2000;
+        break;
+      case 6:
+      case 7:
+        basicPoints = 3000;
+        break;
+      case 8:
+      case 9:
+      case 10:
+        basicPoints = 4000;
+        break;
+      case 11:
+      case 12:
+        basicPoints = 6000;
+        break;
+      default:
+        basicPoints = 8000;
+        break;
+    }
+
+    if (isTsumo) {
+      if (isDealer) {
+        const pointValue = Math.ceil((basicPoints * 2) / 100) * 100;
+        pointsLabel.textContent = pointValue;
+        pointsLabel.className = getClassName(pointValue, pointsAnswer);
+      } else {
+        const pointsAnswerDealer = e.target.elements.pointsBoxDealer.value;
+        const pointValue = Math.ceil(basicPoints / 100) * 100;
+        const pointValueDealer = Math.ceil((basicPoints * 2) / 100) * 100;
+        pointsLabelDealer.textContent = pointValueDealer;
+        pointsLabelDealer.className = getClassName(
+          pointValueDealer,
+          pointsAnswerDealer
+        );
+        pointsLabel.textContent = pointValue;
+        pointsLabel.className = getClassName(pointValue, pointsAnswer);
+        document.getElementById("pointsBoxDealer").disabled = true;
+      }
+    } else {
+      const pointValue = parseInt(agari.pointValue);
+      pointsLabel.textContent = pointValue;
+      pointsLabel.className = getClassName(pointValue, pointsAnswer);
+    }
 
     document.getElementById("hanBox").disabled = true;
     document.getElementById("fuBox").disabled = true;
     document.getElementById("pointsBox").disabled = true;
     document.getElementById("checkAnswer").disabled = true;
 
+    const dealerBoxCorrect =
+      document.getElementById("pointsAnswerDealer") != null &&
+      document
+        .getElementById("pointsAnswerDealer")
+        .classList.contains("wrongAnswer");
+
     const isCorrect = !(
       document.getElementById("hanAnswer").classList.contains("wrongAnswer") ||
       document.getElementById("fuAnswer").classList.contains("wrongAnswer") ||
-      document.getElementById("pointsAnswer").classList.contains("wrongAnswer")
+      document
+        .getElementById("pointsAnswer")
+        .classList.contains("wrongAnswer") ||
+      dealerBoxCorrect
     );
     if (isCorrect) {
       props.addCorrectAnswer();
@@ -100,24 +167,7 @@ function QuizPanel(props) {
                 <strong id="fuAnswer" className="answerText"></strong>
               </td>
             </tr>
-            <tr>
-              <td>
-                <label>Points</label>
-              </td>
-              <td>
-                <FormGroup>
-                  <input
-                    type="text"
-                    id="pointsBox"
-                    name="points"
-                    className="quizBox"
-                  />
-                </FormGroup>
-              </td>
-              <td>
-                <strong id="pointsAnswer"></strong>
-              </td>
-            </tr>
+            {generatePointsQuiz(isTsumo, isDealer)}
           </tbody>
         </table>
         <button className="checkAnswer" id="checkAnswer">
@@ -156,6 +206,108 @@ function formatHanList(agari) {
     );
   }
   return output;
+}
+
+function generatePointsQuiz(isTsumo, isDealer) {
+  if (isTsumo) {
+    if (isDealer) {
+      //test on points from all
+      return (
+        <tr>
+          <td>
+            <label>
+              Points
+              <br />
+              (from each)
+            </label>
+          </td>
+          <td>
+            <FormGroup>
+              <input
+                type="text"
+                id="pointsBox"
+                name="points"
+                className="quizBox"
+              />
+            </FormGroup>
+          </td>
+          <td>
+            <strong id="pointsAnswer"></strong>
+          </td>
+        </tr>
+      );
+    } else {
+      return (
+        <>
+          <tr>
+            <td>
+              <label>
+                Points
+                <br />
+                (from dealer)
+              </label>
+            </td>
+            <td>
+              <FormGroup>
+                <input
+                  type="text"
+                  id="pointsBoxDealer"
+                  name="points"
+                  className="quizBox"
+                />
+              </FormGroup>
+            </td>
+            <td>
+              <strong id="pointsAnswerDealer"></strong>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label>
+                Points
+                <br />
+                (from non-dealer)
+              </label>
+            </td>
+            <td>
+              <FormGroup>
+                <input
+                  type="text"
+                  id="pointsBox"
+                  name="points"
+                  className="quizBox"
+                />
+              </FormGroup>
+            </td>
+            <td>
+              <strong id="pointsAnswer"></strong>
+            </td>
+          </tr>
+        </>
+      );
+    }
+  } else {
+    return (
+      <tr>
+        <td>
+          <label>Points</label>
+        </td>
+        <td>
+          <FormGroup>
+            <input
+              type="text"
+              id="pointsBox"
+              name="points"
+              className="quizBox"
+            />
+          </FormGroup>
+        </td>
+        <td>
+          <strong id="pointsAnswer"></strong>
+        </td>
+      </tr>
+    );
+  }
 }
 
 export { QuizPanel };
