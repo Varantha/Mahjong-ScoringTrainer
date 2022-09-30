@@ -45,13 +45,17 @@ export function tileToPath(tileString) {
  * @returns {string} - The URL of the wind tile image
  */
 export function windToPath(windName) {
-  windName = windName.toUpperCase();
-  var acceptedWinds = ["EAST", "WEST", "NORTH", "SOUTH"];
+  windName = capitalizeFirstLetter(windName);
+  var acceptedWinds = ["East", "West", "North", "South"];
   if (!acceptedWinds.includes(windName)) {
     throw new Error(windName + " is not a valid wind");
   }
   var returnPath = tilesPath + windName + ".svg";
   return returnPath;
+}
+
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 }
 
 /**
