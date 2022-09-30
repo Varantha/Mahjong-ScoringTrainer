@@ -45,8 +45,9 @@ export function tileToPath(tileString) {
  * @returns {string} - The URL of the wind tile image
  */
 export function windToPath(windName) {
-  var acceptedWinds = ["East", "West", "North", "South"];
-  if (!(windName in acceptedWinds)) {
+  windName = windName.toUpperCase();
+  var acceptedWinds = ["EAST", "WEST", "NORTH", "SOUTH"];
+  if (!acceptedWinds.includes(windName)) {
     throw new Error(windName + " is not a valid wind");
   }
   var returnPath = tilesPath + windName + ".svg";
