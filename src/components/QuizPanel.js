@@ -244,28 +244,6 @@ function generatePointsQuiz(isTsumo, isDealer) {
               <label>
                 Points
                 <br />
-                (from dealer)
-              </label>
-            </td>
-            <td>
-              <FormGroup>
-                <input
-                  type="text"
-                  id="pointsBoxDealer"
-                  name="points"
-                  className="quizBox"
-                />
-              </FormGroup>
-            </td>
-            <td>
-              <strong id="pointsAnswerDealer"></strong>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <label>
-                Points
-                <br />
                 (from non-dealer)
               </label>
             </td>
@@ -281,6 +259,28 @@ function generatePointsQuiz(isTsumo, isDealer) {
             </td>
             <td>
               <strong id="pointsAnswer"></strong>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label>
+                Points
+                <br />
+                (from dealer)
+              </label>
+            </td>
+            <td>
+              <FormGroup>
+                <input
+                  type="text"
+                  id="pointsBoxDealer"
+                  name="points"
+                  className="quizBox"
+                />
+              </FormGroup>
+            </td>
+            <td>
+              <strong id="pointsAnswerDealer"></strong>
             </td>
           </tr>
         </>
