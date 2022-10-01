@@ -36,9 +36,6 @@ function App() {
   const newHand = () => {
     let jsonMetaData, jsonData;
 
-    const dealerBoxExists =
-      document.getElementById("pointsAnswerDealer") != null;
-
     jsonMetaData = require("./data/meta.json");
     const jsonLen = jsonMetaData.length;
     const num = Math.floor(Math.random() * jsonLen);
@@ -49,33 +46,18 @@ function App() {
     setAgariData(jsonData);
     setanswerVisible(false);
 
-    var hanLabel = document.getElementById("hanAnswer");
-    var fuLabel = document.getElementById("fuAnswer");
-    var pointsLabel = document.getElementById("pointsAnswer");
-    var pointsLabelDealer = document.getElementById("pointsAnswerDealer");
-
-    hanLabel.textContent = "";
-    fuLabel.textContent = "";
-    pointsLabel.textContent = "";
-
-    var hanBox = document.getElementById("hanBox");
-    var fuBox = document.getElementById("fuBox");
-    var pointsBox = document.getElementById("pointsBox");
-    var pointsBoxDealer = document.getElementById("pointsBoxDealer");
-    hanBox.value = "";
-    fuBox.value = "";
-    pointsBox.value = "";
-
-    document.getElementById("hanBox").disabled = false;
-    document.getElementById("fuBox").disabled = false;
-    document.getElementById("pointsBox").disabled = false;
     document.getElementById("checkAnswer").disabled = false;
 
-    if (dealerBoxExists) {
-      pointsLabelDealer.textContent = "";
-      pointsBoxDealer.value = "";
-      document.getElementById("pointsBoxDealer").disabled = false;
-    }
+    const formInputs = document.querySelectorAll('#quizForm input');
+    formInputs.forEach(input => {
+      input.disabled = false;
+      input.value = ""
+    });
+
+    const formLabels = document.querySelectorAll('#quizForm strong');
+    formLabels.forEach(input => {
+      input.textContent = ""
+    });
   };
 
   const changeOptions = () => {
