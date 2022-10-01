@@ -12,7 +12,8 @@ function QuizPanel(props) {
   const isTsumo = agari.isTsumo;
   const isDealer = agari.isDealer;
 
-  const [tooltipOpen, setTooltipOpen] = React.useState(false);
+  const [hanTooltipOpen, setHanTooltipOpen] = React.useState(false);
+  const [fuTooltipOpen, setFuTooltipOpen] = React.useState(false);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -142,12 +143,12 @@ function QuizPanel(props) {
               <td>
                 <strong id="hanAnswer"></strong>
                 <Tooltip
-                  isOpen={tooltipOpen}
+                  isOpen={hanTooltipOpen}
                   className="hanTooltip"
                   placement="right"
                   target="hanAnswer"
                   toggle={() => {
-                    setTooltipOpen(!tooltipOpen);
+                    setHanTooltipOpen(!hanTooltipOpen);
                   }}
                 >
                   {formatHanList(agari)}
@@ -165,6 +166,17 @@ function QuizPanel(props) {
               </td>
               <td>
                 <strong id="fuAnswer" className="answerText"></strong>
+                <Tooltip
+                  isOpen={fuTooltipOpen}
+                  className="hanTooltip"
+                  placement="right"
+                  target="fuAnswer"
+                  toggle={() => {
+                    setFuTooltipOpen(!fuTooltipOpen);
+                  }}
+                >
+                  {formatFuList(agari)}
+                </Tooltip>
               </td>
             </tr>
             {generatePointsQuiz(isTsumo, isDealer)}
@@ -205,6 +217,18 @@ function formatHanList(agari) {
       <p>{YakuConversion.YakuIdToName(key) + ": " + value + " han"}</p>
     );
   }
+  return output;
+}
+
+function formatFuList(agari) {
+  console.log(agari.fu_details);
+  const output = [];
+  output.push(<p></p>);
+  agari.fu_details.forEach((line) => {
+    var reason = capitalizeFirstLetter(line.reason.replaceAll("_", " "));
+    var fuValue = line.fu;
+    output.push(<p>{reason + ": " + fuValue + " fu"}</p>);
+  });
   return output;
 }
 
@@ -308,6 +332,10 @@ function generatePointsQuiz(isTsumo, isDealer) {
       </tr>
     );
   }
+}
+
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 }
 
 export { QuizPanel };
