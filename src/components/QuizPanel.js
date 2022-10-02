@@ -90,25 +90,19 @@ function QuizPanel(props) {
       pointsLabel.className = getClassName(pointValue, pointsAnswer);
     }
 
-    document.getElementById("hanBox").disabled = true;
-    document.getElementById("fuBox").disabled = true;
-    document.getElementById("pointsBox").disabled = true;
+    const formInputs = document.querySelectorAll("#quizForm input");
+    formInputs.forEach((input) => {
+      input.disabled = true;
+    });
+
+    const formAnswers = document.querySelectorAll(
+      "#quizForm strong.wrongAnswer"
+    );
+
+    const isCorrect = formAnswers.length === 0;
+
     document.getElementById("checkAnswer").disabled = true;
 
-    const dealerBoxCorrect =
-      document.getElementById("pointsAnswerDealer") != null &&
-      document
-        .getElementById("pointsAnswerDealer")
-        .classList.contains("wrongAnswer");
-
-    const isCorrect = !(
-      document.getElementById("hanAnswer").classList.contains("wrongAnswer") ||
-      document.getElementById("fuAnswer").classList.contains("wrongAnswer") ||
-      document
-        .getElementById("pointsAnswer")
-        .classList.contains("wrongAnswer") ||
-      dealerBoxCorrect
-    );
     if (isCorrect) {
       props.addCorrectAnswer();
     } else {
@@ -118,7 +112,7 @@ function QuizPanel(props) {
 
   return (
     <span className="bgcolor-1 quizPanel">
-      <Form className="quizPanel" onSubmit={onSubmit}>
+      <Form id="quizForm" className="quizPanel" onSubmit={onSubmit}>
         <table>
           <tbody>
             <tr>
@@ -141,7 +135,7 @@ function QuizPanel(props) {
                 </FormGroup>
               </td>
               <td>
-                <strong id="hanAnswer"></strong>
+                <strong id="hanAnswer" className="answerText"></strong>
                 <Tooltip
                   isOpen={hanTooltipOpen}
                   className="hanTooltip"
@@ -256,7 +250,7 @@ function generatePointsQuiz(isTsumo, isDealer) {
             </FormGroup>
           </td>
           <td>
-            <strong id="pointsAnswer"></strong>
+            <strong id="pointsAnswer" className="answerText"></strong>
           </td>
         </tr>
       );
@@ -282,7 +276,7 @@ function generatePointsQuiz(isTsumo, isDealer) {
               </FormGroup>
             </td>
             <td>
-              <strong id="pointsAnswer"></strong>
+              <strong id="pointsAnswer" className="answerText"></strong>
             </td>
           </tr>
           <tr>
@@ -304,7 +298,7 @@ function generatePointsQuiz(isTsumo, isDealer) {
               </FormGroup>
             </td>
             <td>
-              <strong id="pointsAnswerDealer"></strong>
+              <strong id="pointsAnswerDealer" className="answerText"></strong>
             </td>
           </tr>
         </>
@@ -327,7 +321,7 @@ function generatePointsQuiz(isTsumo, isDealer) {
           </FormGroup>
         </td>
         <td>
-          <strong id="pointsAnswer"></strong>
+          <strong id="pointsAnswer" className="answerText"></strong>
         </td>
       </tr>
     );

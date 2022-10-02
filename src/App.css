@@ -285,6 +285,7 @@ button {
   text-align: center;
   margin: 2px 4px;
   border-radius: 5px;
+  z-index: 1000;
 }
 
 .spaced {

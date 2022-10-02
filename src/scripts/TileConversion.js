@@ -113,13 +113,10 @@ export function extractDecoratorsFromTileString(tileString) {
     calledMatrix[c_index] = 1;
     tilesWithoutSuitArr.splice(c_index, 1);
     c_index = tilesWithoutSuitArr.indexOf("c");
-    console.log(calledMatrix);
-    console.log(tilesWithoutSuitArr);
   }
 
   const outputTileString = newTileString.replaceAll("c", "");
 
   let output = { tileString: outputTileString, calledMatrix: calledMatrix };
-  console.log(output);
   return output;
 }
