@@ -215,7 +215,6 @@ function formatHanList(agari) {
 }
 
 function formatFuList(agari) {
-  console.log(agari.fu_details);
   const output = [];
   output.push(<p></p>);
   agari.fu_details.forEach((line) => {
