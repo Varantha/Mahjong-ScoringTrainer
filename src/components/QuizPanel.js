@@ -89,30 +89,19 @@ function QuizPanel(props) {
       pointsLabel.className = getClassName(pointValue, pointsAnswer);
     }
 
-    const formInputs = document.querySelectorAll('#quizForm input');
-    formInputs.forEach(input => {
+    const formInputs = document.querySelectorAll("#quizForm input");
+    formInputs.forEach((input) => {
       input.disabled = true;
-      console.log(input);
     });
+
+    const formAnswers = document.querySelectorAll(
+      "#quizForm strong.wrongAnswer"
+    );
+
+    const isCorrect = formAnswers.length === 0;
 
     document.getElementById("checkAnswer").disabled = true;
 
-    const dealerBoxCorrect =
-      document.getElementById("pointsAnswerDealer") != null &&
-      document
-        .getElementById("pointsAnswerDealer")
-        .classList.contains("wrongAnswer");
-
-    const isCorrect = !(
-      document.getElementById("hanAnswer").classList.contains("wrongAnswer") ||
-      document.getElementById("fuAnswer").classList.contains("wrongAnswer") ||
-      document
-        .getElementById("pointsAnswer")
-        .classList.contains("wrongAnswer") ||
-      dealerBoxCorrect
-    );
-
-    
     if (isCorrect) {
       props.addCorrectAnswer();
     } else {
