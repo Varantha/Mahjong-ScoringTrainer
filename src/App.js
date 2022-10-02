@@ -48,15 +48,15 @@ function App() {
 
     document.getElementById("checkAnswer").disabled = false;
 
-    const formInputs = document.querySelectorAll('#quizForm input');
-    formInputs.forEach(input => {
+    const formInputs = document.querySelectorAll("#quizForm input");
+    formInputs.forEach((input) => {
       input.disabled = false;
-      input.value = ""
+      input.value = "";
     });
 
-    const formLabels = document.querySelectorAll('#quizForm strong');
-    formLabels.forEach(input => {
-      input.textContent = ""
+    const formAnswers = document.querySelectorAll("#quizForm strong");
+    formAnswers.forEach((input) => {
+      input.textContent = "";
     });
   };
 
