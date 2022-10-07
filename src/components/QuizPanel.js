@@ -202,104 +202,59 @@ function formatHanList(agari) {
   return output;
 }
 
+function GenerateRow(props) {
+  return (
+    <tr>
+      <td>
+        <label>{props.label}</label>
+      </td>
+      <td>
+        <FormGroup>
+          <input
+            type="text"
+            id={props.inputId}
+            name="points"
+            className="quizBox"
+          />
+        </FormGroup>
+      </td>
+      <td>
+        <strong id={props.outputId} className="answerText"></strong>
+      </td>
+    </tr>
+  );
+}
+
 function generatePointsQuiz(isTsumo, isDealer) {
   if (isTsumo) {
     if (isDealer) {
       //test on points from all
       return (
-        <tr>
-          <td>
-            <label>
-              Points
-              <br />
-              (from each)
-            </label>
-          </td>
-          <td>
-            <FormGroup>
-              <input
-                type="text"
-                id="pointsBox"
-                name="points"
-                className="quizBox"
-              />
-            </FormGroup>
-          </td>
-          <td>
-            <strong id="pointsAnswer" className="answerText"></strong>
-          </td>
-        </tr>
+        <GenerateRow
+          label={["Points", <br />, "(from each)"]}
+          inputId="pointsBox"
+          outputId="pointsAnswer"
+        />
       );
     } else {
       return (
         <>
-          <tr>
-            <td>
-              <label>
-                Points
-                <br />
-                (from non-dealer)
-              </label>
-            </td>
-            <td>
-              <FormGroup>
-                <input
-                  type="text"
-                  id="pointsBox"
-                  name="points"
-                  className="quizBox"
-                />
-              </FormGroup>
-            </td>
-            <td>
-              <strong id="pointsAnswer" className="answerText"></strong>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <label>
-                Points
-                <br />
-                (from dealer)
-              </label>
-            </td>
-            <td>
-              <FormGroup>
-                <input
-                  type="text"
-                  id="pointsBoxDealer"
-                  name="points"
-                  className="quizBox"
-                />
-              </FormGroup>
-            </td>
-            <td>
-              <strong id="pointsAnswerDealer" className="answerText"></strong>
-            </td>
-          </tr>
+          <GenerateRow
+            label={["Points", <br />, "(from non-dealer)"]}
+            inputId="pointsBox"
+            outputId="pointsAnswer"
+          />
+          <GenerateRow
+            label={["Points", <br />, "(from dealer)"]}
+            inputId="pointsBoxDealer"
+            outputId="pointsAnswerDealer"
+          />
         </>
       );
     }
   } else {
     return (
-      <tr>
-        <td>
-          <label>Points</label>
-        </td>
-        <td>
-          <FormGroup>
-            <input
-              type="text"
-              id="pointsBox"
-              name="points"
-              className="quizBox"
-            />
-          </FormGroup>
-        </td>
-        <td>
-          <strong id="pointsAnswer" className="answerText"></strong>
-        </td>
-      </tr>
+      <GenerateRow label="Points" inputId="pointsBox" outputId="pointsAnswer" />
     );
   }
 }
