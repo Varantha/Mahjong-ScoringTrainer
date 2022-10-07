@@ -213,7 +213,7 @@ function GenerateRow(props) {
           <input
             type="text"
             id={props.inputId}
-            name="points"
+            name={props.name}
             className="quizBox"
           />
         </FormGroup>
@@ -226,37 +226,48 @@ function GenerateRow(props) {
 }
 
 function generatePointsQuiz(isTsumo, isDealer) {
-  if (isTsumo) {
-    if (isDealer) {
-      //test on points from all
-      return (
-        <GenerateRow
-          label={["Points", <br />, "(from each)"]}
-          inputId="pointsBox"
-          outputId="pointsAnswer"
-        />
-      );
-    } else {
-      return (
-        <>
-          <GenerateRow
-            label={["Points", <br />, "(from non-dealer)"]}
-            inputId="pointsBox"
-            outputId="pointsAnswer"
-          />
-          <GenerateRow
-            label={["Points", <br />, "(from dealer)"]}
-            inputId="pointsBoxDealer"
-            outputId="pointsAnswerDealer"
-          />
-        </>
-      );
-    }
-  } else {
-    return (
-      <GenerateRow label="Points" inputId="pointsBox" outputId="pointsAnswer" />
+  const pointQuizRows = [];
+  if (isTsumo && isDealer) {
+    pointQuizRows.push(
+      <GenerateRow
+        label={["Points", <br />, "(from each)"]}
+        inputId="pointsBox"
+        outputId="pointsAnswer"
+        name="points"
+      />
     );
   }
+
+  if (isTsumo && !isDealer) {
+    pointQuizRows.push(
+      <>
+        <GenerateRow
+          label={["Points", <br />, "(from non-dealer)"]}
+          inputId="pointsBox"
+          outputId="pointsAnswer"
+          name="points"
+        />
+        <GenerateRow
+          label={["Points", <br />, "(from dealer)"]}
+          inputId="pointsBoxDealer"
+          outputId="pointsAnswerDealer"
+          name="pointsDealer"
+        />
+      </>
+    );
+  }
+
+  if (!isTsumo) {
+    pointQuizRows.push(
+      <GenerateRow
+        label="Points"
+        inputId="pointsBox"
+        outputId="pointsAnswer"
+        name="points"
+      />
+    );
+  }
+  return pointQuizRows;
 }
 
 export { QuizPanel };
