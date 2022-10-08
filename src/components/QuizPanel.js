@@ -1,13 +1,10 @@
 import React from "react";
 import { FormGroup, Form, Tooltip } from "reactstrap";
-import { Answer } from "./Answer";
 
 import * as YakuConversion from "../scripts/YakuConversion";
 
 function QuizPanel(props) {
   const agari = props.agari;
-  const options = props.options;
-  const answerVisible = props.answerVisible;
 
   const isTsumo = agari.isTsumo;
   const isDealer = agari.isDealer;
@@ -17,7 +14,6 @@ function QuizPanel(props) {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    //props.showAnswer();
     const hanAnswer = e.target.elements.hanBox.value;
     const fuAnswer = e.target.elements.fuBox.value;
     const pointsAnswer = e.target.elements.pointsBox.value;
@@ -120,65 +116,48 @@ function QuizPanel(props) {
               <th>Your Answer</th>
               <th>Real Answer</th>
             </tr>
-            <tr>
-              <td>
-                <label>Han</label>
-              </td>
-              <td>
-                <FormGroup>
-                  <input
-                    type="text"
-                    id="hanBox"
-                    name="han"
-                    className="quizBox"
-                  />
-                </FormGroup>
-              </td>
-              <td>
-                <strong id="hanAnswer" className="answerText"></strong>
-                <Tooltip
-                  isOpen={hanTooltipOpen}
-                  className="hanTooltip"
-                  placement="right"
-                  target="hanAnswer"
-                  toggle={() => {
-                    setHanTooltipOpen(!hanTooltipOpen);
-                  }}
-                >
-                  {formatHanList(agari)}
-                </Tooltip>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <label>Fu</label>
-              </td>
-              <td>
-                <FormGroup>
-                  <input type="text" id="fuBox" name="fu" className="quizBox" />
-                </FormGroup>
-              </td>
-              <td>
-                <strong id="fuAnswer" className="answerText"></strong>
-                <Tooltip
-                  isOpen={fuTooltipOpen}
-                  className="hanTooltip"
-                  placement="right"
-                  target="fuAnswer"
-                  toggle={() => {
-                    setFuTooltipOpen(!fuTooltipOpen);
-                  }}
-                >
-                  {formatFuList(agari)}
-                </Tooltip>
-              </td>
-            </tr>
+            <GenerateRow
+              label={"Han"}
+              inputId="hanBox"
+              outputId="hanAnswer"
+              name="han"
+            />
+            <GenerateRow
+              label={"Fu"}
+              inputId="fuBox"
+              outputId="fuAnswer"
+              name="fu"
+            />
+            <Tooltip
+              isOpen={hanTooltipOpen}
+              className="hanTooltip"
+              placement="right"
+              target="hanAnswer"
+              toggle={() => {
+                setHanTooltipOpen(!hanTooltipOpen);
+              }}
+            >
+              {formatHanList(agari)}
+            </Tooltip>
+            <Tooltip
+              isOpen={fuTooltipOpen}
+              className="hanTooltip"
+              placement="right"
+              target="fuAnswer"
+              toggle={() => {
+                setFuTooltipOpen(!fuTooltipOpen);
+              }}
+            >
+              {formatFuList(agari)}
+            </Tooltip>
             {generatePointsQuiz(isTsumo, isDealer)}
           </tbody>
         </table>
+
         <button className="checkAnswer" id="checkAnswer">
           Check Answer
         </button>
+
         <button
           onClick={props.newHand}
           className="newHand"
@@ -188,7 +167,6 @@ function QuizPanel(props) {
           New Hand
         </button>
       </Form>
-      <Answer agari={agari} options={options} showAnswer={answerVisible} />
     </span>
   );
 }
@@ -214,6 +192,29 @@ function formatHanList(agari) {
   return output;
 }
 
+function GenerateRow(props) {
+  return (
+    <tr>
+      <td>
+        <label>{props.label}</label>
+      </td>
+      <td>
+        <FormGroup>
+          <input
+            type="text"
+            id={props.inputId}
+            name={props.name}
+            className="quizBox"
+          />
+        </FormGroup>
+      </td>
+      <td>
+        <strong id={props.outputId} className="answerText"></strong>
+      </td>
+    </tr>
+  );
+}
+
 function formatFuList(agari) {
   const output = [];
   output.push(<p></p>);
@@ -226,105 +227,48 @@ function formatFuList(agari) {
 }
 
 function generatePointsQuiz(isTsumo, isDealer) {
-  if (isTsumo) {
-    if (isDealer) {
-      //test on points from all
-      return (
-        <tr>
-          <td>
-            <label>
-              Points
-              <br />
-              (from each)
-            </label>
-          </td>
-          <td>
-            <FormGroup>
-              <input
-                type="text"
-                id="pointsBox"
-                name="points"
-                className="quizBox"
-              />
-            </FormGroup>
-          </td>
-          <td>
-            <strong id="pointsAnswer" className="answerText"></strong>
-          </td>
-        </tr>
-      );
-    } else {
-      return (
-        <>
-          <tr>
-            <td>
-              <label>
-                Points
-                <br />
-                (from non-dealer)
-              </label>
-            </td>
-            <td>
-              <FormGroup>
-                <input
-                  type="text"
-                  id="pointsBox"
-                  name="points"
-                  className="quizBox"
-                />
-              </FormGroup>
-            </td>
-            <td>
-              <strong id="pointsAnswer" className="answerText"></strong>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <label>
-                Points
-                <br />
-                (from dealer)
-              </label>
-            </td>
-            <td>
-              <FormGroup>
-                <input
-                  type="text"
-                  id="pointsBoxDealer"
-                  name="points"
-                  className="quizBox"
-                />
-              </FormGroup>
-            </td>
-            <td>
-              <strong id="pointsAnswerDealer" className="answerText"></strong>
-            </td>
-          </tr>
-        </>
-      );
-    }
-  } else {
-    return (
-      <tr>
-        <td>
-          <label>Points</label>
-        </td>
-        <td>
-          <FormGroup>
-            <input
-              type="text"
-              id="pointsBox"
-              name="points"
-              className="quizBox"
-            />
-          </FormGroup>
-        </td>
-        <td>
-          <strong id="pointsAnswer" className="answerText"></strong>
-        </td>
-      </tr>
+  const pointQuizRows = [];
+  if (isTsumo && isDealer) {
+    pointQuizRows.push(
+      <GenerateRow
+        label={["Points", <br />, "(from each)"]}
+        inputId="pointsBox"
+        outputId="pointsAnswer"
+        name="points"
+      />
     );
   }
+
+  if (isTsumo && !isDealer) {
+    pointQuizRows.push(
+      <>
+        <GenerateRow
+          label={["Points", <br />, "(from non-dealer)"]}
+          inputId="pointsBox"
+          outputId="pointsAnswer"
+          name="points"
+        />
+        <GenerateRow
+          label={["Points", <br />, "(from dealer)"]}
+          inputId="pointsBoxDealer"
+          outputId="pointsAnswerDealer"
+          name="pointsDealer"
+        />
+      </>
+    );
+  }
+
+  if (!isTsumo) {
+    pointQuizRows.push(
+      <GenerateRow
+        label="Points"
+        inputId="pointsBox"
+        outputId="pointsAnswer"
+        name="points"
+      />
+    );
+  }
+  return pointQuizRows;
 }
 
 function capitalizeFirstLetter(string) {
