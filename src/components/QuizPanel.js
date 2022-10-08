@@ -120,65 +120,48 @@ function QuizPanel(props) {
               <th>Your Answer</th>
               <th>Real Answer</th>
             </tr>
-            <tr>
-              <td>
-                <label>Han</label>
-              </td>
-              <td>
-                <FormGroup>
-                  <input
-                    type="text"
-                    id="hanBox"
-                    name="han"
-                    className="quizBox"
-                  />
-                </FormGroup>
-              </td>
-              <td>
-                <strong id="hanAnswer" className="answerText"></strong>
-                <Tooltip
-                  isOpen={hanTooltipOpen}
-                  className="hanTooltip"
-                  placement="right"
-                  target="hanAnswer"
-                  toggle={() => {
-                    setHanTooltipOpen(!hanTooltipOpen);
-                  }}
-                >
-                  {formatHanList(agari)}
-                </Tooltip>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <label>Fu</label>
-              </td>
-              <td>
-                <FormGroup>
-                  <input type="text" id="fuBox" name="fu" className="quizBox" />
-                </FormGroup>
-              </td>
-              <td>
-                <strong id="fuAnswer" className="answerText"></strong>
-                <Tooltip
-                  isOpen={fuTooltipOpen}
-                  className="hanTooltip"
-                  placement="right"
-                  target="fuAnswer"
-                  toggle={() => {
-                    setFuTooltipOpen(!fuTooltipOpen);
-                  }}
-                >
-                  {formatFuList(agari)}
-                </Tooltip>
-              </td>
-            </tr>
+            <GenerateRow
+              label={"Han"}
+              inputId="hanBox"
+              outputId="hanAnswer"
+              name="han"
+            />
+            <GenerateRow
+              label={"Fu"}
+              inputId="fuBox"
+              outputId="fuAnswer"
+              name="fu"
+            />
+            <Tooltip
+              isOpen={hanTooltipOpen}
+              className="hanTooltip"
+              placement="right"
+              target="hanAnswer"
+              toggle={() => {
+                setHanTooltipOpen(!hanTooltipOpen);
+              }}
+            >
+              {formatHanList(agari)}
+            </Tooltip>
+            <Tooltip
+              isOpen={fuTooltipOpen}
+              className="hanTooltip"
+              placement="right"
+              target="fuAnswer"
+              toggle={() => {
+                setFuTooltipOpen(!fuTooltipOpen);
+              }}
+            >
+              {formatFuList(agari)}
+            </Tooltip>
             {generatePointsQuiz(isTsumo, isDealer)}
           </tbody>
         </table>
+
         <button className="checkAnswer" id="checkAnswer">
           Check Answer
         </button>
+
         <button
           onClick={props.newHand}
           className="newHand"
@@ -235,7 +218,7 @@ function GenerateRow(props) {
       </td>
     </tr>
   );
-  }
+}
 
 function formatFuList(agari) {
   const output = [];

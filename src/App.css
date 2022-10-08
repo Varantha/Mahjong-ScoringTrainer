@@ -130,7 +130,6 @@
   display: block;
   margin: auto;
   text-align: center;
-  vertical-align: middle;
   line-height: 80px;
   color: #d8d4f2;
 }
@@ -158,7 +157,6 @@
   padding-left: 20px;
   padding-right: 20px;
   padding-bottom: 50px;
-  justify: center;
   border-radius: 20px;
   border: 2px;
 }
