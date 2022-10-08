@@ -1,13 +1,10 @@
 import React from "react";
 import { FormGroup, Form, Tooltip } from "reactstrap";
-import { Answer } from "./Answer";
 
 import * as YakuConversion from "../scripts/YakuConversion";
 
 function QuizPanel(props) {
   const agari = props.agari;
-  const options = props.options;
-  const answerVisible = props.answerVisible;
 
   const isTsumo = agari.isTsumo;
   const isDealer = agari.isDealer;
@@ -17,7 +14,6 @@ function QuizPanel(props) {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    //props.showAnswer();
     const hanAnswer = e.target.elements.hanBox.value;
     const fuAnswer = e.target.elements.fuBox.value;
     const pointsAnswer = e.target.elements.pointsBox.value;
@@ -171,7 +167,6 @@ function QuizPanel(props) {
           New Hand
         </button>
       </Form>
-      <Answer agari={agari} options={options} showAnswer={answerVisible} />
     </span>
   );
 }
