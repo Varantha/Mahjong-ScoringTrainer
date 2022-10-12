@@ -9,87 +9,34 @@ function QuizPanel(props) {
   const isTsumo = agari.isTsumo;
   const isDealer = agari.isDealer;
 
-  const [hanTooltipOpen, setHanTooltipOpen] = React.useState(false);
-  const [fuTooltipOpen, setFuTooltipOpen] = React.useState(false);
-
   const onSubmit = (e) => {
     e.preventDefault();
-    const hanAnswer = e.target.elements.hanBox.value;
-    const fuAnswer = e.target.elements.fuBox.value;
-    const pointsAnswer = e.target.elements.pointsBox.value;
 
-    var hanLabel = document.getElementById("hanAnswer");
-    var fuLabel = document.getElementById("fuAnswer");
-    var pointsLabel = document.getElementById("pointsAnswer");
-    var pointsLabelDealer = document.getElementById("pointsAnswerDealer");
+    const pointCalculations = calculatePoints(agari);
 
-    hanLabel.textContent = agari.han;
-    hanLabel.className = getClassName(agari.han, hanAnswer);
+    const pointValue = pointCalculations.pointValue;
+    const pointValueDealer = pointCalculations.pointValueDealer;
 
-    fuLabel.textContent = agari.fu;
-    fuLabel.className = getClassName(agari.fu, fuAnswer);
+    const rowMapping = {
+      hanAnswer: agari.han,
+      fuAnswer: agari.fu,
+      pointsAnswer: pointValue,
+      pointsAnswerDealer: pointValueDealer,
+    }; //map the output ids to the correct answers for each of them
 
-    var basicPoints = 0;
+    const quizBox = document.querySelectorAll("#quizForm tr");
 
-    switch (parseInt(agari.han)) {
-      case 1:
-      case 2:
-      case 3:
-      case 4:
-        basicPoints = Math.min(
-          parseInt(agari.fu) * Math.pow(2, 2 + parseInt(agari.han)),
-          2000
-        );
-        break;
-      case 5:
-        basicPoints = 2000;
-        break;
-      case 6:
-      case 7:
-        basicPoints = 3000;
-        break;
-      case 8:
-      case 9:
-      case 10:
-        basicPoints = 4000;
-        break;
-      case 11:
-      case 12:
-        basicPoints = 6000;
-        break;
-      default:
-        basicPoints = 8000;
-        break;
-    }
+    for (let i = 1; i < quizBox.length; i++) {
+      const row = quizBox[i];
 
-    if (isTsumo) {
-      if (isDealer) {
-        const pointValue = Math.ceil((basicPoints * 2) / 100) * 100;
-        pointsLabel.textContent = pointValue;
-        pointsLabel.className = getClassName(pointValue, pointsAnswer);
-      } else {
-        const pointsAnswerDealer = e.target.elements.pointsBoxDealer.value;
-        const pointValue = Math.ceil(basicPoints / 100) * 100;
-        const pointValueDealer = Math.ceil((basicPoints * 2) / 100) * 100;
-        pointsLabelDealer.textContent = pointValueDealer;
-        pointsLabelDealer.className = getClassName(
-          pointValueDealer,
-          pointsAnswerDealer
-        );
-        pointsLabel.textContent = pointValue;
-        pointsLabel.className = getClassName(pointValue, pointsAnswer);
-        document.getElementById("pointsBoxDealer").disabled = true;
-      }
-    } else {
-      const pointValue = parseInt(agari.pointValue);
-      pointsLabel.textContent = pointValue;
-      pointsLabel.className = getClassName(pointValue, pointsAnswer);
-    }
+      const input = row.querySelectorAll("input")[0];
+      const output = row.querySelectorAll("strong")[0];
+      const answer = rowMapping[output.id];
 
-    const formInputs = document.querySelectorAll("#quizForm input");
-    formInputs.forEach((input) => {
+      output.textContent = answer;
+      output.className = getClassName(answer, input.value);
       input.disabled = true;
-    });
+    }
 
     const formAnswers = document.querySelectorAll(
       "#quizForm strong.wrongAnswer"
@@ -116,40 +63,11 @@ function QuizPanel(props) {
               <th>Your Answer</th>
               <th>Real Answer</th>
             </tr>
-            <GenerateRow
-              label={"Han"}
-              inputId="hanBox"
-              outputId="hanAnswer"
-              name="han"
-            />
-            <GenerateRow
-              label={"Fu"}
-              inputId="fuBox"
-              outputId="fuAnswer"
-              name="fu"
-            />
-            <Tooltip
-              isOpen={hanTooltipOpen}
-              className="hanTooltip"
-              placement="right"
-              target="hanAnswer"
-              toggle={() => {
-                setHanTooltipOpen(!hanTooltipOpen);
-              }}
-            >
-              {formatHanList(agari)}
-            </Tooltip>
-            <Tooltip
-              isOpen={fuTooltipOpen}
-              className="hanTooltip"
-              placement="right"
-              target="fuAnswer"
-              toggle={() => {
-                setFuTooltipOpen(!fuTooltipOpen);
-              }}
-            >
-              {formatFuList(agari)}
-            </Tooltip>
+            {generateHanAndFuQuiz(
+              props.options.testHan,
+              props.options.testFu,
+              agari
+            )}
             {generatePointsQuiz(isTsumo, isDealer)}
           </tbody>
         </table>
@@ -181,19 +99,10 @@ function getClassName(agariValue, answerValue) {
   }
 }
 
-function formatHanList(agari) {
-  const output = [];
-  output.push(<p></p>);
-  for (const [key, value] of Object.entries(agari.yakusAchieved)) {
-    output.push(
-      <p>{YakuConversion.YakuIdToName(key) + ": " + value + " han"}</p>
-    );
-  }
-  return output;
-}
-
 function GenerateRow(props) {
-  return (
+  const [TooltipOpen, setTooltipOpen] = React.useState(false);
+  const rowData = [];
+  rowData.push(
     <tr>
       <td>
         <label>{props.label}</label>
@@ -213,6 +122,24 @@ function GenerateRow(props) {
       </td>
     </tr>
   );
+
+  if (props.tooltipContent !== undefined) {
+    rowData.push(
+      <Tooltip
+        isOpen={TooltipOpen}
+        className="hanTooltip"
+        placement="right"
+        target={props.outputId}
+        toggle={() => {
+          setTooltipOpen(!TooltipOpen);
+        }}
+      >
+        {props.tooltipContent}
+      </Tooltip>
+    );
+  }
+
+  return rowData;
 }
 
 function formatFuList(agari) {
@@ -224,6 +151,45 @@ function formatFuList(agari) {
     output.push(<p>{reason + ": " + fuValue + " fu"}</p>);
   });
   return output;
+}
+
+function formatHanList(agari) {
+  const output = [];
+  output.push(<p></p>);
+  for (const [key, value] of Object.entries(agari.yakusAchieved)) {
+    output.push(
+      <p>{YakuConversion.YakuIdToName(key) + ": " + value + " han"}</p>
+    );
+  }
+  return output;
+}
+
+function generateHanAndFuQuiz(isHanQuiz, isFuQuiz, agari) {
+  const hanAndFuQuizRows = [];
+
+  if (isHanQuiz) {
+    hanAndFuQuizRows.push(
+      <GenerateRow
+        label={"Han"}
+        inputId="hanBox"
+        outputId="hanAnswer"
+        name="han"
+        tooltipContent={formatHanList(agari)}
+      />
+    );
+  }
+  if (isFuQuiz) {
+    hanAndFuQuizRows.push(
+      <GenerateRow
+        label={"Fu"}
+        inputId="fuBox"
+        outputId="fuAnswer"
+        name="fu"
+        tooltipContent={formatFuList(agari)}
+      />
+    );
+  }
+  return hanAndFuQuizRows;
 }
 
 function generatePointsQuiz(isTsumo, isDealer) {
@@ -273,6 +239,62 @@ function generatePointsQuiz(isTsumo, isDealer) {
 
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+}
+
+function calculatePoints(agari) {
+  var basicPoints,
+    pointValue,
+    pointValueDealer = 0;
+
+  const isTsumo = agari.isTsumo;
+  const isDealer = agari.isDealer;
+
+  switch (parseInt(agari.han)) {
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+      basicPoints = Math.min(
+        parseInt(agari.fu) * Math.pow(2, 2 + parseInt(agari.han)),
+        2000
+      );
+      break;
+    case 5:
+      basicPoints = 2000;
+      break;
+    case 6:
+    case 7:
+      basicPoints = 3000;
+      break;
+    case 8:
+    case 9:
+    case 10:
+      basicPoints = 4000;
+      break;
+    case 11:
+    case 12:
+      basicPoints = 6000;
+      break;
+    default:
+      basicPoints = 8000;
+      break;
+  }
+
+  if (isTsumo) {
+    if (isDealer) {
+      pointValue = Math.ceil((basicPoints * 2) / 100) * 100;
+    } else {
+      pointValue = Math.ceil(basicPoints / 100) * 100;
+      pointValueDealer = Math.ceil((basicPoints * 2) / 100) * 100;
+    }
+  } else {
+    pointValue = parseInt(agari.pointValue);
+  }
+
+  return {
+    pointValue: pointValue,
+    pointValueDealer: pointValueDealer,
+  };
 }
 
 export { QuizPanel };

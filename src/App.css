@@ -42,14 +42,9 @@
   border-radius: 20%;
 }
 
-.OptionsMenu {
-  max-width: 500px;
-}
-
 .OptionsButton {
-  position: absolute;
-  left: 25px;
-  top: 20px;
+  position: fixed;
+  left: 0px;
 }
 
 .meld {
@@ -297,4 +292,35 @@ button {
 
 .tooltip [class$="arrow"] {
   opacity: 0%;
+}
+
+.OptionsMenu {
+  color: #5bc0be;
+  width: 660px;
+  min-width: 660px;
+  position: fixed;
+  background-color: #54457f;
+  padding-top: 10px;
+  left: 0px;
+  top: 50px;
+  display: inline-block;
+  font-family: "Lato", sans-serif;
+}
+
+.menuOption {
+  display: inline-block;
+  text-align: center;
+  margin: 10px;
+  min-width: 200px;
+  font-size: 17px !important;
+}
+
+.menuOption.small {
+  width: 200px;
+  min-width: 200px;
+}
+
+.menuOption.large {
+  width: 600px;
+  min-width: 600px;
 }
