@@ -22,7 +22,12 @@ function App() {
   const [agari, setAgariData] = useState(
     require("./data/" + jsonMetaData[num])
   );
-  const [options, setOptions] = useState({ pointSticks: false });
+  const [options, setOptions] = useState({
+    pointSticks: false,
+    testHan: true,
+    testFu: true,
+  });
+
   const [answerVisible, setanswerVisible] = useState(false);
   const [optionsOpen, setOptionsOpen] = useState(false);
   const [correctAnswers, setCorrectAnswers] = useState(0);
@@ -60,8 +65,10 @@ function App() {
     });
   };
 
-  const changeOptions = () => {
-    setOptions({ pointSticks: !options.pointSticks });
+  const changeOptions = (e) => {
+    setOptions(outputOptions());
+    newHand();
+    //setRerender(!rerender);
   };
 
   return (
@@ -70,7 +77,7 @@ function App() {
         correctAnswers={correctAnswers}
         wrongAnswers={wrongAnswers}
       ></WinRate>
-      <button onClick={toggle} className="OptionsButton" hidden>
+      <button onClick={toggle} className="OptionsButton">
         <img src={logo} height="30" alt="menu"></img>
       </button>
       <OptionsMenu
@@ -95,6 +102,18 @@ function App() {
       />
     </div>
   );
+}
+
+function outputOptions() {
+  const MenuOptions = document.querySelectorAll(
+    "div.OptionsMenu.collapse.show > span"
+  );
+  let options = {};
+  MenuOptions.forEach((option) => {
+    options[option.children[0].children[0].id] =
+      option.children[0].children[0].checked;
+  });
+  return options;
 }
 
 export default App;
