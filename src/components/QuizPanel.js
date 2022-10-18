@@ -192,7 +192,7 @@ function generateHanAndFuQuiz(isHanQuiz, isFuQuiz, agari) {
   return hanAndFuQuizRows;
 }
 
-function generatePointsQuiz(isTsumo, isDealer) {
+function generatePointsQuiz(isTsumo, isDealer, pointsCalculations) {
   const pointQuizRows = [];
   if (isTsumo && isDealer) {
     pointQuizRows.push(
@@ -242,6 +242,8 @@ function capitalizeFirstLetter(string) {
 }
 
 function calculatePoints(agari) {
+  const calculationSteps = [];
+
   var basicPoints,
     pointValue,
     pointValueDealer = 0;
@@ -258,6 +260,18 @@ function calculatePoints(agari) {
         parseInt(agari.fu) * Math.pow(2, 2 + parseInt(agari.han)),
         2000
       );
+      calculationSteps.push(<p>{agari.han + " han"}</p>);
+      calculationSteps.push(<p>{agari.fu + " fu"}</p>);
+      calculationSteps.push(
+        <p>
+          <strong>{agari.fu}</strong> x 2
+          <sup>
+            {"2 x "}
+            <strong>{agari.han}</strong>
+          </sup>
+        </p>
+      );
+      calculationSteps.push(<p>{"basic points: " + basicPoints}</p>);
       break;
     case 5:
       basicPoints = 2000;
@@ -294,6 +308,7 @@ function calculatePoints(agari) {
   return {
     pointValue: pointValue,
     pointValueDealer: pointValueDealer,
+    calculationSteps: calculationSteps,
   };
 }
 

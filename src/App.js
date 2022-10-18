@@ -84,6 +84,7 @@ function App() {
         options={options}
         menuOpen={optionsOpen}
         changeOptions={changeOptions}
+        setOptionsOpen={setOptionsOpen}
       />
       <Row>
         <TilePanel agari={agari} />
