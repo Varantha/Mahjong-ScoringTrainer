@@ -9,10 +9,13 @@ function QuizPanel(props) {
   const isTsumo = agari.isTsumo;
   const isDealer = agari.isDealer;
 
+  const pointCalculations = calculatePoints(agari);
+
+  const pointsCalcSteps = pointCalculations.calculationSteps;
+  const pointsCalcStepsDealer = pointCalculations.pointsCalculationsDealer;
+
   const onSubmit = (e) => {
     e.preventDefault();
-
-    const pointCalculations = calculatePoints(agari);
 
     const pointValue = pointCalculations.pointValue;
     const pointValueDealer = pointCalculations.pointValueDealer;
@@ -68,7 +71,12 @@ function QuizPanel(props) {
               props.options.testFu,
               agari
             )}
-            {generatePointsQuiz(isTsumo, isDealer)}
+            {generatePointsQuiz(
+              isTsumo,
+              isDealer,
+              pointsCalcSteps,
+              pointsCalcStepsDealer
+            )}
           </tbody>
         </table>
 
@@ -192,7 +200,12 @@ function generateHanAndFuQuiz(isHanQuiz, isFuQuiz, agari) {
   return hanAndFuQuizRows;
 }
 
-function generatePointsQuiz(isTsumo, isDealer, pointsCalculations) {
+function generatePointsQuiz(
+  isTsumo,
+  isDealer,
+  pointsCalculations,
+  pointsCalculationsDealer
+) {
   const pointQuizRows = [];
   if (isTsumo && isDealer) {
     pointQuizRows.push(
@@ -201,6 +214,7 @@ function generatePointsQuiz(isTsumo, isDealer, pointsCalculations) {
         inputId="pointsBox"
         outputId="pointsAnswer"
         name="points"
+        tooltipContent={pointsCalculations}
       />
     );
   }
@@ -213,12 +227,14 @@ function generatePointsQuiz(isTsumo, isDealer, pointsCalculations) {
           inputId="pointsBox"
           outputId="pointsAnswer"
           name="points"
+          tooltipContent={pointsCalculations}
         />
         <GenerateRow
           label={["Points", <br />, "(from dealer)"]}
           inputId="pointsBoxDealer"
           outputId="pointsAnswerDealer"
           name="pointsDealer"
+          tooltipContent={pointsCalculationsDealer}
         />
       </>
     );
@@ -231,6 +247,7 @@ function generatePointsQuiz(isTsumo, isDealer, pointsCalculations) {
         inputId="pointsBox"
         outputId="pointsAnswer"
         name="points"
+        tooltipContent={pointsCalculations}
       />
     );
   }
@@ -243,6 +260,7 @@ function capitalizeFirstLetter(string) {
 
 function calculatePoints(agari) {
   const calculationSteps = [];
+  var calculationStepsDealer = [];
 
   var basicPoints,
     pointValue,
@@ -251,6 +269,7 @@ function calculatePoints(agari) {
   const isTsumo = agari.isTsumo;
   const isDealer = agari.isDealer;
 
+  calculationSteps.push(<p>{agari.han + " han"}</p>);
   switch (parseInt(agari.han)) {
     case 1:
     case 2:
@@ -260,18 +279,22 @@ function calculatePoints(agari) {
         parseInt(agari.fu) * Math.pow(2, 2 + parseInt(agari.han)),
         2000
       );
-      calculationSteps.push(<p>{agari.han + " han"}</p>);
       calculationSteps.push(<p>{agari.fu + " fu"}</p>);
       calculationSteps.push(
         <p>
-          <strong>{agari.fu}</strong> x 2
+          Basic points: <strong>{agari.fu}</strong> x 2
           <sup>
-            {"2 x "}
+            {"2 + "}
             <strong>{agari.han}</strong>
           </sup>
         </p>
       );
-      calculationSteps.push(<p>{"basic points: " + basicPoints}</p>);
+      calculationSteps.push(
+        <p>
+          Basic points: <strong>{agari.fu}</strong> x{" "}
+          {Math.pow(2, 2 + agari.han)}
+        </p>
+      );
       break;
     case 5:
       basicPoints = 2000;
@@ -294,21 +317,44 @@ function calculatePoints(agari) {
       break;
   }
 
+  calculationSteps.push(<p>{"Basic points: " + basicPoints}</p>);
+  calculationStepsDealer = [].concat(calculationSteps);
+
   if (isTsumo) {
     if (isDealer) {
       pointValue = Math.ceil((basicPoints * 2) / 100) * 100;
+
+      calculationSteps.push(<p>{"Dealer & Tsumo: " + basicPoints + " x 2"}</p>);
+      calculationSteps.push(<p>{"Round up: " + basicPoints * 2}</p>);
     } else {
       pointValue = Math.ceil(basicPoints / 100) * 100;
       pointValueDealer = Math.ceil((basicPoints * 2) / 100) * 100;
+
+      calculationStepsDealer.push(
+        <p>{"Tsumo (dealer): " + basicPoints + " x 2"}</p>
+      );
+      if (basicPoints * 2 !== pointValueDealer) {
+        calculationStepsDealer.push(<p>{"Round up: " + basicPoints * 2}</p>);
+      }
+
+      calculationSteps.push(<p>{"Tsumo (non-dealer): " + basicPoints}</p>);
+
+      if (basicPoints !== pointValue) {
+        calculationSteps.push(<p>{"Round up: " + basicPoints}</p>);
+      }
     }
   } else {
     pointValue = parseInt(agari.pointValue);
+    if (isDealer) {
+    } else {
+    }
   }
 
   return {
     pointValue: pointValue,
     pointValueDealer: pointValueDealer,
     calculationSteps: calculationSteps,
+    pointsCalculationsDealer: calculationStepsDealer,
   };
 }
 
