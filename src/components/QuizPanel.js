@@ -259,8 +259,8 @@ function capitalizeFirstLetter(string) {
 }
 
 function calculatePoints(agari) {
-  const calculationSteps = [];
-  var calculationStepsDealer = [];
+  const calculationSteps = [<br />];
+  var calculationStepsDealer = [<br />];
 
   var basicPoints,
     pointValue,
@@ -282,19 +282,21 @@ function calculatePoints(agari) {
       calculationSteps.push(<p>{agari.fu + " fu"}</p>);
       calculationSteps.push(
         <p>
-          Basic points: <strong>{agari.fu}</strong> x 2
+          Basic points: {agari.fu} x 2
           <sup>
             {"2 + "}
-            <strong>{agari.han}</strong>
+            {agari.han}
           </sup>
         </p>
       );
       calculationSteps.push(
         <p>
-          Basic points: <strong>{agari.fu}</strong> x{" "}
-          {Math.pow(2, 2 + agari.han)}
+          {agari.fu} x {Math.pow(2, 2 + agari.han)}
         </p>
       );
+      if (parseInt(agari.fu) * Math.pow(2, 2 + parseInt(agari.han)) > 2000) {
+        calculationSteps.push(<p>[Basic Points limited at 2000]</p>);
+      }
       break;
     case 5:
       basicPoints = 2000;
@@ -324,8 +326,10 @@ function calculatePoints(agari) {
     if (isDealer) {
       pointValue = Math.ceil((basicPoints * 2) / 100) * 100;
 
-      calculationSteps.push(<p>{"Dealer & Tsumo: " + basicPoints + " x 2"}</p>);
-      calculationSteps.push(<p>{"Round up: " + basicPoints * 2}</p>);
+      calculationSteps.push(<p>{"Dealer Tsumo: " + basicPoints + " x 2"}</p>);
+      if (basicPoints * 2 !== pointValue) {
+        calculationSteps.push(<p>{"Round up: " + basicPoints * 2}</p>);
+      }
     } else {
       pointValue = Math.ceil(basicPoints / 100) * 100;
       pointValueDealer = Math.ceil((basicPoints * 2) / 100) * 100;
@@ -346,7 +350,20 @@ function calculatePoints(agari) {
   } else {
     pointValue = parseInt(agari.pointValue);
     if (isDealer) {
+      pointValue = Math.ceil((basicPoints * 6) / 100) * 100;
+
+      calculationSteps.push(<p>{"Dealer Ron: " + basicPoints + " x 6"}</p>);
+      if (basicPoints * 6 !== pointValue) {
+        calculationSteps.push(<p>{"Round up: " + basicPoints * 6}</p>);
+      }
     } else {
+      pointValue = Math.ceil((basicPoints * 4) / 100) * 100;
+
+      calculationSteps.push(<p>{"Ron: " + basicPoints + " x 4"}</p>);
+
+      if (basicPoints * 4 !== pointValue) {
+        calculationSteps.push(<p>{"Round up: " + basicPoints * 4}</p>);
+      }
     }
   }
 
