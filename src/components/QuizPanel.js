@@ -326,25 +326,51 @@ function calculatePoints(agari) {
     if (isDealer) {
       pointValue = Math.ceil((basicPoints * 2) / 100) * 100;
 
-      calculationSteps.push(<p>{"Dealer Tsumo: " + basicPoints + " x 2"}</p>);
+      calculationSteps.push(
+        <p>{"Dealer Tsumo: " + basicPoints * 2 + " (x2)"}</p>
+      );
       if (basicPoints * 2 !== pointValue) {
-        calculationSteps.push(<p>{"Round up: " + basicPoints * 2}</p>);
+        calculationSteps.push(
+          <p>
+            {"Round up: " +
+              pointValue +
+              " (+" +
+              (pointValue - basicPoints * 2) +
+              ")"}
+          </p>
+        );
       }
     } else {
       pointValue = Math.ceil(basicPoints / 100) * 100;
       pointValueDealer = Math.ceil((basicPoints * 2) / 100) * 100;
 
       calculationStepsDealer.push(
-        <p>{"Tsumo (dealer): " + basicPoints + " x 2"}</p>
+        <p>{"Tsumo (dealer): " + basicPoints * 2 + " (x2)"}</p>
       );
       if (basicPoints * 2 !== pointValueDealer) {
-        calculationStepsDealer.push(<p>{"Round up: " + basicPoints * 2}</p>);
+        calculationStepsDealer.push(
+          <p>
+            {"Round up: " +
+              pointValue +
+              " (+" +
+              (pointValue - basicPoints * 2) +
+              ")"}
+          </p>
+        );
       }
 
       calculationSteps.push(<p>{"Tsumo (non-dealer): " + basicPoints}</p>);
 
       if (basicPoints !== pointValue) {
-        calculationSteps.push(<p>{"Round up: " + basicPoints}</p>);
+        calculationSteps.push(
+          <p>
+            {"Round up: " +
+              pointValue +
+              " (+" +
+              (pointValue - basicPoints) +
+              ")"}
+          </p>
+        );
       }
     }
   } else {
@@ -352,17 +378,35 @@ function calculatePoints(agari) {
     if (isDealer) {
       pointValue = Math.ceil((basicPoints * 6) / 100) * 100;
 
-      calculationSteps.push(<p>{"Dealer Ron: " + basicPoints + " x 6"}</p>);
+      calculationSteps.push(
+        <p>{"Dealer Ron: " + basicPoints * 6 + " (x6)"}</p>
+      );
       if (basicPoints * 6 !== pointValue) {
-        calculationSteps.push(<p>{"Round up: " + basicPoints * 6}</p>);
+        calculationSteps.push(
+          <p>
+            {"Round up: " +
+              pointValue +
+              " (+" +
+              (pointValue - basicPoints * 6) +
+              ")"}
+          </p>
+        );
       }
     } else {
       pointValue = Math.ceil((basicPoints * 4) / 100) * 100;
 
-      calculationSteps.push(<p>{"Ron: " + basicPoints + " x 4"}</p>);
+      calculationSteps.push(<p>{"Ron: " + basicPoints * 4 + " (x4)"}</p>);
 
       if (basicPoints * 4 !== pointValue) {
-        calculationSteps.push(<p>{"Round up: " + basicPoints * 4}</p>);
+        calculationSteps.push(
+          <p>
+            {"Round up: " +
+              pointValue +
+              " (+" +
+              (pointValue - basicPoints * 4) +
+              ")"}
+          </p>
+        );
       }
     }
   }
