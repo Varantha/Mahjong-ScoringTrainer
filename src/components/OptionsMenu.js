@@ -32,7 +32,7 @@ function OptionsMenu(props) {
           id="applyButton"
           onClick={(e) => props.changeOptions(e)}
         >
-          apply
+          Apply
         </button>
         <Tooltip
           isOpen={TooltipOpen}
