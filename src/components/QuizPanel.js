@@ -351,9 +351,9 @@ function calculatePoints(agari) {
         calculationStepsDealer.push(
           <p>
             {"Round up: " +
-              pointValue +
+              pointValueDealer +
               " (+" +
-              (pointValue - basicPoints * 2) +
+              (pointValueDealer - basicPoints * 2) +
               ")"}
           </p>
         );
