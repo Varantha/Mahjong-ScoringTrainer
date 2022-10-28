@@ -24,6 +24,13 @@ function OptionsMenu(props) {
         changeOptions={props.changeOptions}
         size="small"
       />
+      <MenuOption
+        options={options}
+        optionId="kiriageMangan"
+        optionText="Kiriage Mangan Mode"
+        changeOptions={props.changeOptions}
+        size="small"
+      />
       <br />
       <br />
       <div className="menuOption large">
