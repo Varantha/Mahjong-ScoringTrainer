@@ -26,6 +26,7 @@ function App() {
     pointSticks: false,
     testHan: true,
     testFu: true,
+    kiriageMangan: false,
   });
 
   const [answerVisible, setanswerVisible] = useState(false);

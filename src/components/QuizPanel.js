@@ -5,20 +5,21 @@ import * as YakuConversion from "../scripts/YakuConversion";
 
 function QuizPanel(props) {
   const agari = props.agari;
+  const options = props.options;
 
   const isTsumo = agari.isTsumo;
   const isDealer = agari.isDealer;
 
-  const pointCalculations = calculatePoints(agari);
+  const pointCalculations = calculatePoints(agari, options);
 
   const pointsCalcSteps = pointCalculations.calculationSteps;
   const pointsCalcStepsDealer = pointCalculations.pointsCalculationsDealer;
 
+  const pointValue = pointCalculations.pointValue;
+  const pointValueDealer = pointCalculations.pointValueDealer;
+
   const onSubmit = (e) => {
     e.preventDefault();
-
-    const pointValue = pointCalculations.pointValue;
-    const pointValueDealer = pointCalculations.pointValueDealer;
 
     const rowMapping = {
       hanAnswer: agari.han,
@@ -258,7 +259,7 @@ function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 }
 
-function calculatePoints(agari) {
+function calculatePoints(agari, options) {
   const calculationSteps = [<br />];
   var calculationStepsDealer = [<br />];
 
@@ -268,6 +269,7 @@ function calculatePoints(agari) {
 
   const isTsumo = agari.isTsumo;
   const isDealer = agari.isDealer;
+  const isKiriageMangan = options.kiriageMangan;
 
   calculationSteps.push(<p>{agari.han + " han"}</p>);
   switch (parseInt(agari.han)) {
@@ -296,6 +298,17 @@ function calculatePoints(agari) {
       );
       if (parseInt(agari.fu) * Math.pow(2, 2 + parseInt(agari.han)) > 2000) {
         calculationSteps.push(<p>[Basic Points limited at 2000]</p>);
+      }
+
+      if (isKiriageMangan) {
+        if (agari.han === 3 && agari.fu === "60") {
+          basicPoints = 2000;
+          calculationSteps.push(<p>{"Kiriage Mangan: +80"}</p>);
+        }
+        if (agari.han === 4 && agari.fu === "30") {
+          basicPoints = 2000;
+          calculationSteps.push(<p>{"Kiriage Mangan: +80"}</p>);
+        }
       }
       break;
     case 5:
@@ -332,11 +345,11 @@ function calculatePoints(agari) {
       if (basicPoints * 2 !== pointValue) {
         calculationSteps.push(
           <p>
-            {"Round up: " +
-              pointValue +
-              " (+" +
-              (pointValue - basicPoints * 2) +
-              ")"}
+            {format(
+              "Round up: {} (+{})",
+              pointValue,
+              pointValue - basicPoints * 2
+            )}
           </p>
         );
       }
@@ -350,11 +363,11 @@ function calculatePoints(agari) {
       if (basicPoints * 2 !== pointValueDealer) {
         calculationStepsDealer.push(
           <p>
-            {"Round up: " +
-              pointValueDealer +
-              " (+" +
-              (pointValueDealer - basicPoints * 2) +
-              ")"}
+            {format(
+              "Round up: {} (+{})",
+              pointValueDealer,
+              pointValueDealer - basicPoints * 2
+            )}
           </p>
         );
       }
@@ -364,11 +377,7 @@ function calculatePoints(agari) {
       if (basicPoints !== pointValue) {
         calculationSteps.push(
           <p>
-            {"Round up: " +
-              pointValue +
-              " (+" +
-              (pointValue - basicPoints) +
-              ")"}
+            {format("Round up: {} (+{})", pointValue, pointValue - basicPoints)}
           </p>
         );
       }
@@ -384,11 +393,11 @@ function calculatePoints(agari) {
       if (basicPoints * 6 !== pointValue) {
         calculationSteps.push(
           <p>
-            {"Round up: " +
-              pointValue +
-              " (+" +
-              (pointValue - basicPoints * 6) +
-              ")"}
+            {format(
+              "Round up: {} (+{})",
+              pointValue,
+              pointValue - basicPoints * 6
+            )}
           </p>
         );
       }
@@ -400,11 +409,11 @@ function calculatePoints(agari) {
       if (basicPoints * 4 !== pointValue) {
         calculationSteps.push(
           <p>
-            {"Round up: " +
-              pointValue +
-              " (+" +
-              (pointValue - basicPoints * 4) +
-              ")"}
+            {format(
+              "Round up: {} (+{})",
+              pointValue,
+              pointValue - basicPoints * 4
+            )}
           </p>
         );
       }
@@ -417,6 +426,14 @@ function calculatePoints(agari) {
     calculationSteps: calculationSteps,
     pointsCalculationsDealer: calculationStepsDealer,
   };
+}
+
+function format() {
+  var i = 1,
+    args = arguments;
+  return args[0].replace(/{}/g, function () {
+    return typeof args[i] != "undefined" ? args[i++] : "";
+  });
 }
 
 export { QuizPanel };
