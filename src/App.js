@@ -18,6 +18,7 @@ function App() {
   jsonMetaData = require("./data/meta.json");
   const jsonLen = jsonMetaData.length;
   const num = Math.floor(Math.random() * jsonLen);
+  const handName = jsonMetaData[num];
 
   const [agari, setAgariData] = useState(
     require("./data/" + jsonMetaData[num])
@@ -86,6 +87,7 @@ function App() {
         menuOpen={optionsOpen}
         changeOptions={changeOptions}
         setOptionsOpen={setOptionsOpen}
+        handName={handName}
       />
       <Row>
         <TilePanel agari={agari} />

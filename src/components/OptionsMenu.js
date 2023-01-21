@@ -4,6 +4,7 @@ import { Collapse, Label, Input, Tooltip } from "reactstrap";
 function OptionsMenu(props) {
   const options = props.options;
   const isOpen = props.menuOpen;
+  const handName = props.handName;
   const [TooltipOpen, setTooltipOpen] = React.useState(false);
 
   return (
@@ -33,6 +34,13 @@ function OptionsMenu(props) {
       />
       <br />
       <br />
+      <div>
+        Log issues on{" "}
+        <a href="https://github.com/Varantha/Mahjong-ScoringTrainer/">GitHub</a>
+      </div>
+      <div style={{ color: "white" }}>
+        Hand ID: {handName.replace(".json", "")}
+      </div>
       <div className="menuOption large">
         <button
           className="checkAnswer"
