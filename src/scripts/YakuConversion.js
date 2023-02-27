@@ -24,7 +24,7 @@ const yakuList = [
   "Chiitoi",
   "Chanta",
   "Itsuu",
-  "Sanshokudoujin",
+  "Sanshoku Doujun",
   "Sanshoku Doukou",
   "Sankantsu",
   "Toitoi",
