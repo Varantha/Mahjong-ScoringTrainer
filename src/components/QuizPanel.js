@@ -260,9 +260,11 @@ function capitalizeFirstLetter(string) {
 }
 
 function calculatePoints(agari, options) {
+  //Initialise JSX array for calculation steps
   const calculationSteps = [<br />];
   var calculationStepsDealer = [<br />];
 
+  //Initialise Point totals
   var basicPoints,
     pointValue,
     pointValueDealer = 0;
@@ -271,6 +273,11 @@ function calculatePoints(agari, options) {
   const isDealer = agari.isDealer;
   const isKiriageMangan = options.kiriageMangan;
 
+  const testHonba = options.testHonba;
+  const honbaPoints = agari.honbaSticks * 300;
+
+  //Calculate base points as a function of han and fu
+  //Any calculation steps are also pushed into calculationSteps which will be displayed to the user
   calculationSteps.push(<p>{agari.han + " han"}</p>);
   switch (parseInt(agari.han)) {
     case 1:
@@ -300,6 +307,7 @@ function calculatePoints(agari, options) {
         calculationSteps.push(<p>[Basic Points limited at 2000]</p>);
       }
 
+      //KiriageMangan is a mode which rounds up points for certain han/fu values
       if (isKiriageMangan) {
         if (agari.han === 3 && agari.fu === "60") {
           basicPoints = 2000;
@@ -335,6 +343,7 @@ function calculatePoints(agari, options) {
   calculationSteps.push(<p>{"Basic points: " + basicPoints}</p>);
   calculationStepsDealer = [].concat(calculationSteps);
 
+  //Work out final points based on whether winner is dealer / whether it was tsumo
   if (isTsumo) {
     if (isDealer) {
       pointValue = Math.ceil((basicPoints * 2) / 100) * 100;
@@ -383,7 +392,6 @@ function calculatePoints(agari, options) {
       }
     }
   } else {
-    pointValue = parseInt(agari.pointValue);
     if (isDealer) {
       pointValue = Math.ceil((basicPoints * 6) / 100) * 100;
 
