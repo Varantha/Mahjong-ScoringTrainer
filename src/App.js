@@ -28,6 +28,7 @@ function App() {
     testHan: true,
     testFu: true,
     kiriageMangan: false,
+    testHonba: false,
   });
 
   const [answerVisible, setanswerVisible] = useState(false);

@@ -19,6 +19,9 @@ function InfoPanel(props) {
         <div className="infoElement">{agari.riichiSticks}</div>
       </Col>
     );
+  }
+
+  if (options.testHonba === true) {
     optionalElements.push(
       <Col fluid className="infoRow">
         <div className="infoTitle">Honba Sticks</div>
