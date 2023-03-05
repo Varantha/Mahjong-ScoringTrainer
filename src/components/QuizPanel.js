@@ -260,17 +260,28 @@ function capitalizeFirstLetter(string) {
 }
 
 function calculatePoints(agari, options) {
+  //Initialise JSX array for calculation steps
   const calculationSteps = [<br />];
   var calculationStepsDealer = [<br />];
 
+  //Initialise Point totals
   var basicPoints,
     pointValue,
-    pointValueDealer = 0;
+    pointValueDealer,
+    unroundedPointValue,
+    pointMultiplier = 0;
 
   const isTsumo = agari.isTsumo;
   const isDealer = agari.isDealer;
   const isKiriageMangan = options.kiriageMangan;
 
+  const testHonba = options.testHonba;
+  const honbaSticks = agari.honbaSticks;
+  const honbaPoints = honbaSticks * 300;
+  const honbaPointsPerPlayer = getHonbaPoints(isTsumo, honbaPoints);
+
+  //Calculate base points as a function of han and fu
+  //Any calculation steps are also pushed into calculationSteps which will be displayed to the user
   calculationSteps.push(<p>{agari.han + " han"}</p>);
   switch (parseInt(agari.han)) {
     case 1:
@@ -300,12 +311,12 @@ function calculatePoints(agari, options) {
         calculationSteps.push(<p>[Basic Points limited at 2000]</p>);
       }
 
+      //KiriageMangan is a mode which rounds up points for certain han/fu values
       if (isKiriageMangan) {
-        if (agari.han === 3 && agari.fu === "60") {
-          basicPoints = 2000;
-          calculationSteps.push(<p>{"Kiriage Mangan: +80"}</p>);
-        }
-        if (agari.han === 4 && agari.fu === "30") {
+        if (
+          (agari.han === 3 && agari.fu === "60") ||
+          (agari.han === 4 && agari.fu === "30")
+        ) {
           basicPoints = 2000;
           calculationSteps.push(<p>{"Kiriage Mangan: +80"}</p>);
         }
@@ -335,89 +346,42 @@ function calculatePoints(agari, options) {
   calculationSteps.push(<p>{"Basic points: " + basicPoints}</p>);
   calculationStepsDealer = [].concat(calculationSteps);
 
-  if (isTsumo) {
-    if (isDealer) {
-      pointValue = Math.ceil((basicPoints * 2) / 100) * 100;
+  //Work out final points based on whether winner is dealer / whether it was tsumo
+  pointMultiplier = getBasicPointsMultiplier(isTsumo, isDealer);
+  unroundedPointValue = basicPoints * pointMultiplier;
+  pointValue = Math.ceil(unroundedPointValue / 100) * 100;
+  var winTypeString = getWinTypeText(isTsumo, isDealer);
 
-      calculationSteps.push(
-        <p>{"Dealer Tsumo: " + basicPoints * 2 + " (x2)"}</p>
-      );
-      if (basicPoints * 2 !== pointValue) {
-        calculationSteps.push(
-          <p>
-            {format(
-              "Round up: {} (+{})",
-              pointValue,
-              pointValue - basicPoints * 2
-            )}
-          </p>
-        );
-      }
-    } else {
-      pointValue = Math.ceil(basicPoints / 100) * 100;
-      pointValueDealer = Math.ceil((basicPoints * 2) / 100) * 100;
+  addCalculationSteps(
+    calculationSteps,
+    winTypeString,
+    unroundedPointValue,
+    pointMultiplier,
+    pointValue
+  );
 
-      calculationStepsDealer.push(
-        <p>{"Tsumo (dealer): " + basicPoints * 2 + " (x2)"}</p>
-      );
-      if (basicPoints * 2 !== pointValueDealer) {
-        calculationStepsDealer.push(
-          <p>
-            {format(
-              "Round up: {} (+{})",
-              pointValueDealer,
-              pointValueDealer - basicPoints * 2
-            )}
-          </p>
-        );
-      }
+  if (isTsumo && !isDealer) {
+    pointValueDealer = Math.ceil((basicPoints * 2) / 100) * 100;
 
-      calculationSteps.push(<p>{"Tsumo (non-dealer): " + basicPoints}</p>);
+    addCalculationSteps(
+      calculationStepsDealer,
+      "Tsumo (dealer)",
+      basicPoints * 2,
+      2,
+      pointValueDealer
+    );
+  }
 
-      if (basicPoints !== pointValue) {
-        calculationSteps.push(
-          <p>
-            {format("Round up: {} (+{})", pointValue, pointValue - basicPoints)}
-          </p>
-        );
-      }
-    }
-  } else {
-    pointValue = parseInt(agari.pointValue);
-    if (isDealer) {
-      pointValue = Math.ceil((basicPoints * 6) / 100) * 100;
+  if (testHonba && honbaSticks > 0) {
+    pointValue = pointValue + honbaPointsPerPlayer;
+    pointValueDealer = pointValueDealer + honbaPointsPerPlayer;
 
-      calculationSteps.push(
-        <p>{"Dealer Ron: " + basicPoints * 6 + " (x6)"}</p>
-      );
-      if (basicPoints * 6 !== pointValue) {
-        calculationSteps.push(
-          <p>
-            {format(
-              "Round up: {} (+{})",
-              pointValue,
-              pointValue - basicPoints * 6
-            )}
-          </p>
-        );
-      }
-    } else {
-      pointValue = Math.ceil((basicPoints * 4) / 100) * 100;
-
-      calculationSteps.push(<p>{"Ron: " + basicPoints * 4 + " (x4)"}</p>);
-
-      if (basicPoints * 4 !== pointValue) {
-        calculationSteps.push(
-          <p>
-            {format(
-              "Round up: {} (+{})",
-              pointValue,
-              pointValue - basicPoints * 4
-            )}
-          </p>
-        );
-      }
-    }
+    calculationSteps.push(
+      <p>{format("Honba: {} (+{})", pointValue, honbaPointsPerPlayer)}</p>
+    );
+    calculationStepsDealer.push(
+      <p>{format("Honba: {} (+{})", pointValueDealer, honbaPointsPerPlayer)}</p>
+    );
   }
 
   return {
@@ -434,6 +398,75 @@ function format() {
   return args[0].replace(/{}/g, function () {
     return typeof args[i] != "undefined" ? args[i++] : "";
   });
+}
+
+function getBasicPointsMultiplier(isTsumo, isDealer) {
+  if (isTsumo && isDealer) {
+    return 2;
+  }
+  if (!isTsumo && !isDealer) {
+    return 4;
+  }
+  if (!isTsumo && isDealer) {
+    return 6;
+  }
+  if (isTsumo && !isDealer) {
+    return 1;
+  }
+}
+
+function getWinTypeText(isTsumo, isDealer) {
+  if (isTsumo && isDealer) {
+    return "Dealer Tsumo";
+  }
+  if (!isTsumo && !isDealer) {
+    return "Ron (non-dealer)";
+  }
+  if (!isTsumo && isDealer) {
+    return "Dealer Ron";
+  }
+  if (isTsumo && !isDealer) {
+    return "Tsumo (non-dealer)";
+  }
+}
+
+function getHonbaPoints(isTsumo, honbaPoints) {
+  if (isTsumo) {
+    return honbaPoints / 3;
+  } else {
+    return honbaPoints;
+  }
+}
+
+function addCalculationSteps(
+  calculationSteps,
+  winTypeString,
+  unroundedPointValue,
+  pointMultiplier,
+  pointValue
+) {
+  calculationSteps.push(
+    <p>
+      {format(
+        "{}: {} (x{})",
+        winTypeString,
+        unroundedPointValue,
+        pointMultiplier
+      )}
+    </p>
+  );
+
+  if (unroundedPointValue !== pointValue) {
+    calculationSteps.push(
+      <p>
+        {format(
+          "Round up: {} (+{})",
+          pointValue,
+          pointValue - unroundedPointValue
+        )}
+      </p>
+    );
+  }
 }
 
 export { QuizPanel };

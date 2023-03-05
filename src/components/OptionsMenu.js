@@ -33,6 +33,13 @@ function OptionsMenu(props) {
         size="small"
       />
       <br />
+      <MenuOption
+        options={options}
+        optionId="testHonba"
+        optionText="Include Honba Sticks"
+        changeOptions={props.changeOptions}
+        size="small"
+      />
       <br />
       <div>
         Log issues on{" "}
