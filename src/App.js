@@ -18,7 +18,8 @@ function App() {
   jsonMetaData = require("./data/meta.json");
   const jsonLen = jsonMetaData.length;
   const num = Math.floor(Math.random() * jsonLen);
-  const handName = jsonMetaData[num];
+
+  const [handName, setHandName] = useState(jsonMetaData[num]);
 
   const [agari, setAgariData] = useState(
     require("./data/" + jsonMetaData[num])
@@ -48,6 +49,7 @@ function App() {
     const jsonLen = jsonMetaData.length;
     const num = Math.floor(Math.random() * jsonLen);
 
+    setHandName(jsonMetaData[num]);
     console.log("./data/" + jsonMetaData[num]);
     jsonData = require("./data/" + jsonMetaData[num]);
 
