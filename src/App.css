@@ -1,0 +1,326 @@
+.App {
+  text-align: center;
+  background-color: #3b3058;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.roundedborder {
+  border-radius: 20%;
+}
+
+.OptionsButton {
+  position: fixed;
+  left: 0px;
+}
+
+.meld {
+  align-items: end;
+  margin-left: 50px;
+}
+
+.bgcolor-1 {
+  background-color: #54457f;
+}
+
+.bgcolor-2 {
+  background-color: #d8d4f2;
+}
+
+.bgcolor-3 {
+  background-color: #c4b2bc;
+}
+
+.bgcolor-4 {
+  background-color: #5bc0be;
+}
+
+.fgcolor-1 {
+  color: #54457f;
+}
+
+.fgcolor-2 {
+  color: #d8d4f2;
+}
+
+.fgcolor-3 {
+  color: #c4b2bc;
+}
+
+.fgcolor-4 {
+  color: #5bc0be;
+}
+
+.infoContainer {
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.quizPanel {
+  display: inline-block;
+  width: fit-content;
+  margin: 40px 40px 40px 40px;
+  border-radius: 20px;
+  border: 2px;
+  color: #5bc0be;
+}
+
+.infoPanel {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.infoRow {
+  padding: 10px;
+  height: 200px;
+  font-family: Helvetica;
+  white-space: nowrap;
+  display: inline-block;
+  text-align: center;
+}
+
+.infoTitle {
+  padding: 20px;
+  vertical-align: top;
+  color: #5bc0be;
+  font-family: "Lato", sans-serif;
+}
+
+.infoElement {
+  min-height: 100px;
+  display: block;
+  margin: auto;
+  text-align: center;
+  line-height: 80px;
+  color: #d8d4f2;
+}
+
+.tilePanel {
+  white-space: nowrap;
+  padding: 40px 40px 40px 40px;
+}
+
+.tileContainer {
+  margin: 20px 20px 20px 20px;
+  float: center;
+}
+
+.tile {
+  max-height: 100px;
+  max-width: 80px;
+  display: inline-block;
+  white-space: normal;
+}
+
+.allTiles {
+  width: auto;
+  padding-top: 50px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 50px;
+  border-radius: 20px;
+  border: 2px;
+}
+
+.infoContainer {
+  border-radius: 20px;
+  border: 2px;
+}
+
+.inline {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.winningTile {
+  margin-left: 50px;
+  border: 2px solid #ff0000;
+  border-radius: 9px;
+}
+
+.calledTile {
+  transform: rotate(90deg) translate(17%);
+  margin-left: 14px;
+  margin-right: 14px;
+}
+
+.alignBottom {
+  position: absolute;
+  bottom: 0;
+}
+
+.floatRight {
+  float: right;
+}
+
+.quizBox {
+  position: relative;
+  top: 5px;
+  margin-top: 5px;
+  width: 50px;
+  background-color: #54457f;
+  color: #d8d4f2;
+  outline: none;
+  border: 0;
+  border-bottom: 1px solid #d8d4f2;
+  text-align: center;
+}
+
+table {
+  margin-bottom: 30px;
+}
+
+table td {
+  padding: 2px 2px 2px 2px;
+  border-bottom: 2px solid #c4b2bc;
+}
+
+table th {
+  padding: 5px 20px 5px 20px;
+  border-bottom: 1px solid #d8d4f2;
+}
+
+button {
+  background-color: #5bc0be;
+  border: none;
+  color: white;
+  font-family: "Lato", sans-serif;
+  padding: 10px;
+  text-align: center;
+  margin: 4px 2px;
+}
+
+.yakuList {
+  border-radius: 20px;
+  border: 2px;
+  color: #5bc0be;
+  background-color: #54457f;
+  width: 300px;
+  height: 300px;
+  position: relative;
+  bottom: 350px;
+  left: 350px;
+}
+
+.checkAnswer {
+  border-radius: 15px;
+  font-size: 15px;
+  margin-right: 20px;
+}
+
+.checkAnswer:disabled {
+  border-radius: 15px;
+  font-size: 15px;
+  margin-right: 20px;
+  background-color: #244c4c;
+}
+
+.newHand {
+  border-radius: 15px;
+  font-size: 15px;
+}
+
+.answerText {
+  font-family: "Lato";
+  text-shadow: 1px 1px 0 #000;
+}
+
+.correctAnswer {
+  color: green;
+}
+
+.wrongAnswer {
+  color: red;
+}
+
+.winRatePanel {
+  position: fixed;
+  right: 5px;
+  background-color: #54457f;
+  border: none;
+  color: white;
+  font-family: "Lato", sans-serif;
+  padding: 5px;
+  text-align: center;
+  margin: 2px 4px;
+  border-radius: 5px;
+  z-index: 1000;
+}
+
+.spaced {
+  margin-right: 10px;
+}
+
+.tooltip [class$="inner"] {
+  background-color: #5bc0be;
+  border: 1px solid #5bc0be;
+}
+
+.tooltip [class$="arrow"] {
+  opacity: 0%;
+}
+
+.OptionsMenu {
+  color: #5bc0be;
+  width: 660px;
+  min-width: 660px;
+  position: fixed;
+  background-color: #54457f;
+  padding-top: 10px;
+  left: 0px;
+  top: 50px;
+  display: inline-block;
+  font-family: "Lato", sans-serif;
+}
+
+.menuOption {
+  display: inline-block;
+  text-align: center;
+  margin: 10px;
+  min-width: 200px;
+  font-size: 17px !important;
+}
+
+.menuOption.small {
+  width: 200px;
+  min-width: 200px;
+}
+
+.menuOption.large {
+  width: 600px;
+  min-width: 600px;
+}
