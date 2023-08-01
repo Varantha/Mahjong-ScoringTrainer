@@ -9,8 +9,8 @@ function OptionsMenu(props) {
 
   return (
     <Collapse isOpen={isOpen} className="OptionsMenu">
-      Test Options
-      <br />
+      <h4>Test Options</h4>
+  
       <MenuOption
         options={options}
         optionId="testHan"
@@ -41,11 +41,11 @@ function OptionsMenu(props) {
         size="small"
       />
       <br />
-      <div>
+      <div className="link" style={{marginTop:'10px' }}>
         Log issues on{" "}
-        <a href="https://github.com/Varantha/Mahjong-ScoringTrainer/">GitHub</a>
+        <a href="https://github.com/Varantha/Mahjong-ScoringTrainer/" style={{ color: "white" }}>GitHub</a>
       </div>
-      <div style={{ color: "white" }}>
+      <div style={{ color: "white" , marginTop:'10px' }} >
         Hand ID: {handName.replace(".json", "")}
       </div>
       <div className="menuOption large">
