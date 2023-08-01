@@ -44,8 +44,8 @@ function InfoPanel(props) {
 
   return (
     <div>
-      <Col className="infoPanel">
-        <span className="infoContainer bgcolor-1">
+      <Col className="infoPanel bgcolor-1">
+        <span className="infoContainer ">
           <Col fluid className="infoRow">
             <div className="infoTitle">Round</div>
             <div className="infoElement">

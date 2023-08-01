@@ -58,8 +58,8 @@ function QuizPanel(props) {
   };
 
   return (
-    <span className="bgcolor-1 quizPanel">
-      <Form id="quizForm" className="quizPanel" onSubmit={onSubmit}>
+    <span className=" quizPanel">
+      <Form id="quizForm" className="quizPanel bgcolor-1" onSubmit={onSubmit}>
         <table>
           <tbody>
             <tr>
@@ -81,7 +81,8 @@ function QuizPanel(props) {
           </tbody>
         </table>
 
-        <button className="checkAnswer" id="checkAnswer">
+      <div className="btns">
+      <button className="checkAnswer" id="checkAnswer">
           Check Answer
         </button>
 
@@ -93,6 +94,7 @@ function QuizPanel(props) {
         >
           New Hand
         </button>
+      </div>
       </Form>
     </span>
   );
