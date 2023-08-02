@@ -78,8 +78,8 @@ function App() {
 
   return (
     <div className="App">
-       <div className="header">
-       <div className="cust-container">
+        <div className="header">
+           <div className="cust-container">
       <WinRate
         correctAnswers={correctAnswers}
         wrongAnswers={wrongAnswers}
@@ -94,8 +94,8 @@ function App() {
         setOptionsOpen={setOptionsOpen}
         handName={handName}
       />
-         </div>
-    </div>
+      </div>
+      </div>
       <Row>
         <TilePanel agari={agari} />
       </Row>
@@ -111,7 +111,6 @@ function App() {
         addCorrectAnswer={addCorrectAnswer}
         addWrongAnswer={addWrongAnswer}
       />
- 
     </div>
   );
 }
