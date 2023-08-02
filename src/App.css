@@ -460,7 +460,7 @@ form .btns button:hover{
 
   .meld{
   display: flex;
-  margin-top: 10px;
+
   }
 
   
@@ -519,6 +519,10 @@ form .btns button:hover{
  
  .allTiles > div img {
      padding: 10px 11px
+ }
+
+ .imageC{
+  margin: 0;
  }
  }
 
