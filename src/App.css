@@ -304,6 +304,14 @@ form .btns button:hover{
 .answerText {
   font-family: "Lato";
   text-shadow: 1px 1px 0 #000;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .correctAnswer {
