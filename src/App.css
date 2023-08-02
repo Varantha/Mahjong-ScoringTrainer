@@ -8,6 +8,7 @@
   pointer-events: none;
 }
 
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -87,7 +88,7 @@
 
 
 span.quizPanel{
-  max-width: 840px;
+  max-width: 500px;
   margin: 40px auto 80px;
   width: 100%;
   padding: 0 20px;
@@ -146,6 +147,9 @@ form.quizPanel table tr th {
   margin: auto;
   text-align: center;
   color: #fff;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
 
 .tilePanel{
@@ -448,7 +452,24 @@ form .btns button:hover{
   .tilePanel{
     margin-top: 40px;
   }
+
+  .allTiles .meld{
+    padding-left: 0
+   }
   
+
+  .meld{
+  display: flex;
+  margin-top: 10px;
+  }
+
+  .meld .calledTile{
+  margin: 0
+  }
+  
+  .meld img{
+    padding: 0 10px !important;
+  }
  
  }
  
