@@ -339,16 +339,23 @@ form .btns button:hover{
   opacity: 0%;
 }
 
+.menu-wrap {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99;
+  top: 98px;
+  overflow: auto;
+  width: 300px;
+}
+
 .OptionsMenu {
   color: #5bc0be;
-  width: 300px;
-  /* min-width: 660px; */
-  position: fixed;
   background-color: #54457f;
   padding-top: 10px;
   left: 0px;
   top: 98px;
-  display: inline-block;
   font-family: "Lato", sans-serif;
   padding: 30px;
   z-index: 999;
@@ -509,7 +516,7 @@ form .btns button:hover{
   padding: 20px 15px;
 }
 
-.OptionsMenu {
+.menu-wrap {
   top:78px
 }
 
