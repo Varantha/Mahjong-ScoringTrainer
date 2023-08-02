@@ -121,7 +121,7 @@ function GenerateRow(props) {
       <td>
         <FormGroup>
           <input
-            type="text"
+            type="number"
             id={props.inputId}
             name={props.name}
             className="quizBox"
@@ -129,7 +129,7 @@ function GenerateRow(props) {
         </FormGroup>
       </td>
       <td>
-        <strong id={props.outputId} className="answerText"></strong>
+        <strong id={props.outputId} unselectable="on" className="answerText"></strong>
       </td>
     </tr>
   );
