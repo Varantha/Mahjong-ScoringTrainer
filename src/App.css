@@ -483,6 +483,10 @@ form .btns button:hover{
   {
    min-height: 53px
   }
+
+  form.quizPanel{
+    padding: 25px 20px;
+  }
  }
 
  @media (max-width:479px){
