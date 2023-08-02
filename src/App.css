@@ -463,14 +463,7 @@ form .btns button:hover{
   margin-top: 10px;
   }
 
-  .meld .calledTile{
-  margin: 0
-  }
   
-  .meld img{
-    padding: 0 10px !important;
-  }
- 
  }
  
  @media (max-width:600px){
@@ -519,6 +512,14 @@ form .btns button:hover{
 .OptionsMenu {
   top:78px
 }
+
+.allTiles .meld img{
+  padding: 10px 11px
+ }
+ 
+ .allTiles > div img {
+     padding: 10px 11px
+ }
  }
 
  @media (max-width:340px){
