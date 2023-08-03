@@ -456,10 +456,15 @@ input::-webkit-inner-spin-button {
  border-radius: 5px;
  box-shadow: 0 9px 23px 4px #00000085;
  z-index: 9999;
+
+}
+
+.scrollBtn img{
+  transform: rotate(-180deg)
 }
 
 .scrollBtn.down img{
- transform: rotate(-180deg)
+ transform: rotate(0deg)
 }
 
 .scrollBtn.down {
