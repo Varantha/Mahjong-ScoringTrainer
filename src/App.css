@@ -356,6 +356,7 @@ input::-webkit-inner-spin-button {
   top: 98px;
   overflow: auto;
   width: 300px;
+  height: max-content;
 }
 
 .OptionsMenu {
