@@ -202,8 +202,8 @@ form.quizPanel table tr th {
 
 .calledTile {
   transform: rotate(90deg) translate(17%);
-  margin-left: 14px;
-  margin-right: 14px;
+  margin-left: 11px;
+  margin-right: 11px;
 }
 
 .alignBottom {
@@ -436,10 +436,10 @@ input::-webkit-inner-spin-button {
  }
  
  .infoPanel {
-      width: 100%;
-     max-width: 800px;
+  width: 100%;
+  max-width: 800px;
   margin:0;
- padding: 30px 0 20px;
+  padding: 30px 0 20px;
   border-radius: 20px;
   border:2px solid #8561bb
  }
@@ -448,6 +448,28 @@ input::-webkit-inner-spin-button {
   max-width: 700px;
   margin: 0 auto
  }
+
+ .scrollBtn{
+  position: fixed;
+ bottom: 20px;
+ right: 20px;
+ border-radius: 5px;
+ box-shadow: 0 9px 23px 4px #00000085;
+}
+
+.scrollBtn.down img{
+ transform: rotate(-180deg)
+}
+
+.scrollBtn.down {
+   top: 115px;
+   height: auto;
+   bottom: auto;
+}
+
+html{
+scroll-behavior:smooth
+}
  
  @media (max-width:767px){
   .infoContainer > div {
