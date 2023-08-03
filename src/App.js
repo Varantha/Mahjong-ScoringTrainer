@@ -1,15 +1,13 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import React, { useState } from 'react';
 import { TilePanel } from "./components/TilePanel";
-
-import { useState } from "react";
 import { InfoPanel } from "./components/InfoPanel";
 import { QuizPanel } from "./components/QuizPanel";
 import { OptionsMenu } from "./components/OptionsMenu";
 import { WinRate } from "./components/WinRate";
-
-import logo from "./burger-menu.jpg";
+import arrow from "./up-arrow.png";
+import logo from "./burger-menu.png";
 import { Row } from "reactstrap";
 
 function App() {
@@ -76,6 +74,18 @@ function App() {
     //setRerender(!rerender);
   };
 
+  const [scrollDirection, setScrollDirection] = useState('down');
+
+  // Function to handle scroll up or down based on the current scrollDirection
+  const handleScroll = () => {
+    const scrollOffset = scrollDirection === 'down' ? document.body.scrollHeight : 0;
+    window.scrollTo({
+      top: scrollOffset,
+      behavior: 'smooth',
+    });
+    setScrollDirection(scrollDirection === 'down' ? 'up' : 'down');
+  };
+  
   return (
     <div className="App">
         <div className="header">
@@ -85,7 +95,7 @@ function App() {
         wrongAnswers={wrongAnswers}
       ></WinRate>
       <button onClick={toggle} className="OptionsButton">
-        <img src={logo} height="30" alt="menu"></img>
+        <img src={logo} alt="menu"></img>
       </button>
       <OptionsMenu
         options={options}
@@ -111,6 +121,12 @@ function App() {
         addCorrectAnswer={addCorrectAnswer}
         addWrongAnswer={addWrongAnswer}
       />
+      
+      <button onClick={handleScroll} className={scrollDirection === 'down' ? 'scrollBtn up' : 'scrollBtn down'} >
+      <img src={arrow}></img>
+    </button>
+      {/* <button id="scrollUpButton" onClick={scrollToTop} className="scrollBtn"><img src={arrow}></img></button>
+      <button id="scrollDownButton" onClick={scrollToBottom} className="scrollBtn"><img src={arrow}></img></button> */}
     </div>
   );
 }
