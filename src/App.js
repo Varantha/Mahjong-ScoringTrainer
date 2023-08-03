@@ -122,11 +122,10 @@ function App() {
         addWrongAnswer={addWrongAnswer}
       />
       
-      <button onClick={handleScroll} className={scrollDirection === 'down' ? 'scrollBtn up' : 'scrollBtn down'} >
-      <img src={arrow}></img>
-    </button>
-      {/* <button id="scrollUpButton" onClick={scrollToTop} className="scrollBtn"><img src={arrow}></img></button>
-      <button id="scrollDownButton" onClick={scrollToBottom} className="scrollBtn"><img src={arrow}></img></button> */}
+      <button onClick={handleScroll} className={scrollDirection === 'down' ? 'scrollBtn down' : 'scrollBtn'} >
+       <img src={arrow}></img>
+      </button>
+
     </div>
   );
 }
