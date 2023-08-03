@@ -455,6 +455,7 @@ input::-webkit-inner-spin-button {
  right: 20px;
  border-radius: 5px;
  box-shadow: 0 9px 23px 4px #00000085;
+ z-index: 9999;
 }
 
 .scrollBtn.down img{
@@ -463,13 +464,10 @@ input::-webkit-inner-spin-button {
 
 .scrollBtn.down {
    top: 115px;
-   height: auto;
    bottom: auto;
 }
 
-html{
-scroll-behavior:smooth
-}
+
  
  @media (max-width:767px){
   .infoContainer > div {
