@@ -149,7 +149,7 @@ form.quizPanel table tr th {
   color: #fff;
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 1px;
 }
 
 .tilePanel{
@@ -414,7 +414,7 @@ input::-webkit-inner-spin-button {
  }
  
  .allTiles > div  img{
- padding: 5px
+ padding: 1px
  }
  
  .allTiles .meld{

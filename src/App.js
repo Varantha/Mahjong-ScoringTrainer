@@ -73,7 +73,7 @@ function App() {
       input.textContent = "";
     });
 
-    scrollToOffset(tilePanel.offsetTop);
+    scrollToOffset(tilePanel.offsetTop - 10);
   };
 
   const changeOptions = (e) => {
