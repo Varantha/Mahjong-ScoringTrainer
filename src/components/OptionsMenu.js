@@ -1,15 +1,37 @@
-import React from "react";
-import { Collapse, Label, Input, Tooltip } from "reactstrap";
+import React, { useEffect, useRef } from 'react';
+import { Collapse, Label, Input } from "reactstrap";
+
 
 function OptionsMenu(props) {
   const options = props.options;
   const isOpen = props.menuOpen;
   const handName = props.handName;
-  const [TooltipOpen, setTooltipOpen] = React.useState(false);
+  const onClickOutside = props.onClickOutside
+
+  // const [TooltipOpen, setTooltipOpen] = React.useState(false);
+
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      console.log(ref)
+        if (ref.current && !ref.current.contains(event.target)) {
+            
+          onClickOutside();
+        }
+    };
+    console.log(ref)
+      document.addEventListener("mousedown", handleClickOutside);
+
+      return () => {
+          document.removeEventListener("mousedown", handleClickOutside);
+      };
+  }, [onClickOutside]);
+
 
   return (
 
-    <div className="menu-wrap">
+    <div ref={ref} className="menu-wrap">
       <Collapse isOpen={isOpen} className="OptionsMenu">
       <h4>Test Options</h4>
 
@@ -58,7 +80,7 @@ function OptionsMenu(props) {
       >
       Apply
       </button>
-      <Tooltip
+      {/* <Tooltip
       isOpen={TooltipOpen}
       className="hanTooltip"
       placement="right"
@@ -68,7 +90,7 @@ function OptionsMenu(props) {
       }}
       >
       Applying these settings will refresh the hand
-      </Tooltip>
+      </Tooltip> */}
       </div>
       </Collapse>
     </div>
