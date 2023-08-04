@@ -304,6 +304,9 @@ form .btns button:hover{
 .answerText {
   font-family: "Lato";
   text-shadow: 1px 1px 0 #000;
+}
+
+.unselectable{
   -ms-user-select: none;
   user-select: none;
 }

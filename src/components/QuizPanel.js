@@ -82,13 +82,13 @@ function QuizPanel(props) {
         </table>
 
       <div className="btns">
-      <button className="checkAnswer" id="checkAnswer">
+      <button className="checkAnswer unselectable" id="checkAnswer">
           Check Answer
         </button>
 
         <button
           onClick={props.newHand}
-          className="newHand"
+          className="newHand unselectable"
           type="button"
           id="1"
         >
@@ -104,9 +104,9 @@ function getClassName(agariValue, answerValue) {
   const stringAgari = agariValue.toString();
   const trimmedAnswer = answerValue.trim();
   if (stringAgari === trimmedAnswer) {
-    return "correctAnswer answerText";
+    return "correctAnswer answerText unselectable";
   } else {
-    return "wrongAnswer answerText";
+    return "wrongAnswer answerText unselectable";
   }
 }
 
@@ -116,7 +116,7 @@ function GenerateRow(props) {
   rowData.push(
     <tr>
       <td>
-        <label>{props.label}</label>
+        <label className="unselectable">{props.label}</label>
       </td>
       <td>
         <FormGroup>
@@ -129,7 +129,7 @@ function GenerateRow(props) {
         </FormGroup>
       </td>
       <td>
-        <strong id={props.outputId} unselectable="on" className="answerText"></strong>
+        <strong id={props.outputId} className="answerText unselectable"></strong>
       </td>
     </tr>
   );
