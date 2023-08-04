@@ -2,6 +2,7 @@ import React from "react";
 import * as TileConversion from "../scripts/TileConversion";
 
 function Hand(props) {
+
   const initialHandString = props.agari.hand;
   const winningTile = props.agari.winningTile;
 
@@ -10,22 +11,31 @@ function Hand(props) {
   let hand = TileConversion.tileStringToArray(handString);
 
   const tileImages = hand.map((tile, index) => (
-    <img
+    <div className="first-row unique-row">
+      <img
       src={TileConversion.tileToPath(tile)}
       key={index}
       alt={tile}
       class="tile"
     />
+    </div>
   ));
 
   //push on winning tile
+
+
   tileImages.push(
-    <img
+    <div className="first-row">
+     <img
       src={TileConversion.tileToPath(winningTile)}
       alt={winningTile}
       class="tile winningTile"
     />
+    </div>
+ 
   );
+
+
 
   return tileImages;
 }

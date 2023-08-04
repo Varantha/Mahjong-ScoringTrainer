@@ -8,6 +8,7 @@
   pointer-events: none;
 }
 
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -42,14 +43,10 @@
   border-radius: 20%;
 }
 
-.OptionsButton {
-  position: fixed;
-  left: 0px;
-}
 
 .meld {
   align-items: end;
-  margin-left: 50px;
+ 
 }
 
 .bgcolor-1 {
@@ -86,52 +83,79 @@
 
 .infoContainer {
   display: flex;
-  align-items: center;
   text-align: center;
 }
 
-.quizPanel {
+
+span.quizPanel{
+  max-width: 500px;
+  margin: 40px auto 80px;
+  width: 100%;
+  padding: 0 20px;
   display: inline-block;
-  width: fit-content;
-  margin: 40px 40px 40px 40px;
   border-radius: 20px;
-  border: 2px;
   color: #5bc0be;
 }
 
+
+form.quizPanel{
+  margin: 0;
+  padding: 30px 40px;
+  border: 2px solid #8561bb;
+  width: 100%;
+  border-radius: 20px;
+  overflow: auto;
+}
+
+form.quizPanel table{
+  width: 100%;
+}
+
+form.quizPanel table tbody tr td:first-child{
+  color:#fff;
+ padding: 10px
+}
+
+form.quizPanel table tr th {
+  padding: 10px 10px 20px
+}
+
+
 .infoPanel {
   display: inline-block;
-  white-space: nowrap;
+  /* white-space: nowrap; */
 }
 
 .infoRow {
-  padding: 10px;
-  height: 200px;
+  padding: 0 10px 20px;
   font-family: Helvetica;
-  white-space: nowrap;
+  /* white-space: nowrap; */
   display: inline-block;
   text-align: center;
 }
 
 .infoTitle {
-  padding: 20px;
+  padding-bottom: 10px ;
   vertical-align: top;
   color: #5bc0be;
   font-family: "Lato", sans-serif;
+  min-height: 65px;
 }
 
 .infoElement {
-  min-height: 100px;
   display: block;
   margin: auto;
   text-align: center;
-  line-height: 80px;
-  color: #d8d4f2;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
 
-.tilePanel {
-  white-space: nowrap;
-  padding: 40px 40px 40px 40px;
+.tilePanel{
+  max-width: 1400px;
+  margin: 80px auto 40px;
+  padding-top: 94px;
 }
 
 .tileContainer {
@@ -148,12 +172,16 @@
 
 .allTiles {
   width: auto;
-  padding-top: 50px;
+  padding-top: 40px;
   padding-left: 20px;
   padding-right: 20px;
-  padding-bottom: 50px;
+  padding-bottom: 40px;
   border-radius: 20px;
-  border: 2px;
+  border: 2px solid #8561bb;
+  display: flex;
+  background-color: #271a3b;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .infoContainer {
@@ -167,15 +195,15 @@
 }
 
 .winningTile {
-  margin-left: 50px;
+
   border: 2px solid #ff0000;
   border-radius: 9px;
 }
 
 .calledTile {
   transform: rotate(90deg) translate(17%);
-  margin-left: 14px;
-  margin-right: 14px;
+  margin-left: 11px;
+  margin-right: 11px;
 }
 
 .alignBottom {
@@ -239,7 +267,6 @@ button {
 .checkAnswer {
   border-radius: 15px;
   font-size: 15px;
-  margin-right: 20px;
 }
 
 .checkAnswer:disabled {
@@ -247,6 +274,26 @@ button {
   font-size: 15px;
   margin-right: 20px;
   background-color: #244c4c;
+}
+
+
+
+form .btns{
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+form .btns button{
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+form .btns button:hover{
+  background: #fff;
+  color:#3B3058
 }
 
 .newHand {
@@ -257,10 +304,18 @@ button {
 .answerText {
   font-family: "Lato";
   text-shadow: 1px 1px 0 #000;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .correctAnswer {
-  color: green;
+  color: #38ed38;
 }
 
 .wrongAnswer {
@@ -268,17 +323,15 @@ button {
 }
 
 .winRatePanel {
-  position: fixed;
   right: 5px;
   background-color: #54457f;
   border: none;
   color: white;
   font-family: "Lato", sans-serif;
-  padding: 5px;
+  padding: 15px 20px;
   text-align: center;
   margin: 2px 4px;
   border-radius: 5px;
-  z-index: 1000;
 }
 
 .spaced {
@@ -294,17 +347,31 @@ button {
   opacity: 0%;
 }
 
+.menu-wrap {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99;
+  top: 98px;
+  overflow: auto;
+  width: 300px;
+  height: max-content;
+}
+
 .OptionsMenu {
   color: #5bc0be;
-  width: 660px;
-  min-width: 660px;
-  position: fixed;
   background-color: #54457f;
   padding-top: 10px;
   left: 0px;
-  top: 50px;
-  display: inline-block;
+  top: 98px;
   font-family: "Lato", sans-serif;
+  padding: 30px;
+  z-index: 999;
+}
+
+.form-check-input{
+  margin-right: 10px;
 }
 
 .menuOption {
@@ -321,6 +388,187 @@ button {
 }
 
 .menuOption.large {
-  width: 600px;
-  min-width: 600px;
+  margin-top: 20px;
 }
+
+.OptionsMenu h4{
+  color:#fff
+ }
+
+
+.header .cust-container{
+  display: flex;
+  justify-content: space-between;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+  flex-direction: row-reverse;
+  align-items: center;
+ }
+ 
+ .header{
+  background: #806fab;
+  position: fixed;
+  width: 100%;
+  z-index: 99;
+ }
+ 
+ .allTiles > div  img{
+ padding: 5px
+ }
+ 
+ .allTiles .meld{
+  padding-left: 20px
+ }
+ 
+ .row{
+  padding: 0 20px !important;
+  margin: 0 !important;
+ }
+
+ .row>*{
+  padding: 0 !important;
+
+ }
+
+ .infoContainer > div {
+  flex:1;
+  padding-bottom: 30px
+ }
+ 
+ .infoPanel {
+  width: 100%;
+  max-width: 800px;
+  margin:0;
+  padding: 30px 0 20px;
+  border-radius: 20px;
+  border:2px solid #8561bb
+ }
+ 
+ .infoContainer {
+  max-width: 700px;
+  margin: 0 auto
+ }
+
+ .scrollBtn{
+  position: fixed;
+ bottom: 20px;
+ right: 20px;
+ border-radius: 5px;
+ box-shadow: 0 9px 23px 4px #00000085;
+ z-index: 9999;
+
+}
+
+.scrollBtn img{
+  transform: rotate(-180deg)
+}
+
+.scrollBtn.up img{
+ transform: rotate(0deg)
+}
+
+.scrollBtn.up {
+   top: 115px;
+   bottom: auto;
+}
+
+
+ 
+ @media (max-width:767px){
+  .infoContainer > div {
+     flex: unset;
+     width: 33.33%;
+ }
+  
+  .infoContainer{
+   justify-content: center;
+   flex-wrap: wrap
+  }
+
+  span.quizPanel{
+    margin-bottom: 40px;
+  }
+
+  .tilePanel{
+    margin-top: 40px;
+  }
+
+  .allTiles .meld{
+    padding-left: 0
+   }
+  
+
+  .meld{
+  display: flex;
+
+  }
+
+  
+ }
+ 
+ @media (max-width:600px){
+   .infoContainer > div {
+     flex: unset;
+     width: 50%;
+ }
+  
+  .infoTitle 
+  {
+   min-height: 53px
+  }
+
+  form.quizPanel{
+    padding: 25px 20px;
+  }
+ }
+
+ @media (max-width:479px){
+  .winRatePanel label{
+    font-size: 12px;
+  }
+
+  .winRatePanel{
+    font-size: 12px;
+    padding: 10px 12px;
+    margin: 0;
+  }
+
+  .OptionsButton{
+    padding: 7px;
+    font-size: 1px;
+    line-height: 1px;
+  }
+
+  button.OptionsButton img {
+    height: 21px;
+    width: 22px;
+    margin: 0;
+}
+
+.header .cust-container{
+  padding: 20px 15px;
+}
+
+.menu-wrap {
+  top:78px
+}
+
+.allTiles .meld img{
+  padding: 10px 11px
+ }
+ 
+ .allTiles > div img {
+     padding: 10px 11px
+ }
+
+ .imageC{
+  margin: 0;
+ }
+ }
+
+ @media (max-width:340px){
+  .winRatePanel{
+    padding: 10px 8px;
+  }
+ }

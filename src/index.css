@@ -17,6 +17,6 @@ body,
 html {
   margin: 0;
   padding: 0;
-  height: 100%;
-  width: 99.7%;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }

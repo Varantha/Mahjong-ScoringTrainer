@@ -23,24 +23,28 @@ function Melds(props) {
     for (let j = 0; j < hand.length; j++) {
       if (calledArray[j] === 1) {
         currentMeld.push(
-          <img
+    
+            <img
             src={TileConversion.tileToPath(hand[j])}
             width={imageWidth}
             alt={hand[j]}
             class="calledTile"
           />
+
         );
       } else {
         currentMeld.push(
+          
           <img
             src={TileConversion.tileToPath(hand[j])}
             width={imageWidth}
             alt={hand[j]}
           />
+          
         );
       }
     }
-    tileImages.push(<span class="meld">{currentMeld}</span>);
+    tileImages.push( <div class="meld last-rows">{currentMeld}</div>);
   }
   return tileImages;
 }
