@@ -6,13 +6,20 @@ function WinRate(props) {
 
   return (
     <div className="winRatePanel">
-      <label className="correctAnswer spaced unselectable">Correct: {correctAnswers} </label>
-      <label className="wrongAnswer spaced unselectable"> Wrong: {wrongAnswers}</label>{" "}
-      Success rate:{" "}
-      {Math.round(
-        (correctAnswers / Math.max(correctAnswers + wrongAnswers, 1)) * 100
-      )}
-      %
+      <label className="correctAnswer spaced unselectable">
+        Correct: {correctAnswers}{" "}
+      </label>
+      <label className="wrongAnswer spaced unselectable">
+        {" "}
+        Wrong: {wrongAnswers}
+      </label>{" "}
+      <label className="unselectable">
+        Success rate:{" "}
+        {Math.round(
+          (correctAnswers / Math.max(correctAnswers + wrongAnswers, 1)) * 100
+        )}
+        %
+      </label>
     </div>
   );
 }

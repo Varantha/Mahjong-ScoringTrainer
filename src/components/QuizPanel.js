@@ -64,8 +64,8 @@ function QuizPanel(props) {
           <tbody>
             <tr>
               <th></th>
-              <th>Your Answer</th>
-              <th>Real Answer</th>
+              <th className="unselectable">Your Answer</th>
+              <th className="unselectable">Real Answer</th>
             </tr>
             {generateHanAndFuQuiz(
               props.options.testHan,
