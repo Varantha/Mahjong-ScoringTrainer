@@ -464,11 +464,11 @@ input::-webkit-inner-spin-button {
   transform: rotate(-180deg)
 }
 
-.scrollBtn.down img{
+.scrollBtn.up img{
  transform: rotate(0deg)
 }
 
-.scrollBtn.down {
+.scrollBtn.up {
    top: 115px;
    bottom: auto;
 }

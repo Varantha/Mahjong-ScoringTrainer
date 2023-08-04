@@ -8,7 +8,7 @@ function TilePanel(props) {
 
   return (
     <div>
-      <Col className="tilePanel">
+      <Col id="tilePanel" className="tilePanel">
         <span className="allTiles bgcolor-1">
           <Hand agari={agari} />
           <Melds agari={agari} />
