@@ -1,16 +1,14 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import React, { useState } from 'react';
 import { TilePanel } from "./components/TilePanel";
-
-import { useState } from "react";
 import { InfoPanel } from "./components/InfoPanel";
 import { QuizPanel } from "./components/QuizPanel";
 import { OptionsMenu } from "./components/OptionsMenu";
 import { WinRate } from "./components/WinRate";
-
-import logo from "./burger-menu.jpg";
+import logo from "./burger-menu.png";
 import { Row } from "reactstrap";
+import {scrollToOffset} from "./scripts/Utilities"
 
 function App() {
   let jsonMetaData;
@@ -32,15 +30,21 @@ function App() {
     testHonba: false,
   });
 
+
   const [answerVisible, setanswerVisible] = useState(false);
   const [optionsOpen, setOptionsOpen] = useState(false);
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [wrongAnswers, setWrongAnswers] = useState(0);
 
-  const toggle = () => setOptionsOpen(!optionsOpen);
+  const toggle = (event) => {
+    event.stopPropagation();
+    setOptionsOpen(!optionsOpen);
+  }
   const showAnswer = () => setanswerVisible(!answerVisible);
   const addCorrectAnswer = () => setCorrectAnswers(correctAnswers + 1);
   const addWrongAnswer = () => setWrongAnswers(wrongAnswers + 1);
+
+  const tilePanel = document.querySelector("#tilePanel")
 
   const newHand = () => {
     let jsonMetaData, jsonData;
@@ -68,22 +72,29 @@ function App() {
     formAnswers.forEach((input) => {
       input.textContent = "";
     });
+
+    scrollToOffset(tilePanel.offsetTop - 10);
   };
 
   const changeOptions = (e) => {
     setOptions(outputOptions());
-    newHand();
+    //newHand();
     //setRerender(!rerender);
   };
 
+  // Function to handle scroll up or down based on the current scrollDirection
+  
+  
   return (
     <div className="App">
+        <div className="header">
+           <div className="cust-container">
       <WinRate
         correctAnswers={correctAnswers}
         wrongAnswers={wrongAnswers}
       ></WinRate>
-      <button onClick={toggle} className="OptionsButton">
-        <img src={logo} height="30" alt="menu"></img>
+      <button onMouseDown={toggle} className="OptionsButton">
+        <img src={logo} alt="menu"></img>
       </button>
       <OptionsMenu
         options={options}
@@ -91,7 +102,10 @@ function App() {
         changeOptions={changeOptions}
         setOptionsOpen={setOptionsOpen}
         handName={handName}
+        onClickOutside={()=>setOptionsOpen(false)}
       />
+      </div>
+      </div>
       <Row>
         <TilePanel agari={agari} />
       </Row>
@@ -107,6 +121,10 @@ function App() {
         addCorrectAnswer={addCorrectAnswer}
         addWrongAnswer={addWrongAnswer}
       />
+      
+      {/* <ScrollButton direction='down' watchedElement={quizPanel} />
+      <ScrollButton direction='up' watchedElement={tilePanel} /> */}
+
     </div>
   );
 }

@@ -58,14 +58,14 @@ function QuizPanel(props) {
   };
 
   return (
-    <span className="bgcolor-1 quizPanel">
-      <Form id="quizForm" className="quizPanel" onSubmit={onSubmit}>
+    <span className=" quizPanel">
+      <Form id="quizForm" className="quizPanel bgcolor-1" onSubmit={onSubmit}>
         <table>
           <tbody>
             <tr>
               <th></th>
-              <th>Your Answer</th>
-              <th>Real Answer</th>
+              <th className="unselectable">Your Answer</th>
+              <th className="unselectable">Real Answer</th>
             </tr>
             {generateHanAndFuQuiz(
               props.options.testHan,
@@ -81,18 +81,20 @@ function QuizPanel(props) {
           </tbody>
         </table>
 
-        <button className="checkAnswer" id="checkAnswer">
+      <div className="btns">
+      <button className="checkAnswer unselectable" id="checkAnswer">
           Check Answer
         </button>
 
         <button
           onClick={props.newHand}
-          className="newHand"
+          className="newHand unselectable"
           type="button"
           id="1"
         >
           New Hand
         </button>
+      </div>
       </Form>
     </span>
   );
@@ -102,9 +104,9 @@ function getClassName(agariValue, answerValue) {
   const stringAgari = agariValue.toString();
   const trimmedAnswer = answerValue.trim();
   if (stringAgari === trimmedAnswer) {
-    return "correctAnswer answerText";
+    return "correctAnswer answerText unselectable";
   } else {
-    return "wrongAnswer answerText";
+    return "wrongAnswer answerText unselectable";
   }
 }
 
@@ -114,12 +116,12 @@ function GenerateRow(props) {
   rowData.push(
     <tr>
       <td>
-        <label>{props.label}</label>
+        <label className="unselectable">{props.label}</label>
       </td>
       <td>
         <FormGroup>
           <input
-            type="text"
+            type="number"
             id={props.inputId}
             name={props.name}
             className="quizBox"
@@ -127,7 +129,7 @@ function GenerateRow(props) {
         </FormGroup>
       </td>
       <td>
-        <strong id={props.outputId} className="answerText"></strong>
+        <strong id={props.outputId} className="answerText unselectable"></strong>
       </td>
     </tr>
   );
