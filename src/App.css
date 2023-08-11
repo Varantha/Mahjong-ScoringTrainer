@@ -317,6 +317,10 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+input[type=number] {
+  -moz-appearance:textfield;
+}
+
 .correctAnswer {
   color: #38ed38;
 }
