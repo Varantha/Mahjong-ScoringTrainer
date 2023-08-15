@@ -125,6 +125,7 @@ function GenerateRow(props) {
             id={props.inputId}
             name={props.name}
             className="quizBox"
+            onWheel={(e) => e.target.blur()}
           />
         </FormGroup>
       </td>
