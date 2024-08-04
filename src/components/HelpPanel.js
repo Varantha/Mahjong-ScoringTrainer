@@ -28,13 +28,9 @@ function HelpPanel(props) {
   var elementExists = document.getElementById("mySidenav");
   if (elementExists) {
     if (isOpen) {
-      document.getElementById("mySidenav").style.width = "60%";
-      document.getElementById("mySidenav").style.minWidth = "620px";
-      document.getElementById("mySidenav").style.paddingLeft = "60px";
+      document.getElementById("mySidenav").classList.remove("closedSideNav");
     } else {
-      document.getElementById("mySidenav").style.width = "0px";
-      document.getElementById("mySidenav").style.minWidth = "0px";
-      document.getElementById("mySidenav").style.paddingLeft = "0px";
+      document.getElementById("mySidenav").classList.add("closedSideNav");
     }
   }
 

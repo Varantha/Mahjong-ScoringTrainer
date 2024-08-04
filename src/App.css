@@ -603,8 +603,8 @@ input[type=number] {
 /* The side navigation menu */
 .sidenav {
   height: 100%; 
-  width: 0px; 
-  min-width: 0px;
+  width: 60%; 
+  min-width: 620px;
   position: fixed; 
   z-index: 1; 
   top: 60px; 
@@ -613,8 +613,15 @@ input[type=number] {
   overflow-x: hidden; 
   padding-top: 60px; 
   padding-bottom: 60px; 
-  padding-left: 0px; 
+  padding-left: 60px; 
   text-align: left;
+  color: white;
+}
+
+.closedSideNav {
+  width: 0%; 
+  min-width: 0px;
+  padding-left: 0px; 
 }
 
 td {
@@ -625,6 +632,12 @@ td {
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
+  .sidenav {
+    width: 100%; 
+    min-width: 600px;
+    padding-left: 60px; 
+    overflow-x: auto; 
+  }
 }
 
 [aria-hidden="true"] {
