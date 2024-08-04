@@ -618,17 +618,6 @@ input[type=number] {
   color: white;
 }
 
-.closedSideNav {
-  width: 0%; 
-  min-width: 0px;
-  padding-left: 0px; 
-}
-
-td {
-  text-align: center;
-}
-
-/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 @media screen and (max-width: 600px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
@@ -639,6 +628,17 @@ td {
     overflow-x: auto; 
   }
 }
+
+.closedSideNav {
+  width: 0%; 
+  min-width: 0px;
+  padding-left: 0px; 
+}
+
+td {
+  text-align: center;
+}
+
 
 [aria-hidden="true"] {
   position: absolute;
