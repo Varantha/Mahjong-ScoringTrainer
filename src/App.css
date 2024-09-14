@@ -620,12 +620,29 @@ input[type=number] {
 
 @media screen and (max-width: 600px) {
   .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
+  .sidenav a {font-size: 10px;}
   .sidenav {
     width: 100%; 
-    min-width: 600px;
-    padding-left: 60px; 
     overflow-x: auto; 
+    padding-right: 60px; 
+    padding-left: 20px; 
+    overflow-x: scroll;
+    zoom: 0.6;
+    padding-top: 100px;
+  }
+}
+
+@media screen and (max-height: 400px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 10px;}
+  .sidenav {
+    width: 100%; 
+    overflow-x: auto; 
+    padding-right: 60px; 
+    padding-left: 20px; 
+    overflow-x: scroll;
+    zoom: 0.8;
+    padding-top: 80px;
   }
 }
 
@@ -633,6 +650,7 @@ input[type=number] {
   width: 0%; 
   min-width: 0px;
   padding-left: 0px; 
+  padding-right: 0px; 
 }
 
 td {
