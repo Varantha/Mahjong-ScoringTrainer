@@ -14,13 +14,11 @@ function OptionsMenu(props) {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      console.log(ref)
         if (ref.current && !ref.current.contains(event.target)) {
             
           onClickOutside();
         }
     };
-    console.log(ref)
       document.addEventListener("mousedown", handleClickOutside);
 
       return () => {

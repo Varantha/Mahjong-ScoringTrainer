@@ -6,6 +6,7 @@ import { InfoPanel } from "./components/InfoPanel";
 import { QuizPanel } from "./components/QuizPanel";
 import { OptionsMenu } from "./components/OptionsMenu";
 import { WinRate } from "./components/WinRate";
+import { HelpPanel } from "./components/HelpPanel";
 import logo from "./burger-menu.png";
 import { Row } from "reactstrap";
 import {scrollToOffset} from "./scripts/Utilities"
@@ -33,13 +34,19 @@ function App() {
 
   const [answerVisible, setanswerVisible] = useState(false);
   const [optionsOpen, setOptionsOpen] = useState(false);
+  const [helpOpen, setHelpOpen] = useState(false);
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [wrongAnswers, setWrongAnswers] = useState(0);
 
-  const toggle = (event) => {
+  const toggleOptions = (event) => {
     event.stopPropagation();
     setOptionsOpen(!optionsOpen);
   }
+  const toggleHelp = (event) => {
+    event.stopPropagation();
+    setHelpOpen(!helpOpen);
+  }
+
   const showAnswer = () => setanswerVisible(!answerVisible);
   const addCorrectAnswer = () => setCorrectAnswers(correctAnswers + 1);
   const addWrongAnswer = () => setWrongAnswers(wrongAnswers + 1);
@@ -87,23 +94,33 @@ function App() {
   
   return (
     <div className="App">
+        <HelpPanel
+              onClickOutside={()=>toggleHelp()} 
+              isOpen={helpOpen}
+            />
         <div className="header">
            <div className="cust-container">
-      <WinRate
-        correctAnswers={correctAnswers}
-        wrongAnswers={wrongAnswers}
-      ></WinRate>
-      <button onMouseDown={toggle} className="OptionsButton">
-        <img src={logo} alt="menu"></img>
-      </button>
-      <OptionsMenu
-        options={options}
-        menuOpen={optionsOpen}
-        changeOptions={changeOptions}
-        setOptionsOpen={setOptionsOpen}
-        handName={handName}
-        onClickOutside={()=>setOptionsOpen(false)}
-      />
+            <WinRate
+              correctAnswers={correctAnswers}
+              wrongAnswers={wrongAnswers}
+            ></WinRate>
+            <div className="headerButtons">
+              <button onMouseDown={toggleOptions} className="OptionsButton">
+                <img src={logo} alt="menu"></img>
+              </button>
+              <button onMouseDown={toggleHelp} className="testhelp">
+                <strong>?</strong>
+              </button>
+            </div>
+            <OptionsMenu
+              options={options}
+              menuOpen={optionsOpen}
+              changeOptions={changeOptions}
+              setOptionsOpen={setOptionsOpen}
+              handName={handName}
+              onClickOutside={()=>setOptionsOpen(false)}
+            />
+      
       </div>
       </div>
       <Row>

@@ -170,6 +170,13 @@ form.quizPanel table tr th {
   white-space: normal;
 }
 
+.tile-small {
+  max-height: 50px;
+  max-width: 40px;
+  display: inline-block;
+  white-space: normal;
+}
+
 .allTiles {
   width: auto;
   padding-top: 40px;
@@ -318,7 +325,8 @@ input::-webkit-inner-spin-button {
 }
 
 input[type=number] {
-  -moz-appearance:textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 .correctAnswer {
@@ -531,51 +539,133 @@ input[type=number] {
  }
 
  @media (max-width:479px){
-  .winRatePanel label{
-    font-size: 12px;
+    .winRatePanel label{
+      font-size: 12px;
+    }
+
+    .winRatePanel{
+      font-size: 12px;
+      padding: 10px 12px;
+      margin: 0;
+    }
+
+    .OptionsButton{
+      padding: 7px;
+      font-size: 1px;
+      line-height: 1px;
+    }
+
+    button.OptionsButton img {
+      height: 21px;
+      width: 22px;
+      margin: 0;
   }
 
-  .winRatePanel{
-    font-size: 12px;
-    padding: 10px 12px;
+  .header .cust-container{
+    padding: 20px 15px;
+  }
+
+  .menu-wrap {
+    top:78px
+  }
+
+  .allTiles .meld img{
+    padding: 10px 11px
+  }
+  
+  .allTiles > div img {
+      padding: 10px 11px
+  }
+
+  .imageC{
     margin: 0;
   }
-
-  .OptionsButton{
-    padding: 7px;
-    font-size: 1px;
-    line-height: 1px;
-  }
-
-  button.OptionsButton img {
-    height: 21px;
-    width: 22px;
-    margin: 0;
 }
-
-.header .cust-container{
-  padding: 20px 15px;
-}
-
-.menu-wrap {
-  top:78px
-}
-
-.allTiles .meld img{
-  padding: 10px 11px
- }
- 
- .allTiles > div img {
-     padding: 10px 11px
- }
-
- .imageC{
-  margin: 0;
- }
- }
 
  @media (max-width:340px){
   .winRatePanel{
     padding: 10px 8px;
   }
  }
+
+ button.testhelp {
+  height: 46px;
+  width: 44px;
+  margin-left: 20px;
+  font-size: 20px;
+  padding: 10px;
+}
+
+.headerButtons {
+  display: flex;
+  align-items: center;
+}
+
+/* The side navigation menu */
+.sidenav {
+  height: 100%; 
+  width: 60%; 
+  min-width: 620px;
+  position: fixed; 
+  z-index: 1; 
+  top: 60px; 
+  left: 0;
+  background-color: #1F152F;
+  overflow-x: hidden; 
+  padding-top: 60px; 
+  padding-bottom: 60px; 
+  padding-left: 60px; 
+  text-align: left;
+  color: white;
+}
+
+@media screen and (max-width: 600px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 10px;}
+  .sidenav {
+    width: 100%; 
+    overflow-x: auto; 
+    padding-right: 60px; 
+    padding-left: 20px; 
+    overflow-x: scroll;
+    zoom: 0.6;
+    padding-top: 100px;
+  }
+}
+
+@media screen and (max-height: 400px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 10px;}
+  .sidenav {
+    width: 100%; 
+    overflow-x: auto; 
+    padding-right: 60px; 
+    padding-left: 20px; 
+    overflow-x: scroll;
+    zoom: 0.8;
+    padding-top: 80px;
+  }
+}
+
+.closedSideNav {
+  width: 0%; 
+  min-width: 0px;
+  padding-left: 0px; 
+  padding-right: 0px; 
+}
+
+td {
+  text-align: center;
+}
+
+
+[aria-hidden="true"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
