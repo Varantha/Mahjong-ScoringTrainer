@@ -47,7 +47,7 @@ function HelpPanel(props) {
     };
   }, [onClickOutside]);
 
-  return <div id="mySidenav" class="sidenav">
+  return <div id="mySidenav" class="sidenav closedSideNav">
     <MarkdownView
       markdown={mdContent}
       options={{ tables: true, emoji: true, parseImgDimensions: true}}
