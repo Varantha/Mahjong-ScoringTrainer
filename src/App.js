@@ -80,7 +80,10 @@ function App() {
       input.textContent = "";
     });
 
+    // Scroll to the top of the screen (to show hand)
     scrollToOffset(tilePanel.offsetTop - 10);
+    // Focus on the first input field 
+    formInputs[0].focus();
   };
 
   const changeOptions = (e) => {

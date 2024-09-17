@@ -48,7 +48,10 @@ function QuizPanel(props) {
 
     const isCorrect = formAnswers.length === 0;
 
+    // Disable checking answer until hand is reloaded
     document.getElementById("checkAnswer").disabled = true;
+    // Focus on new hand button (so return key can be instantly used to reload hand)
+    document.getElementById("newHand").focus();
 
     if (isCorrect) {
       props.addCorrectAnswer();
@@ -90,7 +93,7 @@ function QuizPanel(props) {
           onClick={props.newHand}
           className="newHand unselectable"
           type="button"
-          id="1"
+          id="newHand"
         >
           New Hand
         </button>
