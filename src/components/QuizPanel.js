@@ -33,12 +33,13 @@ function QuizPanel(props) {
     for (let i = 1; i < quizBox.length; i++) {
       const row = quizBox[i];
 
+      const label = row.querySelectorAll("label")[0];
       const input = row.querySelectorAll("input")[0];
       const output = row.querySelectorAll("strong")[0];
       const answer = rowMapping[output.id];
 
       output.textContent = answer;
-      output.className = getClassName(answer, input.value);
+      output.className = getClassName(answer, input.value, label.textContent, props.ignoreFuAnswer);
       input.disabled = true;
     }
 
@@ -70,7 +71,8 @@ function QuizPanel(props) {
             {generateHanAndFuQuiz(
               props.options.testHan,
               props.options.testFu,
-              agari
+              agari,
+              props.ignoreFuAnswer
             )}
             {generatePointsQuiz(
               isTsumo,
@@ -100,7 +102,11 @@ function QuizPanel(props) {
   );
 }
 
-function getClassName(agariValue, answerValue) {
+function getClassName(agariValue, answerValue, label, ignoreFuAnswer) {
+  // if we ignore Fu on limit hands, and it is a hand above 4 han, we want to ignore the Fu answer
+  if (label === "Fu" && ignoreFuAnswer) {
+    return "ignoredAnswer answerText unselectable";
+  }
   const stringAgari = agariValue.toString();
   const trimmedAnswer = answerValue.trim();
   if (stringAgari === trimmedAnswer) {
@@ -154,9 +160,12 @@ function GenerateRow(props) {
   return rowData;
 }
 
-function formatFuList(agari) {
+function formatFuList(agari, ignoreFuAnswer) {
   const output = [];
   output.push(<p></p>);
+  if (ignoreFuAnswer) {
+    output.push(<p style={{ color: "white" }}>Set to ignore Fu on limit hands</p>);
+  }
   agari.fu_details.forEach((line) => {
     var reason = capitalizeFirstLetter(line.reason.replaceAll("_", " "));
     var fuValue = line.fu;
@@ -176,7 +185,7 @@ function formatHanList(agari) {
   return output;
 }
 
-function generateHanAndFuQuiz(isHanQuiz, isFuQuiz, agari) {
+function generateHanAndFuQuiz(isHanQuiz, isFuQuiz, agari, ignoreFuAnswer) {
   const hanAndFuQuizRows = [];
 
   if (isHanQuiz) {
@@ -197,7 +206,7 @@ function generateHanAndFuQuiz(isHanQuiz, isFuQuiz, agari) {
         inputId="fuBox"
         outputId="fuAnswer"
         name="fu"
-        tooltipContent={formatFuList(agari)}
+        tooltipContent={formatFuList(agari, ignoreFuAnswer)}
       />
     );
   }

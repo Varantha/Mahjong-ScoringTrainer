@@ -1,14 +1,14 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Collapse, Label, Input } from "reactstrap";
 
 
 function OptionsMenu(props) {
-  const options = props.options;
+  var options = props.options;
   const isOpen = props.menuOpen;
   const handName = props.handName;
   const onClickOutside = props.onClickOutside
-
-  // const [TooltipOpen, setTooltipOpen] = React.useState(false);
+  const [changesPending, setChangesPending] = useState(false);
+  const [checkboxes, setCheckboxes] = useState({...options});
 
   const ref = useRef(null);
 
@@ -26,6 +26,24 @@ function OptionsMenu(props) {
       };
   }, [onClickOutside]);
 
+  useEffect(() => {
+    // Check if the checkboxes object matches the options object
+    const areEqual = Object.keys(checkboxes).every(
+      (key) => checkboxes[key] === options[key]
+    );
+    setChangesPending(!areEqual);
+  }, [checkboxes, options]);
+
+  const handleCheckboxChange = (id) => {
+    // Update the state by toggling the checkbox with the corresponding id
+    setCheckboxes({
+      ...checkboxes,
+      [id]: !checkboxes[id],
+    });
+  };
+
+
+
 
   return (
 
@@ -39,6 +57,7 @@ function OptionsMenu(props) {
       optionText="Test Han"
       changeOptions={props.changeOptions}
       size="small"
+      handleCheckboxChange={handleCheckboxChange}
       />
       <MenuOption
       options={options}
@@ -46,6 +65,7 @@ function OptionsMenu(props) {
       optionText="Test Fu"
       changeOptions={props.changeOptions}
       size="small"
+      handleCheckboxChange={handleCheckboxChange}
       />
       <MenuOption
       options={options}
@@ -53,6 +73,7 @@ function OptionsMenu(props) {
       optionText="Kiriage Mangan Mode"
       changeOptions={props.changeOptions}
       size="small"
+      handleCheckboxChange={handleCheckboxChange}
       />
       <br />
       <MenuOption
@@ -61,6 +82,16 @@ function OptionsMenu(props) {
       optionText="Include Honba Sticks"
       changeOptions={props.changeOptions}
       size="small"
+      handleCheckboxChange={handleCheckboxChange}
+      />
+      <br />
+      <MenuOption
+      options={options}
+      optionId="ignoreFuOnLimit"
+      optionText="Ignore Fu on Limit Hands"
+      changeOptions={props.changeOptions}
+      size="small"
+      handleCheckboxChange={handleCheckboxChange}
       />
       <br />
       <div className="link" style={{marginTop:'10px' }}>
@@ -75,23 +106,15 @@ function OptionsMenu(props) {
       className="checkAnswer"
       id="applyButton"
       onClick={(e) => props.changeOptions(e)}
+      disabled={!changesPending}
       >
       Apply
       </button>
-      {/* <Tooltip
-      isOpen={TooltipOpen}
-      className="hanTooltip"
-      placement="right"
-      target="applyButton"
-      toggle={() => {
-      setTooltipOpen(!TooltipOpen);
-      }}
-      >
-      Applying these settings will refresh the hand
-      </Tooltip> */}
       </div>
       </Collapse>
     </div>
+
+    
    
   );
 }
@@ -107,6 +130,7 @@ function MenuOption(props) {
           id={props.optionId}
           defaultChecked={props.options[props.optionId]}
           key={props.optionId}
+          onChange={() => props.handleCheckboxChange(props.optionId)}
         />{" "}
         {props.optionText}
       </Label>

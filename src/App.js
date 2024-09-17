@@ -1,6 +1,6 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TilePanel } from "./components/TilePanel";
 import { InfoPanel } from "./components/InfoPanel";
 import { QuizPanel } from "./components/QuizPanel";
@@ -24,19 +24,23 @@ function App() {
     require("./data/" + jsonMetaData[num])
   );
   const [options, setOptions] = useState({
-    pointSticks: false,
     testHan: true,
     testFu: true,
     kiriageMangan: false,
     testHonba: false,
+    ignoreFuOnLimit: false,
   });
-
 
   const [answerVisible, setanswerVisible] = useState(false);
   const [optionsOpen, setOptionsOpen] = useState(false);
   const [helpOpen, setHelpOpen] = useState(false);
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [wrongAnswers, setWrongAnswers] = useState(0);
+  const [ignoreFuAnswer, setIgnoreFuAnswer] = useState(checkIgnoreFuAnswer(options, agari));
+
+  useEffect(() => {
+    setIgnoreFuAnswer(checkIgnoreFuAnswer(options, agari));
+  }, [agari, options]);
 
   const toggleOptions = (event) => {
     event.stopPropagation();
@@ -137,6 +141,7 @@ function App() {
         newHand={newHand}
         addCorrectAnswer={addCorrectAnswer}
         addWrongAnswer={addWrongAnswer}
+        ignoreFuAnswer={ignoreFuAnswer}
       />
       
       {/* <ScrollButton direction='down' watchedElement={quizPanel} />
@@ -156,6 +161,14 @@ function outputOptions() {
       option.children[0].children[0].checked;
   });
   return options;
+}
+
+function checkIgnoreFuAnswer(options, agari) {
+  if(options.ignoreFuOnLimit && agari.han > 4){
+    return true;
+  }else{
+    return false;
+  }
 }
 
 export default App;
