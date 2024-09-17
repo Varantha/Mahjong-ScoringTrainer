@@ -4,6 +4,16 @@
 
 All hands on this site have been extracted from Tenhou game logs, so the rules used on this site use Tenhou's ruleset.
 
+## Site Options
+
+A brief overview of the different options on the site: 
+
+- `Test Han` - When disabled, you aren't required to calculate Han.
+- `Test Fu` - When disabled, you aren't required to calculate Fu.
+- `Kiriage Mangan Mode` - When enabled, a 4 han and 30 fu hand, as well as a 3 han 60 fu hand, are considered a mangan hand.
+- `Include Honba Sticks` - When enabled, an extra field will be added and you will need to calculate the total score including additional points from honba sticks.
+- `Ignore Fu on Limit Hands` - When enabled, if a hand has 5 or more han then you won't get penalised for an incorrect Fu answer.
+
 ## Calculating Han
 
 Han is the sum of the number of yaku (and their worth) added to the number of dora (ドラ) that are in your hand. 

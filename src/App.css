@@ -279,7 +279,7 @@ button {
 .checkAnswer:disabled {
   border-radius: 15px;
   font-size: 15px;
-  margin-right: 20px;
+  margin-right: 0px;
   background-color: #244c4c;
 }
 
@@ -335,6 +335,10 @@ input[type=number] {
 
 .wrongAnswer {
   color: red;
+}
+
+.ignoredAnswer {
+  color: gray;
 }
 
 .winRatePanel {
