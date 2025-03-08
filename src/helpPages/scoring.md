@@ -207,7 +207,7 @@ A simple way to remember this is:
     * If it's a kan, double your fu twice (or x4)
 
 
-## Calculating Points
+## Calculating Basic Points
 
 First we'll go through how points are actually calculated. 
 
@@ -217,6 +217,27 @@ Initially we need to work out the basic points which you get using this function
 basic\ points = fu \times 2^{2+han}
 ```
 <br />
+
+## Mangans
+
+When it is clear that your basic points calculation is over 2,000, it is limited to a basic point value of 2,000 and called mangan.
+
+If your basic point calculation is below 2000, feel free to skip this section. 
+
+As you get more han, it raises the value of a mangan. You can memorise the values from this table: 
+
+|Name |Han Value| Basic Point Value
+|:----:|:----:|:----:
+|Mangan | 3 han, 70 fu or more <br> 4 han, 40 fu or more <br> 5 han | 2000 
+|Haneman |6-7 han | 3000
+|Baiman | 8-10 han | 4000
+|Sanbaiman | 11-12 han | 6000
+|Kazoe-yakuman | 13+ han | 8000
+
+Now you have your basic point value you can move onto calculating the total points awarded.
+
+## Calculating Total Points
+
 Once the basic points are calculated, multiply them depending on the scenario. The four possible scenarios are:
 
 * For a non-dealer tsumo, the dealer pays the winner $$2 \times basic\ points$$, and the other two players pay the winner $$1 \times basic\ points$$.
