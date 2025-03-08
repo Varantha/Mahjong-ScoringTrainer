@@ -185,11 +185,20 @@ The wind tile's order goes east -> south -> west -> north (the same as the rotat
 
 
 <br />
-<br />
-<br />
 
 ## Calculating Fu
 
+### Win Type 
+
+A winning hand is automatically awarded 20 fu to start with. 
+
+If you have won by Tsumo, add an additional 2 fu.
+
+If you have won by Ron, add an additional 10 fu. 
+
+### Melds
+
+Now you need to calculate the fu you get from your melds. (3+ of the same tiles)
 
 |Condition | simple tiles | terminal or honor tiles
 |---|--------------|------------------------
@@ -206,6 +215,40 @@ A simple way to remember this is:
     * If it's a closed meld, double your fu
     * If it's a kan, double your fu twice (or x4)
 
+### Pairs
+
+You get an additional +2 Fu if your pair is a: 
+
+- Seat Wind
+- Round Wind
+- Dragon Tile
+
+Note that if your pair is both the Seat Wind and Round Wind then that counts as +4 fu
+
+### Winning wait
+
+You get additional fu depending on the shape of your hand whilst waiting for your last tile. 
+
+Simply: 
+
+- If you are waiting on a single type of tile to complete your hand, +2 fu
+- If you are waiting on 2 or more types of tiles to complete your hand, +0 fu
+
+### Rounding
+
+Finally round your fu score up to the next 10. 
+
+*That means if you have 32 fu, you still round up to 40.*
+
+This is your final fu score. 
+
+### Exceptions
+
+There are a couple of fu exceptions to learn:
+
+- A Seven Pairs hand is always worth 25 fu (You do not round up)
+- A Pinfu hand won by Tsumo is always 20 fu
+- A Pinfu hand won by ron is always 30 fu
 
 ## Calculating Basic Points
 
@@ -253,6 +296,8 @@ You now have a final score (or two) to input into the trainer.
 
 If you have the `Include Honba Sticks` setting turned on then you will also need to add additional points to that score. 
 The number of point is calculated by multiplying 300 by the number of Honba Sticks there are. These are then divided up as per the rules above. 
+
+<br />
 
 ## Scoring table
 
