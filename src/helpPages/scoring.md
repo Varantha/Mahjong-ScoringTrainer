@@ -198,7 +198,9 @@ If you have won by Ron, add an additional 10 fu.
 
 ### Melds
 
-Now you need to calculate the fu you get from your melds. (3+ of the same tiles)
+Now you need to calculate the fu you get from your melds. (3+ copies of the same tile)
+
+Their value is shown in the table below:
 
 |Condition | simple tiles | terminal or honor tiles
 |---|--------------|------------------------
