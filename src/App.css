@@ -652,10 +652,7 @@ input[type=number] {
 }
 
 .closedSideNav {
-  width: 0%; 
-  min-width: 0px;
-  padding-left: 0px; 
-  padding-right: 0px; 
+  visibility: hidden;
 }
 
 td {
