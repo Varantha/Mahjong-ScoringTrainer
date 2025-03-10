@@ -194,7 +194,7 @@ A winning hand is automatically awarded 20 fu to start with.
 
 If you have won by Tsumo, add an additional 2 fu.
 
-If you have won by Ron, add an additional 10 fu. 
+If you have won by Ron with a closed hand, add an additional 10 fu. 
 
 ### Melds
 
