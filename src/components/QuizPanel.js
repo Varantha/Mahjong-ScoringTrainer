@@ -18,9 +18,7 @@ function QuizPanel(props) {
   const pointValue = pointCalculations.pointValue;
   const pointValueDealer = pointCalculations.pointValueDealer;
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-
+  function showQuizAnswers() {
     const rowMapping = {
       hanAnswer: agari.han,
       fuAnswer: agari.fu,
@@ -42,6 +40,12 @@ function QuizPanel(props) {
       output.className = getClassName(answer, input.value, label.textContent, props.ignoreFuAnswer);
       input.disabled = true;
     }
+  }
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    showQuizAnswers();
 
     const formAnswers = document.querySelectorAll(
       "#quizForm strong.wrongAnswer"
@@ -59,6 +63,8 @@ function QuizPanel(props) {
     } else {
       props.addWrongAnswer();
     }
+
+    props.setHandAnswered(true);
   };
 
   return (
@@ -78,11 +84,22 @@ function QuizPanel(props) {
               props.ignoreFuAnswer
             )}
             {generatePointsQuiz(
+              props.options.testPoints,
               isTsumo,
               isDealer,
               pointsCalcSteps,
               pointsCalcStepsDealer
             )}
+            {
+              !(props.options.testHan || props.options.testFu || props.options.testPoints) && (
+                <tr>
+                  <td colSpan="3" className="noQuizOptions">
+                      No Test options selected. Please select at least one
+                      option in the Options menu.
+                  </td>
+                </tr>
+              )
+            }
           </tbody>
         </table>
 
@@ -217,12 +234,17 @@ function generateHanAndFuQuiz(isHanQuiz, isFuQuiz, agari, ignoreFuAnswer) {
 }
 
 function generatePointsQuiz(
+  isPointsQuiz,
   isTsumo,
   isDealer,
   pointsCalculations,
   pointsCalculationsDealer
 ) {
   const pointQuizRows = [];
+
+  if (!isPointsQuiz) {
+    return pointQuizRows; //If points quiz is not enabled, return empty array
+  }
   if (isTsumo && isDealer) {
     pointQuizRows.push(
       <GenerateRow

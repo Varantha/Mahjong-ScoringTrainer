@@ -69,6 +69,14 @@ function OptionsMenu(props) {
       />
       <MenuOption
       options={options}
+      optionId="testPoints"
+      optionText="Test Points"
+      changeOptions={props.changeOptions}
+      size="small"
+      handleCheckboxChange={handleCheckboxChange}
+      />
+      <MenuOption
+      options={options}
       optionId="kiriageMangan"
       optionText="Kiriage Mangan Mode"
       changeOptions={props.changeOptions}

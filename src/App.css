@@ -276,14 +276,12 @@ button {
   font-size: 15px;
 }
 
-.checkAnswer:disabled {
+button:disabled {
   border-radius: 15px;
   font-size: 15px;
   margin-right: 0px;
   background-color: #244c4c;
 }
-
-
 
 form .btns{
   display: flex;
