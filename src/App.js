@@ -26,6 +26,7 @@ function App() {
   const [options, setOptions] = useState({
     testHan: true,
     testFu: true,
+    testPoints: true,
     kiriageMangan: false,
     testHonba: false,
     ignoreFuOnLimit: false,
@@ -37,6 +38,7 @@ function App() {
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [wrongAnswers, setWrongAnswers] = useState(0);
   const [ignoreFuAnswer, setIgnoreFuAnswer] = useState(checkIgnoreFuAnswer(options, agari));
+  const [handAnswered, setHandAnswered] = useState(false);
 
   useEffect(() => {
     setIgnoreFuAnswer(checkIgnoreFuAnswer(options, agari));
@@ -71,7 +73,11 @@ function App() {
     setAgariData(jsonData);
     setanswerVisible(false);
 
-    document.getElementById("checkAnswer").disabled = false;
+    if (options.testFu || options.testHan || options.testPoints) {
+      document.getElementById("checkAnswer").disabled = false;
+    }
+
+    setHandAnswered(false);
 
     const formInputs = document.querySelectorAll("#quizForm input");
     formInputs.forEach((input) => {
@@ -87,13 +93,23 @@ function App() {
     // Scroll to the top of the screen (to show hand)
     scrollToOffset(tilePanel.offsetTop - 10);
     // Focus on the first input field 
-    formInputs[0].focus();
+    if (formInputs.length > 0){
+      formInputs[0].focus();
+    }
   };
 
   const changeOptions = (e) => {
-    setOptions(outputOptions());
-    //newHand();
-    //setRerender(!rerender);
+    const newOptions = outputOptions();
+    setOptions(newOptions);
+    if (!(newOptions.testFu || newOptions.testHan || newOptions.testPoints)) {
+      document.getElementById("checkAnswer").disabled = true;
+      document.getElementById("newHand").disabled = true;
+    }else{
+      if (!handAnswered) {
+        document.getElementById("checkAnswer").disabled = false;
+      }
+      document.getElementById("newHand").disabled = false;
+    }
   };
 
   // Function to handle scroll up or down based on the current scrollDirection
@@ -145,6 +161,7 @@ function App() {
         addCorrectAnswer={addCorrectAnswer}
         addWrongAnswer={addWrongAnswer}
         ignoreFuAnswer={ignoreFuAnswer}
+        setHandAnswered={setHandAnswered}
       />
       
       {/* <ScrollButton direction='down' watchedElement={quizPanel} />
