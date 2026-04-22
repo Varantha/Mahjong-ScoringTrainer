@@ -7,6 +7,7 @@ import { useTranslation } from '../i18n/I18nContext';
 import scoringEn from '../helpPages/scoring.en.md';
 import scoringJa from '../helpPages/scoring.ja.md';
 import scoringKo from '../helpPages/scoring.ko.md';
+import scoringZhCn from '../helpPages/scoring.zh_cn.md';
 
 require('../extensions/MarkdownTiles.js');
 
@@ -26,7 +27,8 @@ function HelpPanel(props) {
     const mdMap = {
       en: scoringEn,
       ja: scoringJa,
-      ko: scoringKo
+      ko: scoringKo,
+      zh_cn: scoringZhCn
     };
 
     const loadHelpFile = async () => {

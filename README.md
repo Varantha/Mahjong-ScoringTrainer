@@ -14,6 +14,7 @@ This site supports multiple languages! Currently available:
 - English
 - Japanese (日本語)
 - Korean (한국어)
+- Chinese(Simplified) (中文简体)
 
 Want to help translate the site into another language? Check out the [Translation Guide](TRANSLATION_GUIDE.md) for detailed instructions on how to contribute translations.
 

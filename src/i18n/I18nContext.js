@@ -2,6 +2,7 @@ import React, { createContext, useState, useContext, useEffect } from 'react';
 import enTranslations from './translations/en.json';
 import jaTranslations from './translations/ja.json';
 import koTranslations from './translations/ko.json';
+import zh_cnTranslations from './translations/zh_cn.json';
 
 const I18nContext = createContext();
 
@@ -10,12 +11,14 @@ export const LANGUAGES = {
   en: { code: 'en', name: 'English', flag: '🇬🇧' },
   ja: { code: 'ja', name: '日本語', flag: '🇯🇵' },
   ko: { code: 'ko', name: '한국어', flag: '🇰🇷' },
+  zh_cn: { code: 'zh_cn', name: '简体中文', flag: '🇨🇳' },
 };
 
 const translations = {
   en: enTranslations,
   ja: jaTranslations,
-  ko: koTranslations
+  ko: koTranslations,
+  zh_cn: zh_cnTranslations
 };
 
 export function I18nProvider({ children }) {
