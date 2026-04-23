@@ -21,9 +21,10 @@ function QuizPanel(props) {
   const pointValueDealer = pointCalculations.pointValueDealer;
 
   function showQuizAnswers() {
+    const fuAnswer = options.exactFu ? getExactFu(agari) : agari.fu;
     const rowMapping = {
       hanAnswer: agari.han,
-      fuAnswer: agari.fu,
+      fuAnswer: fuAnswer,
       pointsAnswer: pointValue,
       pointsAnswerDealer: pointValueDealer,
     }; //map the output ids to the correct answers for each of them
@@ -510,6 +511,12 @@ function addCalculationSteps(
       </p>
     );
   }
+}
+
+function getExactFu(agari) {
+  return agari.fu_details
+    .filter((detail) => detail.reason !== "rounding")
+    .reduce((sum, detail) => sum + detail.fu, 0);
 }
 
 export { QuizPanel };
