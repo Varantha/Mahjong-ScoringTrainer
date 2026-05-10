@@ -103,6 +103,14 @@ function OptionsMenu(props) {
       size="small"
       handleCheckboxChange={handleCheckboxChange}
       />
+      <MenuOption
+      options={options}
+      optionId="exactFu"
+      optionText={t('options.exactFu')}
+      changeOptions={props.changeOptions}
+      size="small"
+      handleCheckboxChange={handleCheckboxChange}
+      />
       <br />
       <div className="menuOption small" style={{marginTop:'10px'}}>
         <Label htmlFor="languageSelect">{t('options.language')}</Label>

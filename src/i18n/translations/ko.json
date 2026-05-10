@@ -37,6 +37,7 @@
     "kiriageMangan": "절상만관 채용",
     "testHonba": "장봉 포함",
     "ignoreFuOnLimit": "5판 이상 부수 무시",
+    "exactFu": "부수 반올림 없음",
     "language": "언어"
   },
   "winRate": {
