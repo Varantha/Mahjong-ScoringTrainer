@@ -10,6 +10,20 @@
 
         gtag('config', 'G-S04MXHH371');
       </script>
+    <!--
+      Umami analytics (see src/analytics.js). async rather than defer: a
+      deferred script would hold up the app bundle, which is also deferred,
+      until the tracker downloads. Don't give it id="umami": an element id
+      becomes a window property, and the tracker skips defining its API when
+      window.umami already exists.
+    -->
+    <script async id="umami-tracker" src="https://analytics.konbamwa.net/script.js"
+      data-website-id="%REACT_APP_UMAMI_WEBSITE_ID%"
+      data-domains="%REACT_APP_UMAMI_DOMAINS%"
+      data-exclude-search="true"
+      data-performance="true"
+      data-errors="true"
+      data-release="%REACT_APP_VERSION%"></script>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/apple-touch-icon.png" />

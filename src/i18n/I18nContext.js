@@ -3,6 +3,7 @@ import enTranslations from './translations/en.json';
 import jaTranslations from './translations/ja.json';
 import koTranslations from './translations/ko.json';
 import zh_cnTranslations from './translations/zh_cn.json';
+import { identify, track } from '../analytics';
 
 const I18nContext = createContext();
 
@@ -31,7 +32,9 @@ export function I18nProvider({ children }) {
   // Save language preference when it changes
   useEffect(() => {
     localStorage.setItem('mahjong-language', currentLanguage);
-    
+
+    identify({ language: currentLanguage });
+
     // Send language to Google Analytics as a user property
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('set', 'user_properties', {
@@ -41,7 +44,8 @@ export function I18nProvider({ children }) {
   }, [currentLanguage]);
 
   const changeLanguage = (languageCode) => {
-    if (LANGUAGES[languageCode]) {
+    if (LANGUAGES[languageCode] && languageCode !== currentLanguage) {
+      track('language-changed', { from: currentLanguage, to: languageCode });
       setCurrentLanguage(languageCode);
     }
   };

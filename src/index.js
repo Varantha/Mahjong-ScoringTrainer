@@ -4,8 +4,8 @@ import './index.css';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import { notifyUpdateAvailable } from './swUpdate';
-import reportWebVitals from './reportWebVitals';
 import { I18nProvider } from './i18n/I18nContext';
+import { initAnalytics } from './analytics';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -21,7 +21,6 @@ root.render(
 // Learn more about the benefits of this model: https://cra.link/PWA
 serviceWorkerRegistration.register({ onUpdate: notifyUpdateAvailable });
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+// Web Vitals and uncaught errors are collected by the Umami tracker itself
+// (data-performance and data-errors in public/index.html).
+initAnalytics();
