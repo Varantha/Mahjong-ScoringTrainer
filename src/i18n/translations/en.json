@@ -47,6 +47,11 @@
   "footer": {
     "logIssues": "Log issues on"
   },
+  "update": {
+    "available": "A new version of the app is available.",
+    "reload": "Reload",
+    "dismiss": "Later"
+  },
   "fuDetails": {
     "base": "Base",
     "closed_kan": "Closed Kan",

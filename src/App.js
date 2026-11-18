@@ -7,6 +7,7 @@ import { QuizPanel } from "./components/QuizPanel";
 import { OptionsMenu } from "./components/OptionsMenu";
 import { WinRate } from "./components/WinRate";
 import { HelpPanel } from "./components/HelpPanel";
+import { UpdatePrompt } from "./components/UpdatePrompt";
 import logo from "./burger-menu.png";
 import { Row } from "reactstrap";
 import {scrollToOffset} from "./scripts/Utilities"
@@ -117,6 +118,7 @@ function App() {
   
   return (
     <div className="App">
+        <UpdatePrompt />
         <HelpPanel
               onClickOutside={()=>toggleHelp()} 
               isOpen={helpOpen}

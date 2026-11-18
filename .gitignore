@@ -22,3 +22,6 @@ MJTiles
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# generated at build time by scripts/generate-public-precache.js
+/src/publicPrecacheManifest.json
