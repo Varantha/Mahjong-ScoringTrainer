@@ -1,0 +1,76 @@
+name: Fork PR Preview Deploy
+
+# Step 2 of 2 for fork PR previews. Runs in this repo's context with secrets,
+# so it must never execute anything from the PR: no checkout, and the build
+# artifact is only uploaded to SWA as static files, never run.
+
+on:
+  workflow_run:
+    workflows: ["Fork PR Preview Build"]
+    types: [completed]
+
+permissions:
+  actions: read # download the artifact from the build run
+  pull-requests: write # comment the preview URL
+
+jobs:
+  deploy:
+    if: >-
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    # Configure required reviewers on this environment in repo settings, so a
+    # maintainer approves what gets hosted before it goes live.
+    environment: fork-preview
+    steps:
+      # workflow_run.pull_requests is empty for fork PRs, and the artifact is
+      # attacker-controlled, so look the PR up from GitHub's own metadata and
+      # check its head is the exact commit that was built.
+      - name: Resolve PR number
+        id: pr
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          HEAD: ${{ github.event.workflow_run.head_repository.owner.login }}:${{ github.event.workflow_run.head_branch }}
+          HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          num=$(gh api -X GET "repos/$REPO/pulls" -f state=open -f head="$HEAD" \
+            --jq "map(select(.head.sha == \"$HEAD_SHA\")) | .[0].number // empty")
+          if [[ ! "$num" =~ ^[0-9]+$ ]]; then
+            echo "::error::No open PR found with head $HEAD at $HEAD_SHA"
+            exit 1
+          fi
+          echo "number=$num" >> "$GITHUB_OUTPUT"
+
+      # No checkout, so the workspace is empty and the artifact can't overwrite anything
+      - uses: actions/download-artifact@v8
+        with:
+          name: preview-build
+          path: preview
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ github.token }}
+
+      - name: Deploy static files (no build)
+        id: deploy
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_YELLOW_BUSH_0541ECF03 }}
+          action: "upload"
+          app_location: "preview"
+          api_location: ""
+          skip_app_build: true
+          skip_api_build: true
+          # REQUIRED: workflow_run runs against main, so leaving this out
+          # deploys to production. The "pr" prefix means it can never be empty.
+          deployment_environment: pr${{ steps.pr.outputs.number }}
+
+      - name: Comment preview URL
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR: ${{ steps.pr.outputs.number }}
+          URL: ${{ steps.deploy.outputs.static_web_app_url }}
+          SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          gh pr comment "$PR" --repo "$REPO" --edit-last --create-if-none \
+            --body "Preview for ${SHA:0:7}: $URL"

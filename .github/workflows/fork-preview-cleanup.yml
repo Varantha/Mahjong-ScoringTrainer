@@ -1,0 +1,26 @@
+name: Fork PR Preview Cleanup
+
+# Removes the pr<N> preview environment when a fork PR closes.
+# pull_request_target is safe here ONLY because nothing from the PR is checked
+# out or run. Never add a checkout or build step to this workflow.
+
+on:
+  pull_request_target:
+    types: [closed]
+    branches:
+      - main
+
+permissions: {}
+
+jobs:
+  close:
+    if: github.event.pull_request.head.repo.full_name != github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: Close preview environment
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_YELLOW_BUSH_0541ECF03 }}
+          action: "close"
+          app_location: "/"
+          deployment_environment: pr${{ github.event.pull_request.number }}
