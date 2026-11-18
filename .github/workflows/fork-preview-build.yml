@@ -1,0 +1,40 @@
+name: Fork PR Preview Build
+
+# Step 1 of 2 for fork PR previews. Runs the fork's code, so it must never get
+# secrets or a write token: it only builds and uploads the static output.
+# fork-preview-deploy.yml picks up the artifact and deploys it.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: fork-preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    # PRs from branches in this repo use the main SWA workflow instead
+    if: github.event.pull_request.head.repo.full_name != github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/upload-artifact@v7
+        with:
+          name: preview-build
+          path: build/
+          if-no-files-found: error
+          retention-days: 3
