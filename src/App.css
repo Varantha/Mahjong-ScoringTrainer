@@ -672,7 +672,7 @@ td {
 .updatePrompt {
   position: fixed;
   left: 50%;
-  bottom: calc(16px + env(safe-area-inset-bottom));
+  bottom: 16px;
   transform: translateX(-50%);
   width: max-content;
   max-width: calc(100% - 32px);

@@ -1,8 +1,4 @@
 {
-  "navigationFallback": {
-    "rewrite": "/index.html",
-    "exclude": ["/static/*", "/assets/*", "/img/*", "/*.{ico,png,svg,json,js,txt,webp,md,map}"]
-  },
   "routes": [
     {
       "route": "/service-worker.js",
@@ -22,6 +18,6 @@
     }
   ],
   "mimeTypes": {
-    ".md": "text/markdown"
+    ".md": "text/markdown; charset=utf-8"
   }
 }

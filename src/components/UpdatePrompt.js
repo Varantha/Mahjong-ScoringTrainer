@@ -7,26 +7,34 @@ import { applyUpdate, onUpdateAvailable } from "../swUpdate";
 // the installed app) has been fully closed.
 function UpdatePrompt() {
   const { t } = useTranslation();
-  const [registration, setRegistration] = useState(null);
-  const [dismissed, setDismissed] = useState(false);
+  const [waitingWorker, setWaitingWorker] = useState(null);
+  const [dismissedWorker, setDismissedWorker] = useState(null);
 
-  useEffect(() => onUpdateAvailable(setRegistration), []);
+  useEffect(() => onUpdateAvailable(setWaitingWorker), []);
 
-  if (!registration || dismissed) {
-    return null;
-  }
+  const visible = waitingWorker !== null && waitingWorker !== dismissedWorker;
 
+  // The live region stays mounted so screen readers announce the banner when
+  // its content appears; a region inserted with its text already in it is
+  // often skipped.
   return (
-    <div className="updatePrompt" role="status">
-      <span>{t("update.available")}</span>
-      <div className="updatePromptButtons">
-        <button onClick={() => applyUpdate(registration)}>
-          {t("update.reload")}
-        </button>
-        <button className="secondary" onClick={() => setDismissed(true)}>
-          {t("update.dismiss")}
-        </button>
-      </div>
+    <div role="status" aria-live="polite">
+      {visible && (
+        <div className="updatePrompt">
+          <span>{t("update.available")}</span>
+          <div className="updatePromptButtons">
+            <button onClick={() => applyUpdate(waitingWorker)}>
+              {t("update.reload")}
+            </button>
+            <button
+              className="secondary"
+              onClick={() => setDismissedWorker(waitingWorker)}
+            >
+              {t("update.dismiss")}
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

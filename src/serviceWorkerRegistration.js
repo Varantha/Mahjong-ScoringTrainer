@@ -1,14 +1,11 @@
-// This optional code is used to register a service worker.
-// register() is not called by default.
+// Registers the service worker (called from index.js in production builds).
 
-// This lets the app load faster on subsequent visits in production, and gives
-// it offline capabilities. However, it also means that developers (and users)
-// will only see deployed updates on subsequent visits to a page, after all the
-// existing tabs open on the page have been closed, since previously cached
-// resources are updated in the background.
+// This lets the app load faster on subsequent visits, and gives it offline
+// capabilities. A deployed update is downloaded in the background and then
+// waits; config.onUpdate is called so the app can offer to switch to it (see
+// UpdatePrompt). Otherwise it only takes over once every open tab is closed.
 
-// To learn more about the benefits of this model and instructions on how to
-// opt-in, read https://cra.link/PWA
+// To learn more about the benefits of this model, read https://cra.link/PWA
 
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||
@@ -28,6 +25,8 @@ export function register(config) {
       // serve assets; see https://github.com/facebook/create-react-app/issues/2374
       return;
     }
+
+    reloadWhenNewVersionTakesOver();
 
     window.addEventListener('load', () => {
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
@@ -50,6 +49,24 @@ export function register(config) {
       }
     });
   }
+}
+
+// When a new service worker activates (because any tab chose to update), it
+// deletes the old version's precached files. Pages still running the old code
+// would then fail to load anything lazily, so every open tab reloads.
+function reloadWhenNewVersionTakesOver() {
+  let currentController = navigator.serviceWorker.controller;
+  let reloading = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    const previousController = currentController;
+    currentController = navigator.serviceWorker.controller;
+    // On a first visit the worker just claims this page; nothing is stale.
+    if (!previousController || reloading) {
+      return;
+    }
+    reloading = true;
+    window.location.reload();
+  });
 }
 
 function registerValidSW(swUrl, config) {
@@ -85,12 +102,9 @@ function registerValidSW(swUrl, config) {
           if (installingWorker.state === 'installed') {
             if (navigator.serviceWorker.controller) {
               // At this point, the updated precached content has been fetched,
-              // but the previous service worker will still serve the older
-              // content until all client tabs are closed.
-              console.log(
-                'New content is available and will be used when all ' +
-                  'tabs for this page are closed. See https://cra.link/PWA.'
-              );
+              // but the previous service worker keeps serving the older
+              // content until the user updates or all tabs are closed.
+              console.log('New content is available. See https://cra.link/PWA.');
 
               // Execute callback
               if (config && config.onUpdate) {

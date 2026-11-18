@@ -35,6 +35,9 @@ function HelpPanel(props) {
       try {
         const mdFilePath = mdMap[currentLanguage] || mdMap.en;
         const response = await fetch(mdFilePath);
+        if (!response.ok) {
+          throw new Error(`${response.status} ${response.statusText}`);
+        }
         const text = await response.text();
         setMdContent(text);
       } catch (error) {

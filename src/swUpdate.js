@@ -1,37 +1,32 @@
 // Bridges service worker registration (set up in index.js, outside React) to
-// the UpdatePrompt component. Remembers a pending update so a component that
-// subscribes after the update was found still sees it.
+// the UpdatePrompt component. Remembers the latest waiting worker so a
+// component that subscribes after the update was found still sees it.
 
-let pendingRegistration = null;
+let waitingWorker = null;
 const listeners = new Set();
 
 export function notifyUpdateAvailable(registration) {
-  pendingRegistration = registration;
-  listeners.forEach((listener) => listener(registration));
+  if (!registration.waiting) {
+    return;
+  }
+  waitingWorker = registration.waiting;
+  listeners.forEach((listener) => listener(waitingWorker));
 }
 
+// Calls listener with each new waiting worker. A newer deploy gives a new
+// worker object, which lets the prompt reappear after being dismissed.
 export function onUpdateAvailable(listener) {
   listeners.add(listener);
-  if (pendingRegistration) {
-    listener(pendingRegistration);
+  if (waitingWorker) {
+    listener(waitingWorker);
   }
   return () => {
     listeners.delete(listener);
   };
 }
 
-// Activate the waiting service worker, then reload once it takes control so
-// the page runs against the new precached assets.
-export function applyUpdate(registration) {
-  const waitingWorker = registration.waiting;
-  if (!waitingWorker) {
-    window.location.reload();
-    return;
-  }
-  navigator.serviceWorker.addEventListener(
-    'controllerchange',
-    () => window.location.reload(),
-    { once: true }
-  );
-  waitingWorker.postMessage({ type: 'SKIP_WAITING' });
+// Activates the waiting worker. Every open tab then reloads on
+// 'controllerchange' (see serviceWorkerRegistration.js).
+export function applyUpdate(worker) {
+  worker.postMessage({ type: 'SKIP_WAITING' });
 }
