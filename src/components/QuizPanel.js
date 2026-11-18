@@ -3,6 +3,7 @@ import { FormGroup, Form, Tooltip } from "reactstrap";
 
 import * as YakuConversion from "../scripts/YakuConversion";
 import { useTranslation } from "../i18n/I18nContext";
+import { track } from "../analytics";
 
 function QuizPanel(props) {
   const { t } = useTranslation();
@@ -29,6 +30,7 @@ function QuizPanel(props) {
     }; //map the output ids to the correct answers for each of them
 
     const quizBox = document.querySelectorAll("#quizForm tr");
+    const results = {}; // output id -> "correct" | "wrong" | "ignored"
 
     for (let i = 1; i < quizBox.length; i++) {
       const row = quizBox[i];
@@ -40,19 +42,26 @@ function QuizPanel(props) {
       output.textContent = answer;
       output.className = getClassName(answer, input.value, output.id, props.ignoreFuAnswer);
       input.disabled = true;
+      results[output.id] = RESULT_BY_CLASS[output.className.split(" ")[0]];
     }
+    return results;
   }
 
   const onSubmit = (e) => {
     e.preventDefault();
 
-    showQuizAnswers();
+    const results = showQuizAnswers();
 
     const formAnswers = document.querySelectorAll(
       "#quizForm strong.wrongAnswer"
     );
 
     const isCorrect = formAnswers.length === 0;
+
+    track(
+      "answer-checked",
+      answerCheckedData(results, isCorrect, options, props.handName, agari.han)
+    );
 
     // Disable checking answer until hand is reloaded
     document.getElementById("checkAnswer").disabled = true;
@@ -122,6 +131,42 @@ function QuizPanel(props) {
       </Form>
     </span>
   );
+}
+
+const RESULT_BY_CLASS = {
+  correctAnswer: "correct",
+  wrongAnswer: "wrong",
+  ignoredAnswer: "ignored",
+};
+
+// Properties for the answer-checked analytics event. Only whether each field
+// was right is sent, never what the user typed. A *_ok property is left out
+// when that field wasn't tested, and fu_ok when fu is ignored on a limit hand.
+function answerCheckedData(results, isCorrect, options, handName, han) {
+  const data = {
+    result: isCorrect ? "correct" : "wrong",
+    hand: handName.replace(".json", ""),
+    tested: [
+      options.testHan && "han",
+      options.testFu && "fu",
+      options.testPoints && "points",
+    ]
+      .filter(Boolean)
+      .join(","),
+    han: han,
+  };
+  if (results.hanAnswer) {
+    data.han_ok = results.hanAnswer === "correct";
+  }
+  if (results.fuAnswer && results.fuAnswer !== "ignored") {
+    data.fu_ok = results.fuAnswer === "correct";
+  }
+  // Tsumo by a non-dealer has two points answers; both must be right.
+  const points = [results.pointsAnswer, results.pointsAnswerDealer].filter(Boolean);
+  if (points.length > 0) {
+    data.points_ok = points.every((result) => result === "correct");
+  }
+  return data;
 }
 
 function getClassName(agariValue, answerValue, outputId, ignoreFuAnswer) {

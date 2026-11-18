@@ -11,6 +11,7 @@ import { UpdatePrompt } from "./components/UpdatePrompt";
 import logo from "./burger-menu.png";
 import { Row } from "reactstrap";
 import {scrollToOffset} from "./scripts/Utilities"
+import { track } from "./analytics";
 
 function App() {
   let jsonMetaData;
@@ -51,6 +52,9 @@ function App() {
   }
   const toggleHelp = (event) => {
     event.stopPropagation();
+    if (!helpOpen) {
+      track("help-opened");
+    }
     setHelpOpen(!helpOpen);
   }
 
@@ -62,6 +66,8 @@ function App() {
 
   const newHand = () => {
     let jsonMetaData, jsonData;
+
+    track("new-hand", { answered: handAnswered });
 
     jsonMetaData = require("./data/meta.json");
     const jsonLen = jsonMetaData.length;
@@ -102,6 +108,14 @@ function App() {
   const changeOptions = (e) => {
     const newOptions = outputOptions();
     setOptions(newOptions);
+    track("options-applied", {
+      test_han: newOptions.testHan,
+      test_fu: newOptions.testFu,
+      test_points: newOptions.testPoints,
+      kiriage_mangan: newOptions.kiriageMangan,
+      test_honba: newOptions.testHonba,
+      ignore_fu_on_limit: newOptions.ignoreFuOnLimit,
+    });
     if (!(newOptions.testFu || newOptions.testHan || newOptions.testPoints)) {
       document.getElementById("checkAnswer").disabled = true;
       document.getElementById("newHand").disabled = true;
@@ -156,6 +170,7 @@ function App() {
       </Row>
       <QuizPanel
         agari={agari}
+        handName={handName}
         options={options}
         answerVisible={answerVisible}
         showAnswer={showAnswer}

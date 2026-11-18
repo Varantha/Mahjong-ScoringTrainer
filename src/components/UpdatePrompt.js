@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "../i18n/I18nContext";
 import { applyUpdate, onUpdateAvailable } from "../swUpdate";
+import { track } from "../analytics";
 
 // Shown when a new version of the app has been downloaded by the service
 // worker. Without this, the new version only takes over once every tab (or
@@ -23,12 +24,22 @@ function UpdatePrompt() {
         <div className="updatePrompt">
           <span>{t("update.available")}</span>
           <div className="updatePromptButtons">
-            <button onClick={() => applyUpdate(waitingWorker)}>
+            <button
+              onClick={() => {
+                // The tracker sends with keepalive, so the reload that
+                // follows doesn't cancel this.
+                track("update-applied");
+                applyUpdate(waitingWorker);
+              }}
+            >
               {t("update.reload")}
             </button>
             <button
               className="secondary"
-              onClick={() => setDismissedWorker(waitingWorker)}
+              onClick={() => {
+                track("update-dismissed");
+                setDismissedWorker(waitingWorker);
+              }}
             >
               {t("update.dismiss")}
             </button>
