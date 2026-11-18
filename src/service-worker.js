@@ -66,8 +66,8 @@ registerRoute(
   })
 );
 
-// No route for googletagmanager.com — GA4 fails silently offline
-// (workbox-google-analytics only supports legacy UA /collect, not GA4 /g/collect).
+// No route for the Umami tracker (analytics.konbamwa.net): analytics stops
+// while offline, and neither the tracker nor src/analytics.js throws.
 
 // This allows the web app to trigger skipWaiting via
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
