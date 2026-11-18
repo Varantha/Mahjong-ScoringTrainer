@@ -47,6 +47,11 @@
   "footer": {
     "logIssues": "项目issue地址"
   },
+  "update": {
+    "available": "发现新版本。",
+    "reload": "刷新",
+    "dismiss": "稍后"
+  },
   "fuDetails": {
     "base": "底符",
     "closed_kan": "中张暗杠",

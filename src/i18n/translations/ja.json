@@ -47,6 +47,11 @@
   "footer": {
     "logIssues": "問題を報告"
   },
+  "update": {
+    "available": "アプリの新しいバージョンがあります。",
+    "reload": "再読み込み",
+    "dismiss": "後で"
+  },
   "fuDetails": {
     "base": "副底",
     "closed_kan": "暗槓",

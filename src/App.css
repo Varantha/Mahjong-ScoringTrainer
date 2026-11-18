@@ -668,3 +668,42 @@ td {
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
+/* Banner shown when a new version of the app is ready (see UpdatePrompt.js) */
+.updatePrompt {
+  position: fixed;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: calc(100% - 32px);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px 16px;
+  padding: 10px 16px;
+  background-color: #271a3b;
+  color: #d8d4f2;
+  border: 1px solid #5bc0be;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  font-family: "Lato", sans-serif;
+  z-index: 10000;
+}
+
+.updatePromptButtons {
+  display: flex;
+  gap: 8px;
+}
+
+.updatePrompt button {
+  margin: 0;
+  padding: 6px 14px;
+  border-radius: 4px;
+}
+
+.updatePrompt button.secondary {
+  background-color: transparent;
+  border: 1px solid #d8d4f2;
+  color: #d8d4f2;
+}

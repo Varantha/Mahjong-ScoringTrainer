@@ -1,0 +1,23 @@
+{
+  "routes": [
+    {
+      "route": "/service-worker.js",
+      "headers": { "Cache-Control": "no-cache" }
+    },
+    {
+      "route": "/index.html",
+      "headers": { "Cache-Control": "no-cache" }
+    },
+    {
+      "route": "/",
+      "headers": { "Cache-Control": "no-cache" }
+    },
+    {
+      "route": "/static/*",
+      "headers": { "Cache-Control": "public, max-age=31536000, immutable" }
+    }
+  ],
+  "mimeTypes": {
+    ".md": "text/markdown; charset=utf-8"
+  }
+}

@@ -47,6 +47,11 @@
   "footer": {
     "logIssues": "이슈 제보는"
   },
+  "update": {
+    "available": "앱의 새 버전이 있습니다.",
+    "reload": "새로고침",
+    "dismiss": "나중에"
+  },
   "fuDetails": {
     "base": "부저",
     "closed_kan": "안깡",
