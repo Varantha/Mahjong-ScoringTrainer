@@ -37,6 +37,7 @@
     "kiriageMangan": "Kiriage Mangan Mode",
     "testHonba": "Include Honba Sticks",
     "ignoreFuOnLimit": "Ignore Fu on Limit Hands",
+    "exactFu": "Exact Fu (No Rounding)",
     "language": "Language"
   },
   "winRate": {

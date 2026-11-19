@@ -22,9 +22,10 @@ function QuizPanel(props) {
   const pointValueDealer = pointCalculations.pointValueDealer;
 
   function showQuizAnswers() {
+    const fuAnswer = options.exactFu ? getExactFu(agari) : agari.fu;
     const rowMapping = {
       hanAnswer: agari.han,
-      fuAnswer: agari.fu,
+      fuAnswer: fuAnswer,
       pointsAnswer: pointValue,
       pointsAnswerDealer: pointValueDealer,
     }; //map the output ids to the correct answers for each of them
@@ -40,7 +41,7 @@ function QuizPanel(props) {
       const answer = rowMapping[output.id];
 
       output.textContent = answer;
-      output.className = getClassName(answer, input.value, output.id, props.ignoreFuAnswer);
+      output.className = getClassName(answer, input.value, output.id, props.ignoreFuAnswer, options.exactFu);
       input.disabled = true;
       results[output.id] = RESULT_BY_CLASS[output.className.split(" ")[0]];
     }
@@ -92,6 +93,7 @@ function QuizPanel(props) {
               props.options.testFu,
               agari,
               props.ignoreFuAnswer,
+              props.options.exactFu,
               t
             )}
             {generatePointsQuiz(
@@ -227,7 +229,7 @@ function GenerateRow(props) {
   return rowData;
 }
 
-function formatFuList(agari, ignoreFuAnswer, t) {
+function formatFuList(agari, ignoreFuAnswer, exactFu, t) {
   const output = [];
   output.push(<p></p>);
   if (ignoreFuAnswer) {
@@ -236,7 +238,10 @@ function formatFuList(agari, ignoreFuAnswer, t) {
   agari.fu_details.forEach((line) => {
     var reason = t(`fuDetails.${line.reason}`, capitalizeFirstLetter(line.reason.replaceAll("_", " ")));
     var fuValue = line.fu;
-    output.push(<p>{reason + ": " + fuValue + " " + t("quiz.fu").toLowerCase()}</p>);
+    if (!(exactFu && reason == "Rounding"))
+    {    
+      output.push(<p>{reason + ": " + fuValue + " " + t("quiz.fu").toLowerCase()}</p>);
+    }
   });
   return output;
 }
@@ -252,7 +257,7 @@ function formatHanList(agari, t) {
   return output;
 }
 
-function generateHanAndFuQuiz(isHanQuiz, isFuQuiz, agari, ignoreFuAnswer, t) {
+function generateHanAndFuQuiz(isHanQuiz, isFuQuiz, agari, ignoreFuAnswer, exactFu, t) {
   const hanAndFuQuizRows = [];
 
   if (isHanQuiz) {
@@ -273,7 +278,7 @@ function generateHanAndFuQuiz(isHanQuiz, isFuQuiz, agari, ignoreFuAnswer, t) {
         inputId="fuBox"
         outputId="fuAnswer"
         name="fu"
-        tooltipContent={formatFuList(agari, ignoreFuAnswer, t)}
+        tooltipContent={formatFuList(agari, ignoreFuAnswer, exactFu, t)}
       />
     );
   }
@@ -555,6 +560,12 @@ function addCalculationSteps(
       </p>
     );
   }
+}
+
+function getExactFu(agari) {
+  return agari.fu_details
+    .filter((detail) => detail.reason !== "rounding")
+    .reduce((sum, detail) => sum + detail.fu, 0);
 }
 
 export { QuizPanel };

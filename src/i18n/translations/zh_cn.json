@@ -37,6 +37,7 @@
     "kiriageMangan": "切上满贯模式",
     "testHonba": "包含本场棒",
     "ignoreFuOnLimit": "满贯免算符",
+    "exactFu": "精确符数（不进位）",
     "language": "语言"
   },
   "winRate": {

@@ -37,6 +37,7 @@
     "kiriageMangan": "切り上げ満貫モード",
     "testHonba": "本場棒を含む",
     "ignoreFuOnLimit": "役満で符を無視",
+    "exactFu": "符の切り上げなし",
     "language": "言語"
   },
   "winRate": {

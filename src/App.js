@@ -32,6 +32,7 @@ function App() {
     kiriageMangan: false,
     testHonba: false,
     ignoreFuOnLimit: false,
+    exactFu: false,
   });
 
   const [answerVisible, setanswerVisible] = useState(false);
